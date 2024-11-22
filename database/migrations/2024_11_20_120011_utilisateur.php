@@ -12,6 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create("utilisateurs", function (Blueprint $table) {
+            $table->id();
+            // $table->bigIncrements("utilisateur_id");
+            $table->string("nom");
+            $table->string("prenom");
+            $table->string("email");
+            $table->integer("age");
+            $table->date("date_naissance");
+        });
     }
 
     /**
