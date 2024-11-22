@@ -13,8 +13,8 @@ return new class extends Migration
     {
         //
         Schema::create("utilisateurs", function (Blueprint $table) {
-            $table->id();
-            // $table->bigIncrements("utilisateur_id");
+            // $table->id();
+            $table->bigIncrements("utilisateur_id");
             $table->string("nom");
             $table->string("prenom");
             $table->string("email");
@@ -29,5 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists("utilisateurs");
     }
 };
