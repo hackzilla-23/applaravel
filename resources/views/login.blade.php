@@ -22,9 +22,10 @@
         .login-container {
             background-color: #fff;
             border-radius: 8px;
-            padding: 40px;
+            padding: 42px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            width: 400px;
+            height: 390px;
             max-width: 400px;
         }
 
@@ -122,11 +123,11 @@
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur" required>
+                <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur">
             </div>
             <div class="input-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+                <input type="password" id="password" name="password" placeholder="Votre mot de passe">
             </div>
             <div class="input-group">
                 <button type="submit" class="submit-btn">Se connecter</button>
