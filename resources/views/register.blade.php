@@ -131,24 +131,33 @@
 </form> --}}
 
 <div class="register-container">
-    <form class="register-form" method="POST" action="#">
+    <form class="register-form" method="POST" action="{{ route('register_personne') }}">
+        @csrf
         <h2>Inscription</h2>
         <div class="input-group">
             <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" placeholder="Choisissez un nom d'utilisateur" required>
+            <input type="text" id="username" name="nom" placeholder="Choisissez un nom d'utilisateur">
+        </div>
+        <div class="input-group">
+            <label for="prenom">Prenom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Choisissez un prenom">
+        </div>
+        <div class="input-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Choisissez un age">
         </div>
         <div class="input-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+            <input type="email" id="email" name="email" placeholder="Votre adresse email">
         </div>
         <div class="input-group">
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+            <input type="password" id="password" name="password" placeholder="Votre mot de passe">
         </div>
         <div class="input-group">
             <label for="confirm-password">Confirmer le mot de passe</label>
             <input type="password" id="confirm-password" name="confirm-password"
-                placeholder="Confirmez votre mot de passe" required>
+                placeholder="Confirmez votre mot de passe">
         </div>
         <div class="input-group">
             <button type="submit" class="submit-btn">S'inscrire</button>
