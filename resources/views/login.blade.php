@@ -25,7 +25,6 @@
             padding: 42px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 400px;
-            height: 390px;
             max-width: 400px;
         }
 
@@ -96,8 +95,9 @@
             text-decoration: underline;
         }
     </style>
-@section('login')
+@endsection
 
+@section('login')
     {{-- <form action="#" method="POST">
         <div class="container">
             <div class="form signup">
@@ -119,16 +119,37 @@
     </form> --}}
 
     <div class="login-container">
-        <form class="login-form" method="POST" action="#">
+
+        <!-- Afficher le message de succès s'il existe -->
+        @if (session('success'))
+            <div class="text-green-500 text-sm text-center">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form class="login-form" method="POST" action="{{ route('login_personne') }}">
+            @csrf
             <h2>Connexion</h2>
             <div class="input-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur">
+                <label for="email">Nom d'utilisateur</label>
+                <input value="{{ old('email') }}" type="email" id="username" name="email" placeholder="Votre Email">
+                @error('email')
+                    <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
+                @enderror
             </div>
+
             <div class="input-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                @error('password')
+                    <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
+                @enderror
             </div>
+
+            @error('email1')
+                <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
+            @enderror
+
             <div class="input-group">
                 <button type="submit" class="submit-btn">Se connecter</button>
             </div>
