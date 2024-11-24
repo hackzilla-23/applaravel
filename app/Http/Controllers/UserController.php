@@ -6,22 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Models\Personne;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
     public function login()
     {
+        sleep(1);
         return view('login');
     }
 
     public function regi()
     {
+        sleep(1);
         return view('register');
     }
 
     public function dashboard()
     {
+        sleep(1);
         return view('dashboard');
+    }
+
+    public function error()
+    {
+        sleep(1);
+        return view('404');
+    }
+
+    public function newpass()
+    {
+        sleep(1);
+        return view('mot_de_passe_oublie');
     }
 
     public function store(Request $request)
@@ -37,36 +54,79 @@ class UserController extends Controller
         ]);
 
         // // Store the user in the database
-        Personne::create($request->all());
+        $user = Personne::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'age' => $request->age,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
 
         // // Redirect to the login page
         // return redirect()->route('register')->with('success', 'Success, vous serez rediriger dans 3 secondes...');
-        sleep(3);
+        sleep(1);
         return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
     }
 
     public function logs(Request $request)
     {
-        $validated = $request->validate([
+        // Validation des données
+        $validator = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($validated)) {
-            // Connexion réussie, redirection vers la page d'accueil ou tableau de bord
-            sleep(3);
-            dd($validated);
-        } else {
-            // Si la connexion échoue, redirection avec message d'erreur
-            sleep(3);
-            return back()->withErrors(['email1' => 'Informations d\'identification Incorrect.']);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+
+        // Tentative de connexion
+        $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
+
+        if (Auth::attempt($credentials, $remember)) {
+            // Connexion réussie
+            sleep(1);
+            return redirect()->route('dashboard');
         }
 
+        // Connexion échouée, renvoyer l'utilisateur avec une erreur
+        sleep(1);
+        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
+
+    }
+
+    public function reset(Request $request)
+    {
+        // Validation des champs
+        $request->validate([
+            'password' => 'required',
+            'new_password' => 'required',
+            'password_confirmation' => 'required|confirmed:new_password',
+        ]);
+
+        // Réinitialiser le mot de passe
+        $status = Password::reset(
+            $request->only('password', 'new_password'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password' => bcrypt($request->password),
+                ])->save();
+            }
+        );
+
+        // Vérifier si la réinitialisation a réussi
+        if ($status === Password::PASSWORD_RESET) {
+            sleep(1);
+            return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
+        } else {
+            throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        }
     }
 
     public function logout()
     {
-        sleep(3);
+        sleep(1);
         Auth::logout();
         return redirect()->route('login');
     }

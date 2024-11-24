@@ -122,17 +122,17 @@
 
         <!-- Afficher le message de succès s'il existe -->
         @if (session('success'))
-            <div class="text-green-500 text-sm text-center">
+            <p class="text-green-500 text-sm text-center">
                 {{ session('success') }}
-            </div>
+            </p>
         @endif
 
         <form class="login-form" method="POST" action="{{ route('login_personne') }}">
             @csrf
             <h2>Connexion</h2>
             <div class="input-group">
-                <label for="email">Nom d'utilisateur</label>
-                <input value="{{ old('email') }}" type="email" id="username" name="email" placeholder="Votre Email">
+                <label for="email">Email</label>
+                <input type="email" id="username" name="email" placeholder="Votre Email">
                 @error('email')
                     <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
                 @enderror
@@ -146,6 +146,11 @@
                 @enderror
             </div>
 
+            <div class="pb-4">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember" class="text-sm font-medium">Se souvenir de moi</label>
+            </div>
+
             @error('email1')
                 <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
             @enderror
@@ -153,6 +158,12 @@
             <div class="input-group">
                 <button type="submit" class="submit-btn">Se connecter</button>
             </div>
+
+            <div class="text-center text-sm">
+                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500"">Mot de passe
+                    oublie ?</a>
+            </div>
+
             <div class="signup-link">
                 <p>Don't have a account ? <a href="{{ route('register') }}">Create Account</a></p>
             </div>
