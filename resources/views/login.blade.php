@@ -168,7 +168,8 @@
 @endsection
 
 {{-- @extends('users.text') c'est dans le fichier users.text qu'on doit charger le formulaire du login --}}
-{{-- @section("style_form")
+
+{{-- @section('style_form')
 	<link rel="stylesheet" href="style.css">
 @endsection --}}
 {{-- @section("login")

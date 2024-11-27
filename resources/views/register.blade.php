@@ -1,4 +1,4 @@
-@extends('users.text')
+@extends('index')
 {{-- @section('register') --}}
 
 @section('styleregister')

@@ -113,8 +113,8 @@
 
         <button type="submit" class="btn mt-2">Mettre à jour le mot de passe</button>
 
-        <div class="pt-5 flex justify-center">
-            <p><a href="{{ route('login') }}" class="font-bold">Retour</a></p>
+        <div class="back">
+            <p><a href="{{ route('login') }}" class="back-p">Retour</a></p>
         </div>
     </form>
 </div>
