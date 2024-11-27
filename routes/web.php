@@ -1,11 +1,23 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/' , [UserController::class, 'index'])->name('login');
+Route::get('/', [UserController::class, 'index'])->name('login');
 // Route::get('/', function () {
 //     return view('login');
 // })->name('login');
+
+// Route::get('/register',[RegisterController::class,'register'])->name('registermmmm');
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+
+// route::get('/register', function() {
+//     return view('register');
+// })->name('registermmmm');
+
+Route::post('/register', [UserController::class, 'store'])->name('register_personne');
 
 // Route::get('/register', function () {
 //     return view('register');
@@ -19,10 +31,15 @@ Route::get('/', [UserController::class, 'login'])->name('login');
 
 Route::get('/register', [UserController::class, 'regi'])->name('register');
 
-// Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-Route::middleware('auth')->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/product/edit', [UserController::class, 'edit'])->name('edit');
+
+Route::get('/product/new_product', [UserController::class, 'add'])->name('add_product');
+
+// Route::middleware('auth')->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 Route::post('/register', [UserController::class, 'store'])->name('register_personne');
 

@@ -17,6 +17,40 @@ class UserController extends Controller
         return view('login');
     }
 
+    // public function store(PersonneFormRequest $request){
+    //     // dd($request);
+    //     //la premiere methode validation
+    //     // $isvalid = $request->validate([
+    //     //     'nom' =>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
+
+    //     //la deuxieme methode validation
+    //     // Validator::make($request->all() , [
+    //     //     'nom'=>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
+
+    //     // dd($isvalid);
+    //     $newpersonne = Personne::create([
+    //         'nom' => $request->nom,
+    //         'prenom' => $request->prenom,
+    //         'age' => $request->age,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password)
+    //     ]);
+    //     // dd($newpersonne);
+    //     return view('login', compact('newpersonne'));
+    // }
+
     public function regi()
     {
         sleep(1);
@@ -41,16 +75,31 @@ class UserController extends Controller
         return view('mot_de_passe_oublie');
     }
 
+    public function edit()
+    {
+        sleep(1);
+        return view('edit');
+    }
+
+    public function add()
+    {
+        sleep(1);
+        return view('form');
+    }
+
     public function store(Request $request)
     {
         // Validate the form data
         $validated = $request->validate([
-            'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
+            'nom' => 'required',
+            // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
             'prenom' => 'required|alpha|min:2|max:50',
             'age' => 'required|integer|between:18,150',
             'email' => 'required|email|unique:personnes,email|max:255',
-            'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-            'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+            'password' => 'required',
+            // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+            'confirm-password' => 'required|confirmed:password',
+            // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
         ]);
 
         // // Store the user in the database
@@ -75,7 +124,7 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-
+        // dd($validator);
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
         // }
@@ -84,10 +133,10 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
-            return redirect()->route('dashboard');
+            return redirect()->intended('dashboard');
         }
 
         // Connexion échouée, renvoyer l'utilisateur avec une erreur
@@ -127,8 +176,8 @@ class UserController extends Controller
     public function logout()
     {
         sleep(1);
-        Auth::logout();
+        // Auth::logout();
+        Auth::guard('personnes')->logout();
         return redirect()->route('login');
     }
-
 }
