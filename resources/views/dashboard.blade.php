@@ -6,6 +6,25 @@
         <div class="bg-white relative h-[100%] w-[15%]">
             <p class="font-semibold pl-12 text-xl py-5">MarketX</p>
 
+            <div class="flex items-center gap-2 bg-gray-100 w-44 justify-center py-1 mx-auto 2xl:ml-6 rounded-lg">
+                <figure class="w-7 h-7">
+                    <img src="img/hero.png" alt="">
+                </figure>
+                <div class="pt-1">
+                    <p class="font-semibold text-[11px]">
+                    </p>
+                    <p class="text-[9px]">Marketing</p>
+                </div>
+                <i class="fa-solid fa-sliders text-lg px-2 pb-1"></i>
+@extends('index')
+
+{{-- @section('dashboard') --}}
+<!--STRUCTURE MAIN-->
+<div class="bg-gray-100 shadow-sm relative overflow-hidden shadow-slate-500 rounded-2xl flex h-[90vh] mx-20 my-8">
+    <!--main-left-->
+    <div class="bg-white h-[100%] w-[15%]">
+        <p class="font-semibold pl-12 text-xl py-5">MarketX</p>
+
         <div class="flex items-center gap-2 bg-gray-100 w-44 justify-center py-1 mx-auto rounded-lg">
             <figure class="w-7 h-7">
                 <img src="img/hero.png" alt="">

@@ -95,13 +95,34 @@
             text-decoration: underline;
         }
     </style>
+@section('login')
+    <p>Nom : {{ $newpersonne->nom }}</p>
+    <p>Prenom : {{ $newpersonne->prenom }}</p>
+    <p>Email : {{ $newpersonne->email }}</p>
+    <p>Password : {{ $newpersonne->password }}</p>
 @endsection
 
 @section('login')
-    {{-- <p>Nom : {{ $newpersonne->nom }}</p>
-    <p>Prenom : {{ $newpersonne->prenom }}</p>
-    <p>Email : {{ $newpersonne->email }}</p>
-    <p>Password : {{ $newpersonne->password }}</p> --}}
+    {{-- <form action="#" method="POST">
+        <div class="container">
+            <div class="form signup">
+                <h2>Sign In</h2>
+                <div class="inputBox">
+                    <label for="email">Email</label>
+                    <input name="email" type="email">
+                </div>
+                <div class="inputBox">
+                    <label for="password">Password</label>
+                    <input name="password" type="password">
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Log In">
+                </div>
+                <p>Don't have a account ? <a href="{{ route('register') }}" class="login">Create Account</a></p>
+            </div>
+        </div>
+    </form> --}}
+
     <div class="login-container">
 
         <!-- Afficher le message de succès s'il existe -->
