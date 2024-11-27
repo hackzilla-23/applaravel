@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 
 {{-- @section('esit_product') --}}
 <form class="flex justify-center h-lvh items-center" action="/editProduct" method="POST">
