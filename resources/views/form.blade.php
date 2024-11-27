@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 @section('form')
     <form class="flex justify-center h-lvh items-center" action="#" method="POST">
         <div class="w-[400px] px-10 container rounded-md mx-auto">

@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 
 @section('stylemdp0')
     <style>

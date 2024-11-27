@@ -135,7 +135,7 @@
             </div>
 
             <div class="text-center text-sm">
-                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500"">Mot de passe
+                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500">Mot de passe
                     oublie ?</a>
             </div>
 

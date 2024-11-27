@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PersonneFormRequest;
 
 class UserController extends Controller
 {
@@ -40,7 +42,7 @@ class UserController extends Controller
         return view('mot_de_passe_oublie');
     }
 
-    public function store(Request $request)
+    public function store(PersonneFormRequest $request)
     {
         // Validate the form data
         $validated = $request->validate([

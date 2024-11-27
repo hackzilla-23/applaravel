@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 
 @section('style404')
     <style>
