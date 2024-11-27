@@ -22,13 +22,13 @@ class PersonneFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //validation rules
-            "nom" => "required",
-            "prenom" => "required",
-            "email" => "required",
-            "age" => "required",
-            "password" => "required",
-            "password-co" => "required|confirmed:password",
+            //la troisieme methode validation
+            'nom'=>'required',
+            'prenom' => 'required',
+            'age' => 'required',
+            'email' =>'required|email',
+            'password' =>'required|min:8',
+            'confirm-password' =>'required|confirmed:password',
         ];
     }
 }

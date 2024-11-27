@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 
 @section('stylelogin')
     <style>
@@ -95,6 +95,11 @@
             text-decoration: underline;
         }
     </style>
+@section('login')
+    <p>Nom : {{ $newpersonne->nom }}</p>
+    <p>Prenom : {{ $newpersonne->prenom }}</p>
+    <p>Email : {{ $newpersonne->email }}</p>
+    <p>Password : {{ $newpersonne->password }}</p>
 @endsection
 
 @section('login')
@@ -169,4 +174,23 @@
             </div>
         </form>
     </div>
+@endsection
+
+{{-- @extends('users.text') c'est dans le fichier users.text qu'on doit charger le formulaire du login --}}
+{{-- @section("style_form")
+	<link rel="stylesheet" href="style.css">
+@endsection --}}
+@section("login")
+    {{-- <form action="">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+
+        <label for="password">password</label>
+        <input type="password" name="password" id="password">
+
+        <button type="submit">envoyer</button>
+    </form> --}}
+	@include('partials._form')
+	{{-- <a href="{{ route('registermmmm') }}">vers register</a> --}}
+	{{-- <a href="/register">vers register</a> --}}
 @endsection
