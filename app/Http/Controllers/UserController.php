@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Personne;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonneFormRequest;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
@@ -18,38 +16,40 @@ class UserController extends Controller
         sleep(1);
         return view('login');
     }
-    public function store(PersonneFormRequest $request){
-        // dd($request);
-        //la premiere methode validation
-        // $isvalid = $request->validate([
-        //     'nom' =>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
 
-        //la deuxieme methode validation
-        // Validator::make($request->all() , [
-        //     'nom'=>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
+    // public function store(PersonneFormRequest $request){
+    //     // dd($request);
+    //     //la premiere methode validation
+    //     // $isvalid = $request->validate([
+    //     //     'nom' =>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
 
-        // dd($isvalid);
-        $newpersonne = Personne::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'age' => $request->age,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        // dd($newpersonne);
-        return view('login', compact('newpersonne'));
+    //     //la deuxieme methode validation
+    //     // Validator::make($request->all() , [
+    //     //     'nom'=>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
+
+    //     // dd($isvalid);
+    //     $newpersonne = Personne::create([
+    //         'nom' => $request->nom,
+    //         'prenom' => $request->prenom,
+    //         'age' => $request->age,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password)
+    //     ]);
+    //     // dd($newpersonne);
+    //     return view('login', compact('newpersonne'));
+    // }
 
     public function regi()
     {
@@ -75,6 +75,18 @@ class UserController extends Controller
         return view('mot_de_passe_oublie');
     }
 
+    public function edit()
+    {
+        sleep(1);
+        return view('edit');
+    }
+
+    public function add()
+    {
+        sleep(1);
+        return view('form');
+    }
+
     public function store(Request $request)
     {
         // Validate the form data
@@ -93,7 +105,7 @@ class UserController extends Controller
             'prenom' => $request->prenom,
             'age' => $request->age,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
         ]);
 
         // // Redirect to the login page
@@ -118,15 +130,21 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
-        if (Auth::attempt($credentials, $remember)) {
+        // if (Auth::attempt($credentials, $remember)) {
+        //     // Connexion réussie
+        //     sleep(1);
+        //     return redirect()->route('dashboard');
+        // }
+
+        if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
-            return redirect()->route('dashboard');
+            return redirect()->intended('dashboard');
+        } else {
+            // Connexion échouée, renvoyer l'utilisateur avec une erreur
+            sleep(1);
+            return redirect()->back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
         }
-
-        // Connexion échouée, renvoyer l'utilisateur avec une erreur
-        sleep(1);
-        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
 
     }
 
@@ -161,7 +179,8 @@ class UserController extends Controller
     public function logout()
     {
         sleep(1);
-        Auth::logout();
+        // AUth::logout():
+        Auth::guard('personnes')->logout();
         return redirect()->route('login');
     }
 
