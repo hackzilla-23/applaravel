@@ -25,7 +25,6 @@
             padding: 42px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 400px;
-            height: 390px;
             max-width: 400px;
         }
 
@@ -96,27 +95,50 @@
             text-decoration: underline;
         }
     </style>
+@endsection
+
 @section('login')
     {{-- <p>Nom : {{ $newpersonne->nom }}</p>
     <p>Prenom : {{ $newpersonne->prenom }}</p>
     <p>Email : {{ $newpersonne->email }}</p>
     <p>Password : {{ $newpersonne->password }}</p> --}}
     <div class="login-container">
-        <form class="login-form" method="POST" action="#">
+
+        <!-- Afficher le message de succès s'il existe -->
+        @if (session('success'))
+            <p class="text-green-500 text-sm text-center">
+                {{ session('success') }}
+            </p>
+        @endif
+
+        <form class="login-form" method="POST" action="{{ route('login_personne') }}">
+            @csrf
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur">
                 {!! $errors->first('username' , '<p class = "text-red-500">username incorrect</p>') !!}
             </div>
+
             <div class="input-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                 {!! $errors->first('password' , '<p class = "text-red-500">mot de passe incorrect</p>') !!}
             </div>
+
+            @error('email1')
+                <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
+            @enderror
+
             <div class="input-group">
                 <button type="submit" class="submit-btn">Se connecter</button>
             </div>
+
+            <div class="text-center text-sm">
+                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500"">Mot de passe
+                    oublie ?</a>
+            </div>
+
             <div class="signup-link">
                 <p>Don't have a account ? <a href="{{ route('register') }}">Create Account</a></p>
             </div>
