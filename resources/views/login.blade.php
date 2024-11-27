@@ -97,20 +97,22 @@
         }
     </style>
 @section('login')
-    <p>Nom : {{ $newpersonne->nom }}</p>
+    {{-- <p>Nom : {{ $newpersonne->nom }}</p>
     <p>Prenom : {{ $newpersonne->prenom }}</p>
     <p>Email : {{ $newpersonne->email }}</p>
-    <p>Password : {{ $newpersonne->password }}</p>
+    <p>Password : {{ $newpersonne->password }}</p> --}}
     <div class="login-container">
         <form class="login-form" method="POST" action="#">
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur">
+                {!! $errors->first('username' , '<p class = "text-red-500">username incorrect</p>') !!}
             </div>
             <div class="input-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                {!! $errors->first('password' , '<p class = "text-red-500">mot de passe incorrect</p>') !!}
             </div>
             <div class="input-group">
                 <button type="submit" class="submit-btn">Se connecter</button>
