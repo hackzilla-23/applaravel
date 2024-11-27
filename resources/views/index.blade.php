@@ -1,49 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../public/fontawesome/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('public/fontawesome/css/all.min.css') }}"> --}}
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    @vite('resources/css/app.css')
     <title>Document</title>
-    {{-- @vite('resources/css/app.css') --}}
-    <style>
-        .error{
-            color: red;
-        }
-    </style>
+    @yield('stylelogin')
+    @yield('styleregister')
+    @yield('stylemdp0')
+    @yield('style404')
 </head>
 
 <body>
-    <?php
-    // $a = 9;
-    ?>
     {{-- @if ($a < 10)
         @dd("bonjour miguel, il est ".$a."h");
     @else
         @dd("bonsoir miguel, il est ".$a."h");
     @endif --}}
 
-    <div>
+    {{-- <div>
         @yield('form')
-    </div>
+    </div> --}}
 
     <div>
         @yield('login')
     </div>
 
-    <div>
+    {{-- <div>
         @yield('register')
-    </div>
+    </div> --}}
 
-    <div>
+    {{-- <div>
         @yield('edit')
-    </div>
+    </div> --}}
 
-    <div>
+    {{-- <div>
         @yield('dashboard')
-    </div>
+    </div> --}}
 
 </body>
 
