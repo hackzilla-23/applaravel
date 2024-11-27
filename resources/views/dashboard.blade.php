@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 @section('dashboard')
     <!--STRUCTURE MAIN-->
     <div class="bg-gray-100 shadow-sm relative overflow-hidden shadow-slate-500 rounded-2xl flex h-[90vh] mx-20 my-8">

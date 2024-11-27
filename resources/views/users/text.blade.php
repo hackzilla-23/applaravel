@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     @yield("style_form")
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css'])
     @yield('style_dashboard')
+    @yield('stylelogin')
+    @yield('styleregister')
 </head>
 <body>
     <?// if($test = 0){?>
