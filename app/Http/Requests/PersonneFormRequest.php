@@ -23,12 +23,21 @@ class PersonneFormRequest extends FormRequest
     {
         return [
             //la troisieme methode validation
-            'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
-            'prenom' => 'required|alpha|min:2|max:50',
-            'age' => 'required|integer|between:18,150',
-            'email' => 'required|email|unique:personnes,email|max:255',
-            'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-            'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'age' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'confirm-password' => 'required|confirmed:password',
+            // 'nom' => 'required',
+            // 'prenom' => 'required|alpha|min:2|max:50',
+            // 'age' => 'required|integer|between:18,150',
+            // 'email' => 'required|email|unique:personnes,email|max:255',
+            // 'password' => 'required',
+            // 'confirm-password' => 'required|confirmed:password',
+            // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+            // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+
         ];
     }
 }

@@ -16,7 +16,7 @@
                     <p class="text-[9px]">Marketing</p>
                 </div>
                 <i class="fa-solid fa-sliders text-lg px-2 pb-1"></i>
-@extends('index')
+@extends('users.text')
 
 {{-- @section('dashboard') --}}
 <!--STRUCTURE MAIN-->

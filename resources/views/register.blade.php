@@ -10,6 +10,13 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
+        .flexible{
+            display: grid;
+            grid-template-columns: repeat(2 , 1fr);
+            place-items: center;
+            gap: 24px
+        }
+       
         body {
             display: flex;
             justify-content: center;
@@ -25,7 +32,7 @@
             padding: 40px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 800px;
         }
 
         /* Titre du formulaire */
@@ -39,6 +46,7 @@
         /* Groupes de champs de formulaire */
         .input-group {
             margin-bottom: 20px;
+            width:20vw
         }
 
         .input-group label {
@@ -50,6 +58,7 @@
 
         .input-group input {
             width: 100%;
+            /* width: 30vh; */
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -65,7 +74,7 @@
 
         /* Bouton de soumission */
         .submit-btn {
-            width: 100%;
+            width: 50%;
             padding: 12px;
             border: none;
             border-radius: 4px;
@@ -74,6 +83,12 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
+            
+        }
+        .submit{
+            display: grid;
+            place-items: center;
+            width: 100%;
         }
 
         .submit-btn:hover {
@@ -109,61 +124,74 @@
     <form class="register-form" method="POST" action="{{ route('register_personne') }}">
         @csrf
         <h2>Inscription</h2>
-        <div class="input-group">
-            <label for="username">Nom d'utilisateur</label>
-            <input value="{{ old('nom') }}" type="text" id="username" name="nom"
-                placeholder="Choisissez un nom d'utilisateur">
-            @error('nom')
-                <p class="text-red-500 text-sm pt-2">{{ "Veuillez entrer un nom d'utiliateur valide" }}
-                </p>
-            @enderror
+
+        <div class="flexible">
+            <div>
+
+                <div class="input-group">
+                    <label for="username">Nom</label>
+                    <input value="{{ old('nom') }}" type="text" id="username" name="nom"
+                        placeholder="Entrez un nom">
+                    @error('nom')
+                        <p class="text-red-500 text-sm pt-2">{{ "Veuillez entrer un nom d'utiliateur valide" }}
+                        </p>
+                    @enderror
+                </div>
+    
+                <div class="input-group">
+                    <label for="prenom">Prenom</label>
+                    <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
+                        placeholder="Choisissez un prenom">
+                    @error('prenom')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
+                    @enderror
+                </div>
+    
+                <div class="input-group">
+                    <label for="age">Age</label>
+                    <input value="{{ old('age') }}" type="number" id="age" name="age"
+                        placeholder="Choisissez un age">
+                    @error('age')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
+                    @enderror
+                </div>
+    
+           </div>
+    
+            <div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input value="{{ old('email') }}" type="email" id="email" name="email"
+                        placeholder="Votre adresse email">
+                    @error('email')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
+                    @enderror
+                </div>
+    
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                    @error('password')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
+                    @enderror
+                </div>
+    
+                <div class="input-group">
+                    <label for="confirm-password">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm-password" name="confirm-password"
+                        placeholder="Confirmez le mot de passe">
+                    @error('confirm-password')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
+                    @enderror
+                </div>
+            </div>   
+
+            
         </div>
 
-        <div class="input-group">
-            <label for="prenom">Prenom</label>
-            <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
-                placeholder="Choisissez un prenom">
-            @error('prenom')
-                <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
-            @enderror
-        </div>
+      
 
-        <div class="input-group">
-            <label for="age">Age</label>
-            <input value="{{ old('age') }}" type="number" id="age" name="age"
-                placeholder="Choisissez un age">
-            @error('age')
-                <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
-            @enderror
-        </div>
-
-        <div class="input-group">
-            <label for="email">Email</label>
-            <input value="{{ old('email') }}" type="email" id="email" name="email"
-                placeholder="Votre adresse email">
-            @error('email')
-                <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
-            @enderror
-        </div>
-
-        <div class="input-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-            @error('password')
-                <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
-            @enderror
-        </div>
-
-        <div class="input-group">
-            <label for="confirm-password">Confirmer le mot de passe</label>
-            <input type="password" id="confirm-password" name="confirm-password"
-                placeholder="Confirmez votre mot de passe">
-            @error('confirm-password')
-                <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
-            @enderror
-        </div>
-
-        <div class="input-group">
+        <div class="input-group submit">
             <button type="submit" class="submit-btn">S'inscrire</button>
         </div>
         <div class="login-link">

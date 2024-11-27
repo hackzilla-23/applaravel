@@ -95,11 +95,11 @@
             text-decoration: underline;
         }
     </style>
-@section('login')
+{{-- @section('login')
     <p>Nom : {{ $newpersonne->nom }}</p>
     <p>Prenom : {{ $newpersonne->prenom }}</p>
     <p>Email : {{ $newpersonne->email }}</p>
-    <p>Password : {{ $newpersonne->password }}</p>
+    <p>Password : {{ $newpersonne->password }}</p> --}}
 @endsection
 
 @section('login')
@@ -136,9 +136,9 @@
             @csrf
             <h2>Connexion</h2>
             <div class="input-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="Votre nom d'utilisateur">
-                {!! $errors->first('username' , '<p class = "text-red-500">username incorrect</p>') !!}
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" placeholder="Votre email">
+                {!! $errors->first('email' , '<p class = "text-red-500">email incorrect</p>') !!}
             </div>
 
             <div class="input-group">
