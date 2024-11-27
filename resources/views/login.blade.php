@@ -134,7 +134,7 @@
                 <label for="email">Email</label>
                 <input type="email" id="username" name="email" placeholder="Votre Email">
                 @error('email')
-                    <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
+                    <p class="text-red-500 text-sm pt-2">'Veuillez entrer un email valide' </p>
                 @enderror
             </div>
 

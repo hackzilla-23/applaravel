@@ -1,6 +1,7 @@
 @extends('index')
 {{-- @section('register') --}}
 
+{{-- @section('body') --}}
 @section('styleregister')
     <style>
         /* Style global */

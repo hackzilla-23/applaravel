@@ -77,7 +77,9 @@
         }
     </style>
 @endsection
-
+@section('body')
+    sdsdsdsd
+@endsection
 <div class="container">
     <h1>Changer votre mot de passe</h1>
 

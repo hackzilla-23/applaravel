@@ -657,5 +657,6 @@
 
         </div>
     </div>
+    {{-- @yield('body') --}}
 </div>
 {{-- @endsection --}}

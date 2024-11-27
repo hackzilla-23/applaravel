@@ -20,7 +20,7 @@ Route::get('/', [UserController::class, 'login'])->name('login');
 Route::get('/register', [UserController::class, 'regi'])->name('register');
 
 // Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-Route::middleware('auth')->get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
