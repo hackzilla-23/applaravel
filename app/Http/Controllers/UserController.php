@@ -133,10 +133,10 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
-            return redirect()->route('dashboard');
+            return redirect()->intended('dashboard');
         }
 
         // Connexion échouée, renvoyer l'utilisateur avec une erreur
@@ -152,7 +152,7 @@ class UserController extends Controller
             'password' => 'required',
             'new_password' => 'required',
             'password_confirmation' => 'required|confirmed:new_password',
-        ]); 
+        ]);
 
         // Réinitialiser le mot de passe
         $status = Password::reset(
@@ -176,7 +176,8 @@ class UserController extends Controller
     public function logout()
     {
         sleep(1);
-        Auth::logout();
+        // Auth::logout();
+        Auth::guard('personnes')->logout();
         return redirect()->route('login');
     }
 }

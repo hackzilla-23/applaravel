@@ -16,6 +16,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    width: 400px;
 }
 
 h1 {
@@ -70,4 +71,16 @@ label {
     color: green;
     text-align: center;
     font-size: 16px;
+}
+
+.back {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.back-p {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
 }
