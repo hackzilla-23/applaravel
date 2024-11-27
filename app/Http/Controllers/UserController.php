@@ -95,7 +95,7 @@ class UserController extends Controller
             'prenom' => $request->prenom,
             'age' => $request->age,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
         ]);
 
         // // Redirect to the login page
@@ -119,14 +119,15 @@ class UserController extends Controller
         // Tentative de connexion
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
-
+        // dd($credentials);
         // if (Auth::attempt($credentials, $remember)) {
         //     // Connexion réussie
         //     sleep(1);
         //     return redirect()->route('dashboard');
         // }
+        // dd(Auth::guard('personnes')->attempt($credentials));
         if(Auth::guard('personnes')->attempt($credentials)){
-            return redirect()->indented('dashboard');
+            return redirect()->intended('/dashboard');
         }else{
             sleep(1);
             return redirect()->back()->withErrors(['email1'=>'identifiant incorrect'])->withInput();
@@ -169,5 +170,4 @@ class UserController extends Controller
         Auth::guard('personnes')->logout();
         return redirect()->route('login');
     }
-
 }

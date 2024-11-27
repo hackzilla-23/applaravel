@@ -171,8 +171,8 @@
 {{-- @section("style_form")
 	<link rel="stylesheet" href="style.css">
 @endsection --}}
-@section("login")
-    {{-- <form action="">
+{{-- @section("login")
+    <form action="">
         <label for="email">Email</label>
         <input type="text" name="email" id="email">
 
@@ -180,8 +180,8 @@
         <input type="password" name="password" id="password">
 
         <button type="submit">envoyer</button>
-    </form> --}}
+    </form>
 	@include('partials._form')
-	{{-- <a href="{{ route('registermmmm') }}">vers register</a> --}}
-	{{-- <a href="/register">vers register</a> --}}
-@endsection
+	<a href="{{ route('registermmmm') }}">vers register</a>
+	<a href="/register">vers register</a>
+@endsection --}}
