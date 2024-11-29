@@ -1,3 +1,14 @@
+
+@extends('users.text')
+@section('form')
+    <form class="flex justify-center h-lvh items-center" action="#" method="POST">
+        <div class="w-[400px] px-10 container rounded-md mx-auto">
+            <div class="text-white">
+                <ul class="flex justify-between items-center py-7">
+                    <li class="text-2xl font-bold">MarketX</li>
+                    <li><a href="#"><i class="text-2xl fa-solid fa-home"></i></a></li>
+                </ul>
+            </div>
 @extends('index')
 
 {{-- @section('form') --}}

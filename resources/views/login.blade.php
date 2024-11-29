@@ -2,13 +2,6 @@
 
 <link rel="stylesheet" href="{{ asset('login.css') }}">
 
-{{-- @section('login')
-    <p>Nom : {{ $newpersonne->nom }}</p>
-    <p>Prenom : {{ $newpersonne->prenom }}</p>
-    <p>Email : {{ $newpersonne->email }}</p>
-    <p>Password : {{ $newpersonne->password }}</p>
-@endsection --}}
-
 @section('login')
     {{-- <form action="#" method="POST">
         <div class="container">
@@ -43,24 +36,15 @@
             @csrf
             <h2>Connexion</h2>
             <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="username" name="email" placeholder="Votre Email">
-                @error('email')
-                    <p class="text-red-500 text-sm pt-2">'Veuillez entrer un email valide' </p>
-                @enderror
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" placeholder="Votre email">
+                {!! $errors->first('email' , '<p class = "text-red-500">email incorrect</p>') !!}
             </div>
 
             <div class="input-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                @error('password')
-                    <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
-                @enderror
-            </div>
-
-            <div class="pb-4">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember" class="text-sm font-medium">Se souvenir de moi</label>
+                {!! $errors->first('password' , '<p class = "text-red-500">mot de passe incorrect</p>') !!}
             </div>
 
             @error('email1')
@@ -72,7 +56,7 @@
             </div>
 
             <div class="text-center text-sm">
-                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500"">Mot de passe
+                <a href="{{ route('MDPo') }}" class="hover:underline hover:underline-offset-4 duration-500">Mot de passe
                     oublie ?</a>
             </div>
 
@@ -88,9 +72,8 @@
 {{-- @section('style_form')
 	<link rel="stylesheet" href="style.css">
 @endsection --}}
-
-{{-- @section('login') --}}
-{{-- <form action="">
+{{-- @section("login")
+    <form action="">
         <label for="email">Email</label>
         <input type="text" name="email" id="email">
 
@@ -98,8 +81,8 @@
         <input type="password" name="password" id="password">
 
         <button type="submit">envoyer</button>
-    </form> --}}
-{{-- @include('partials._form') --}}
-{{-- <a href="{{ route('registermmmm') }}">vers register</a> --}}
-{{-- <a href="/register">vers register</a> --}}
-{{-- @endsection --}}
+    </form>
+	@include('partials._form')
+	<a href="{{ route('registermmmm') }}">vers register</a>
+	<a href="/register">vers register</a>
+@endsection --}}
