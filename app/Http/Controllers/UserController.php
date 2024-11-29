@@ -98,7 +98,7 @@ class UserController extends Controller
             return redirect()->intended('/dashboard');
         }
         else{
-            dd("nom");
+            // dd("nom");
             // Connexion échouée, renvoyer l'utilisateur avec une erreur
             sleep(1);
             return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
