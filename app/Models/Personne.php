@@ -13,8 +13,8 @@ class Personne extends Authenticatable
     protected $fillable = ['nom', 'prenom', 'age', 'email', 'password'];
 
     // Définir la relation : Une personne a plusieurs produits
-    public function produits()
-    {
-        return $this->hasMany(Produit::class);
-    }
+    // public function produits()
+    // {
+    //     return $this->hasMany(Produit::class);
+    // }
 }
