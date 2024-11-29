@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-
 class UserController extends Controller
 {
     public function login()
@@ -136,6 +135,9 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
     }
 
+
+    public function logs(RequestLogs $request)
+
     public function store_product(Request $request)
     {
 
@@ -159,6 +161,7 @@ class UserController extends Controller
     }
 
     public function logs(Request $request)
+
     {
         // Validation des données
         $validator = $request->validate([
@@ -180,15 +183,19 @@ class UserController extends Controller
             sleep(1);
             return redirect()->intended('dashboard')->with('user', $user);
         }
-
-        // Connexion échouée, renvoyer l'utilisateur avec une erreur
-        sleep(1);
-        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
-
+        
     }
 
-    public function reset(Request $request)
+    public function reset(RequestReset $request)
     {
+
+        // Validation des champs
+        // $request->validate([
+        //     'password' => 'required',
+        //     'new_password' => 'required',
+        //     'password_confirmation' => 'required|confirmed:new_password',
+        // ]);
+
         // // Validation des champs
         // $request->validate([
         //     'password' => 'required|string',
@@ -219,6 +226,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required',
         ]);
+
 
         $response = Password::broker()->reset(
             $request->only(['email', 'password', 'password_confirmation']),

@@ -1,4 +1,4 @@
-<form action="">
+{{-- <form action="">
     <label for="email">Email</label>
     <input type="text" name="email" id="email">
 
@@ -6,5 +6,5 @@
     <input type="password" name="password" id="password">
 
     <button type="submit">envoyer</button>
-</form>
+</form> --}}
 {{-- <a href="/register">vers register</a> --}}
