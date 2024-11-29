@@ -7,9 +7,6 @@ use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\RequestLogs;
 use App\Http\Requests\RequestReset;
 use App\Models\Personne;
-use App\Models\Produit;
-use App\Models\Produit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
