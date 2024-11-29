@@ -1,0 +1,242 @@
+@extends('dashboard.dashboard')
+
+@section('main')
+    <!-- Main Content -->
+    <main>
+        <h2 class="my-3 text-3xl font-bold">Dashboard</h2>
+        {{-- Dashboard --}}
+        <div class="dashboard grid grid-cols-3 gap-7">
+            <div
+                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
+                <div class="flex items-center gap-10">
+                    <div class="text-center pl-3">
+                        <p class="font-[400]">Total Sales</p>
+                        <p class="font-extrabold text-[27px]">$65,024</p>
+                    </div>
+
+                    <div class="relative w-28 h-28">
+                        <svg class="w-full h-full" viewBox="0 0 44 42">
+                            <circle cx="21" cy="21" r="15.9155" stroke="#e6e6e6" stroke-width="4"
+                                fill="none">
+                            </circle>
+                            <circle id="progressCircle" class="circle" cx="21" cy="21" r="15.9155"
+                                stroke="#2196F3" stroke-width="4" fill="none" stroke-dasharray="100"
+                                stroke-dashoffset="100"></circle>
+                        </svg>
+                        <div id="percentageText"
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-medium text-[#7d8da1] text-sm">
+                            0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
+                <div class="flex items-center gap-10">
+                    <div class="text-center pl-3">
+                        <p class="font-[400]">Site Visit</p>
+                        <p class="font-extrabold text-[27px]">24,921</p>
+                    </div>
+                    <div class="relative w-28 h-28">
+                        <svg class="w-full h-full" viewBox="0 0 44 42">
+                            <circle cx="21" cy="21" r="15.9155" stroke="#e6e6e6" stroke-width="4"
+                                fill="none">
+                            </circle>
+                            <circle id="progressCircle1" class="circle" cx="21" cy="21" r="15.9155"
+                                stroke="#2196F3" stroke-width="4" fill="none" stroke-dasharray="100"
+                                stroke-dashoffset="100"></circle>
+                        </svg>
+                        <div id="percentageText1"
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-medium text-[#7d8da1] text-sm">
+                            0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
+                <div class="flex items-center gap-10">
+                    <div class="text-center pl-3">
+                        <p class="font-[400]">Searches</p>
+                        <p class="font-extrabold text-[27px]">14,147</p>
+                    </div>
+                    <div class="relative w-28 h-28">
+                        <svg class="w-full h-full" viewBox="0 0 44 42">
+                            <circle cx="21" cy="21" r="15.9155" stroke="#e6e6e6" stroke-width="4"
+                                fill="none">
+                            </circle>
+                            <circle id="progressCircle2" class="circle" cx="21" cy="21" r="15.9155"
+                                stroke="#2196F3" stroke-width="4" fill="none" stroke-dasharray="100"
+                                stroke-dashoffset="100"></circle>
+                        </svg>
+                        <div id="percentageText2"
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-medium text-[#7d8da1] text-sm">
+                            0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End of Dashboard --}}
+
+        {{-- New Users section  --}}
+        <div class="new-users mt-3">
+            <h2 class="text-xl font-medium pb-3">New Users</h2>
+            <div
+                class="user-list py-7 rounded-[20px] shadow-first hover:shadow-none duration-300 bg-white flex items-center justify-between px-[74px]">
+                <div class="user">
+                    <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover"
+                        src="{{ asset('img/profile-2.jpg') }}">
+                    <h2 class="text-center font-bold text-xl">Jack</h2>
+                    <p class="text-xs text-[#7d8da1] font-semibold text-center pt-1">54 Min Ago</p>
+                </div>
+
+                <div class="user">
+                    <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover"
+                        src="{{ asset('img/profile-3.jpg') }}">
+                    <h2 class="text-center font-bold text-xl">Amir</h2>
+                    <p class="text-xs text-[#7d8da1] font-semibold text-center pt-1">3 Hours Ago</p>
+                </div>
+
+                <div class="user">
+                    <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover"
+                        src="{{ asset('img/profile-4.jpg') }}">
+                    <h2 class="text-center font-bold text-xl">Ember</h2>
+                    <p class="text-xs text-[#7d8da1] font-semibold text-center pt-1">6 Hours Ago</p>
+                </div>
+
+                <div class="user">
+                    <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover" src="{{ asset('img/plus.png') }}">
+                    <h2 class="text-center font-bold text-xl">More</h2>
+                    <p class="text-xs text-[#7d8da1] font-semibold text-center pt-1">New User</p>
+                </div>
+            </div>
+        </div>
+        {{-- End of New Users section  --}}
+
+        <!-- Recent Orders Table -->
+        <div class="recent-orders text-center mt-4">
+            <h2 class="text-xl text-left font-medium pb-3">Recent Orders</h2>
+            <table
+                class="min-w-full mb-2 shadow-first hover:shadow-none duration-300 table-auto border-collapse rounded-[20px] bg-white overflow-hidden">
+                <!-- En-tête du tableau -->
+                <thead>
+                    <tr>
+                        <th class="pt-6 text-center text-xs font-bold">Course Name</th>
+                        <th class="pt-6 text-center text-xs font-bold">Course Number</th>
+                        <th class="pt-6 text-center text-xs font-bold">Payment</th>
+                        <th class="pt-6 text-center text-xs font-bold">Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <!-- Corps du tableau -->
+                <tbody class="text-[#7d8da1]">
+                    <tr class="border-b hover:bg-indigo-50 duration-500">
+                        <td class="py-4 text-sm text-center font-medium">Javascript Tutorial</td>
+                        <td class="py-4 text-sm text-center">85743</td>
+                        <td class="py-4 text-sm text-center">Due</td>
+                        <td class="py-4 text-sm text-center text-yellow-500">Pending</td>
+                        <td class="text-[12px] text-[#6C9BCF]">Details</td>
+                    </tr>
+
+                    <tr class="border-b hover:bg-indigo-50 duration-500">
+                        <td class="py-4 text-sm text-center font-medium">CSS Full Course</td>
+                        <td class="py-4 text-sm text-center">97245</td>
+                        <td class="py-4 text-sm text-center ">Refunded</td>
+                        <td class="py-4 text-sm text-center text-red-500">Declined</td>
+                        <td class="text-[12px] text-[#6C9BCF]">Details</td>
+                    </tr>
+
+                    <tr class="border-b hover:bg-indigo-50 duration-500">
+                        <td class="pt-4 text-sm pb-8 text-center font-medium">Flexbox Tutorial</td>
+                        <td class="pt-4 text-sm pb-8 text-center">36452</td>
+                        <td class="pt-4 text-sm pb-8 text-center ">Paid</td>
+                        <td class="pt-4 text-sm pb-8 text-center text-green-500">Active</td>
+                        <td class="text-[12px] text-[#6C9BCF] pb-3">Details</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#" class="text-center text-sm font-medium text-[#6C9BCF]">Show All</a>
+        </div>
+        <!-- End of Recent Orders -->
+    </main>
+    {{-- End of Main Content  --}}
+
+    <!-- Right Section -->
+    <div class="right-section ">
+        <div class="nav">
+            <div class="profile flex items-center justify-end gap-6 py-2">
+                <div class="info text-right">
+                    <p class="text-sm">Hey, <b>{{ auth()->user('prenom') }}</b></p>
+                    <small class="text-xs text-[#7d8da1]">Admin</small>
+                </div>
+
+                <div class="profile-photo">
+                    <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ asset('img/profile-1.jpg') }}">
+                </div>
+            </div>
+        </div>
+        <!-- End of Nav -->
+
+        <div class="user-profile">
+            <div class="logo py-8 bg-white rounded-[20px] text-center shadow-first hover:shadow-none duration-300">
+                <img class="mx-auto w-[160px] h-[160px]" src="{{ asset('img/logo.png') }}">
+                <h2 class="text-xl font-bold pt-3">Big Bazzar</h2>
+                <p class="text-sm text-[#7d8da1] pt-1.5">Fullstack Web Developer</p>
+            </div>
+        </div>
+
+        <div class="reminders">
+            <div class="header pt-8 flex justify-between items-center">
+                <h2 class="text-2xl  font-medium">Reminders</h2>
+                <div class="bg-white flex items-center justify-center p-2.5 rounded-full">
+                    <img src="{{ asset('img/notifications_none_24dp_5F6368.svg') }}" alt="">
+                </div>
+            </div>
+
+            <div
+                class="notification flex items-center my-4 py-5 px-6 rounded-[20px] bg-white shadow-first duration-300 hover:shadow-none">
+                <div class="icon bg-[#1B9C85] p-2.5 rounded-[10px]">
+                    <img src="{{ asset('img/volume_up_24dp_FFFFFF.svg') }}" alt="">
+                </div>
+
+                <div class="content flex items-center justify-between w-[100%] pl-4">
+                    <div class="info">
+                        <p class="text-xs">Workshop</p>
+                        <small class="text-xs">
+                            08:00 AM - 12:00 PM
+                        </small>
+                    </div>
+                    <img src="{{ asset('img/more_vert_24dp_5F6368.svg') }}" alt="">
+                </div>
+            </div>
+
+            <div
+                class="notification flex items-center py-5 px-6 rounded-[20px] bg-white shadow-first duration-300 hover:shadow-none">
+                <div class="icon bg-[#FF0060] p-2.5 rounded-[10px]">
+                    <img src="{{ asset('img/edit_24dp_FFFFFF.svg') }}" alt="">
+                </div>
+
+                <div class="content flex items-center justify-between w-[100%] pl-4">
+                    <div class="info">
+                        <h3 class="text-xs">Workshop</h3>
+                        <small class="text-xs">
+                            08:00 AM - 12:00 PM
+                        </small>
+                    </div>
+                    <img src="{{ asset('img/more_vert_24dp_5F6368.svg') }}" alt="">
+                </div>
+            </div>
+
+            <div
+                class="notification bg-white border-dashed shadow-first duration-300 hover:bg-[#6C9BCF] hover:shadow-none hover:text-white  border-2 mt-4 border-[#6C9BCF] flex items-center p-6 rounded-[20px]">
+                <div class="flex mx-auto items-center">
+                    <img src="{{ asset('img/add_24dp_5F6368.svg') }}" alt="">
+                    <h3>Add Reminder</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End of Right Section -->
+@endsection

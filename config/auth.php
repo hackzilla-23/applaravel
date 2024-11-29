@@ -74,6 +74,7 @@ return [
             'driver' => 'eloquent',
             'model' => Personne::class,
         ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

@@ -17,16 +17,69 @@ class UserController extends Controller
         return view('login');
     }
 
+    // public function store(PersonneFormRequest $request){
+    //     // dd($request);
+    //     //la premiere methode validation
+    //     // $isvalid = $request->validate([
+    //     //     'nom' =>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
+
+    //     //la deuxieme methode validation
+    //     // Validator::make($request->all() , [
+    //     //     'nom'=>'required',
+    //     //     'prenom' => 'required',
+    //     //     'age' => 'required',
+    //     //     'email' =>'required|email',
+    //     //     'password' =>'required|min:8',
+    //     //     'confirm-password' =>'required|confirmed:password',
+    //     // ]);
+
+    //     // dd($isvalid);
+    //     $newpersonne = Personne::create([
+    //         'nom' => $request->nom,
+    //         'prenom' => $request->prenom,
+    //         'age' => $request->age,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password)
+    //     ]);
+    //     // dd($newpersonne);
+    //     return view('login', compact('newpersonne'));
+    // }
+
     public function regi()
     {
         sleep(1);
         return view('register');
     }
 
-    public function dashboard()
+    public function main_dashboard()
     {
-        sleep(1);
-        return view('dashboard');
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+            return view('dashboard.main_dashboard', compact('user'));
+        } else {
+            sleep(1);
+            return redirect()->route('login');
+        }
+
+    }
+
+    public function product_dashboard()
+    {
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+            return view('dashboard.product_dashboard', compact('user'));
+        } else {
+            sleep(1);
+            return redirect()->route('login');
+        }
     }
 
     public function error()
@@ -39,6 +92,18 @@ class UserController extends Controller
     {
         sleep(1);
         return view('mot_de_passe_oublie');
+    }
+
+    public function edit()
+    {
+        sleep(1);
+        return view('edit');
+    }
+
+    public function add()
+    {
+        sleep(1);
+        return view('form');
     }
 
     public function store(Request $request)
@@ -71,6 +136,28 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
     }
 
+    public function store_product(Request $request)
+    {
+
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            // Ajoute d'autres validations pour ton produit ici
+        ]);
+
+        // Création du produit
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        // Ajoute d'autres champs ici
+        $product->user_id = Auth::id(); // Lier le produit à l'utilisateur authentifié
+        $product->save();
+
+        return redirect()->route('dashboard')->with('success', 'Produit ajouté avec succès');
+
+    }
+
     public function logs(Request $request)
     {
         // Validation des données
@@ -87,50 +174,70 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
-        // if (Auth::attempt($credentials, $remember)) {
-        //     // Connexion réussie
-        //     sleep(1);
-        //     return redirect()->route('dashboard');
-        // }
         if (Auth::guard('personnes')->attempt($credentials)) {
-            # code...
-            // dd(Auth::guard('personnes')->attempt($credentials));
-            return redirect()->intended('/dashboard');
-        }
-        else{
-            // dd("nom");
-            // Connexion échouée, renvoyer l'utilisateur avec une erreur
+            // Connexion réussie
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur authentifié
             sleep(1);
-            return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
+            return redirect()->intended('dashboard')->with('user', $user);
         }
+
+        // Connexion échouée, renvoyer l'utilisateur avec une erreur
+        sleep(1);
+        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
+
     }
 
     public function reset(Request $request)
     {
-        // Validation des champs
-        $request->validate([
-            'password' => 'required',
-            'new_password' => 'required',
-            'password_confirmation' => 'required|confirmed:new_password',
-        ]); 
+        // // Validation des champs
+        // $request->validate([
+        //     'password' => 'required|string',
+        //     'new_password' => 'required|string',
+        //     'password_confirmation' => 'required|string|confirmed:new_password',
+        // ]);
 
-        // Réinitialiser le mot de passe
-        $status = Password::reset(
-            $request->only('password', 'new_password'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => bcrypt($request->password),
-                ])->save();
+        // // Réinitialiser le mot de passe
+        // $status = Password::reset(
+        //     $request->only('password', 'new_password'),
+        //     function ($user) use ($request) {
+        //         $user->forceFill([
+        //             'password' => bcrypt($request->password),
+        //         ])->save();
+        //     }
+        // );
+
+        // // Vérifier si la réinitialisation a réussi
+        // if ($status === Password::PASSWORD_RESET) {
+        //     sleep(1);
+        //     return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
+        // } else {
+        //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        // }
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $response = Password::broker()->reset(
+            $request->only(['email', 'password', 'password_confirmation']),
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
+                return redirect()->route('login');
             }
         );
 
-        // Vérifier si la réinitialisation a réussi
-        if ($status === Password::PASSWORD_RESET) {
-            sleep(1);
-            return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
-        } else {
-            throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        if ($response == Password::INVALID_USER) {
+            return redirect()->back()->withErrors(['email' => 'Adresse e-mail non trouvée']);
         }
+
+        if ($response == Password::INVALID_TOKEN) {
+            return redirect()->back()->withErrors(['token' => 'Jetons de réinitialisation non valides']);
+        }
+
+        return $response;
     }
 
     public function logout()
@@ -138,9 +245,6 @@ class UserController extends Controller
         sleep(1);
         // Auth::logout();
         Auth::guard('personnes')->logout();
-        return redirect()->route('login')->with("success", "success");
-        $test = "bojour";
-        return view('login')->with('post', $test);
-        $_SESSION['success'] = "Success";
+        return redirect()->route('login');
     }
 }

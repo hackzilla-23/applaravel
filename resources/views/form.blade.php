@@ -1,41 +1,46 @@
 @extends('index')
-@section('form')
-    <form class="flex justify-center h-lvh items-center" action="#" method="POST">
-        <div class="w-[400px] px-10 container rounded-md mx-auto">
-            <div class="text-white">
-                <ul class="flex justify-between items-center py-7">
-                    <li class="text-2xl font-bold">MarketX</li>
-                    <li><a href="#"><i class="text-2xl fa-solid fa-home"></i></a></li>
-                </ul>
-            </div>
 
-            <p class="text-center text-white font-medium text-xl pb-8">ADD PRODUCT</p>
-
-            <div style="gap:80px" class="pb-14 flex flex-col gap-20 mx-auto">
-                <div class="inputBox relative">
-                    <input type="text" name="Nom_Produit"
-                        class="rounded-full py-2.5 pl-5 outline-none absolute w-[315px]">
-                    <span class="z-1 absolute left-7 top-3.5 text-[15px]">Product Name</span>
-                </div>
-                <div style="margin-top:15px" class="inputBox relative">
-                    <input type="number" name="Prix" class="rounded-full py-2.5 pl-5 outline-none absolute w-[315px]">
-                    <span class="z-1 absolute left-7 top-3.5 text-[15px]">Price</span>
-                </div>
-                <div style="margin-top:15px" class="inputBox relative">
-                    <input type="number" name="QTE" class="rounded-full py-2.5 pl-5 outline-none absolute w-[315px]">
-                    <span class="z-1 absolute left-7 top-3.5 text-[15px]">Quantity</span>
-                </div>
-                <div style="margin-top:15px" class="inputBox relative">
-                    <textarea type="text" rows="4" name="Description"
-                        class="rounded-lg py-2.5 pl-5 outline-none absolute w-[315px]"></textarea>
-                    <span class="z-1 absolute left-7 top-3.5 text-[15px]">Description</span>
-                </div>
-            </div>
-
-            <input style="margin-top:110px" class="mb-8 mt-24 py-2.5 w-[310px] rounded-full text-white font-bold"
-                type="submit" value="Save">
+{{-- @section('form') --}}
+<form class="mx-auto w-96 flex justify-center items-center bg-[#1B9C85]" action="#" method="POST">
+    @csrf
+    <div>
+        <div>
+            <ul class="flex justify-between items-center py-7">
+                <li class="text-2xl font-bold">Big Bazzar</li>
+                <button type="button" id="closeModalBtn"
+                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
+                    close
+                </button>
+            </ul>
         </div>
-    </form>
 
-    {{-- @include('partials._form') --}}
-@endsection
+        <p class="text-center font-medium text-xl pb-8">ADD PRODUCT</p>
+
+        <div class="flex flex-col gap-4 mx-auto">
+            <div>
+                <label for="nom" class="font-bold">Product Name</label><br>
+                <input type="text" name="nom" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+            </div>
+            <div>
+                <label for="prix" class="font-bold">Price</label><br>
+                <input type="number" name="prix" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+
+            </div>
+            <div>
+                <label for="quantite" class="font-bold">Quantity</label><br>
+                <input type="number" name="quq=antite" class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+            </div>
+            <div>
+                <label for="description" class="font-bold">Description</label><br>
+                <textarea type="text" rows="4" name="description" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+            </div>
+        </div>
+
+        <button
+            class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
+            type="submit">Save</button>
+    </div>
+</form>
+
+{{-- @include('partials._form') --}}
+{{-- @endsection --}}
