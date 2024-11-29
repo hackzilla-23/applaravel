@@ -20,10 +20,6 @@
 
 <body class="bg-[#f6f6f9]">
 
-    @error('sucess')
-        <p class="text-lg text-green-600">{{ $message }}</p>
-    @enderror
-
     <div class="container mx-auto grid w-[96%] gap-[20px] grid-cols-[13rem_auto_18rem]">
         <!-- Sidebar Section -->
         <aside>
@@ -272,7 +268,6 @@
     </script>
 
     {{-- formulaire ajout  --}}
-
     <script>
         // Récupérer les éléments du DOM
         const addProductBtn = document.getElementById('addProductBtn');
@@ -326,7 +321,6 @@
     </script>
 
     {{-- formulaire edit  --}}
-
     <script>
         // Récupérer les éléments du DOM
         const addProductBtn = document.getElementById('editbtn');

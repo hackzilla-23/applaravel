@@ -63,38 +63,26 @@
 
         {{-- products  --}}
         <div class="bg-white relative h-[76vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
-        <div class="bg-white relative h-[75vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
-                <ul class="grid grid-cols-5 items-center rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
+                <ul class="flex items-center justify-center gap-32 rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Product Name</p>
                     </li>
-                    {{-- <li>
-                        <p class="text-sm text-white">Category</p>
-                    </li> --}}
-                    <li>
-                    </li> --}}
+
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Price</p>
                     </li>
+
                     <li>
                         <p class="text-sm text-white">Quantite</p>
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Quantite</p>
                     </li>
-                    {{-- <li>
-                        <p class="text-sm text-white">Sold</p>
-                    </li> --}}
+
                     <li>
                         <p class="text-sm text-white">Description</p>
                     </li>
-                    <li>
-                    </li> --}}
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Description</p>
-                    </li>
+
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
@@ -150,14 +138,10 @@
             <div class="flex flex-col gap-1">
                 @foreach ($allproducts as $value)
                     <ul
-                        class="grid grid-cols-5  gap-32 items-center hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                        class="flex items-center gap-40 hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->nom }}</p>
                         </li>
-
-                        {{-- <li>
-                            <p class="text-xs">Men, Watch</p>
-                        </li> --}}
 
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->prix }}</p>
@@ -166,10 +150,6 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->quantite }}</p>
                         </li>
-
-                        {{-- <li>
-                            <p class="text-xs">66</p>
-                        </li> --}}
 
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->description }}</p>
@@ -237,7 +217,8 @@
                                     <form action="{{ route('delete_product') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <button type="submit" class="text-[#FF0060]"><i class="fa-solid fa-trash"></i></button>
+                                        <button type="submit" class="text-[#FF0060]"><i
+                                                class="fa-solid fa-trash"></i></button>
                                     </form>
                                     {{-- <a href="#" class="text-[#FF0060]">
                                         <i class="fa-solid fa-trash"></i>
@@ -250,7 +231,7 @@
             </div>
 
             {{-- pagination  --}}
-            <ul class="flex  gap-[600px] absolute bottom-0 py-3.5">
+            <ul class="flex gap-[600px] absolute bottom-0 py-3.5">
                 <div class="flex px-2 py-1 rounded-md items-center gap-4 border border-gray-400">
                     <p class="text-sm">Show: 8</p>
                     <i class="fa-solid fa-caret-down"></i>
