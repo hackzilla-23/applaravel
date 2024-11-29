@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +20,11 @@ class ProduitFactory extends Factory
     {
         return [
             //
-            "nom" => fake()->name(),
-            "prix" => fake()->randomNumber(2),
-            "quantite" => fake()->numberBetween(1, 100),
-            "description" => fake()->text(),
+            "nom"=>fake()->name(),
+            "prix"=>fake()->randomNumber(2),
+            "quantite"=>fake()->numberBetween(1,20),
+            "description" =>Str::random(10),
             "personne_id" => User::factory()->create()->id,
-            // "image" => fake()->image('public/images', 640, 480, 'product'),
         ];
     }
 }

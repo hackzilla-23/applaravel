@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Produit;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class ProduitSeeders extends Seeder
 {
@@ -14,6 +14,6 @@ class ProduitSeeders extends Seeder
     public function run(): void
     {
         //
-       Produit::factory(10)->create();
+        Produit::factory(10)->create();
     }
 }
