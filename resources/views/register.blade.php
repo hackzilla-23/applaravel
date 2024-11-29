@@ -1,116 +1,7 @@
 @extends('index')
 {{-- @section('register') --}}
 
-@section('styleregister')
-    <style>
-        /* Style global */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        .flexible{
-            display: grid;
-            grid-template-columns: repeat(2 , 1fr);
-            place-items: center;
-            gap: 24px
-        }
-       
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f7fc;
-        }
-
-        /* Conteneur principal du formulaire */
-        .register-container {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-        }
-
-        /* Titre du formulaire */
-        .register-form h2 {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        /* Groupes de champs de formulaire */
-        .input-group {
-            margin-bottom: 20px;
-            width:20vw
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .input-group input {
-            width: 100%;
-            /* width: 30vh; */
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-
-        .input-group input:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        /* Bouton de soumission */
-        .submit-btn {
-            width: 50%;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            
-        }
-        .submit{
-            display: grid;
-            place-items: center;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Lien de connexion */
-        .login-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .login-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
-@endsection
+<link rel="stylesheet" href="{{ asset('register.css') }}">
 
 <div class="register-container">
 
@@ -137,7 +28,7 @@
                         </p>
                     @enderror
                 </div>
-    
+
                 <div class="input-group">
                     <label for="prenom">Prenom</label>
                     <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
@@ -146,18 +37,17 @@
                         <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
                     @enderror
                 </div>
-    
+
                 <div class="input-group">
-                    <label for="age">Age</label>
-                    <input value="{{ old('age') }}" type="number" id="age" name="age"
-                        placeholder="Choisissez un age">
-                    @error('age')
-                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                    @error('password')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                     @enderror
                 </div>
-    
-           </div>
-    
+
+            </div>
+
             <div>
                 <div class="input-group">
                     <label for="email">Email</label>
@@ -167,15 +57,16 @@
                         <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
                     @enderror
                 </div>
-    
+
                 <div class="input-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                    @error('password')
-                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
+                    <label for="age">Age</label>
+                    <input value="{{ old('age') }}" type="number" id="age" name="age"
+                        placeholder="Choisissez un age">
+                    @error('age')
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
                     @enderror
                 </div>
-    
+
                 <div class="input-group">
                     <label for="confirm-password">Confirmer le mot de passe</label>
                     <input type="password" id="confirm-password" name="confirm-password"
@@ -184,16 +75,13 @@
                         <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
                     @enderror
                 </div>
-            </div>   
-
-            
+            </div>
         </div>
-
-      
 
         <div class="input-group submit">
             <button type="submit" class="submit-btn">S'inscrire</button>
         </div>
+        
         <div class="login-link">
             <p>Already a member ? <a href="{{ route('login') }}">Log in</a></p>
         </div>

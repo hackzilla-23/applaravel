@@ -167,7 +167,7 @@
         <div class="nav">
             <div class="profile flex items-center justify-end gap-6 py-2">
                 <div class="info text-right">
-                    <p class="text-sm">Hey, <b>{{ auth()->user('prenom') }}</b></p>
+                    <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p>
                     <small class="text-xs text-[#7d8da1]">Admin</small>
                 </div>
 
