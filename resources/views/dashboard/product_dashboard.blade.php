@@ -62,30 +62,30 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div class="bg-white relative h-[75vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
-                <ul class="flex items-center justify-around rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
-                    <li>
+                <ul class="grid grid-cols-5 items-center rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
+                    <li class="col-span-1 ">
                         <p class="text-sm text-white">Product Name</p>
                     </li>
-                    <li>
+                    {{-- <li>
                         <p class="text-sm text-white">Category</p>
-                    </li>
-                    <li>
+                    </li> --}}
+                    <li class="col-span-1 ">
                         <p class="text-sm text-white">Price</p>
                     </li>
-                    <li>
-                        <p class="text-sm text-white">Stock</p>
+                    <li class="col-span-1 ">
+                        <p class="text-sm text-white">Quantite</p>
                     </li>
-                    <li>
+                    {{-- <li>
                         <p class="text-sm text-white">Sold</p>
+                    </li> --}}
+                    <li class="col-span-1 ">
+                        <p class="text-sm text-white">Description</p>
                     </li>
-                    <li>
-                        <p class="text-sm text-white">Revenew</p>
-                    </li>
-                    <li>
+                    <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
                 </ul>
@@ -94,7 +94,7 @@
             {{-- formulaire d'ajout  --}}
             <form id="addProductModal"
                 class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-[#1B9C85]"
-                action="#" method="POST">
+                action="{{ route('ajout_product') }}" method="POST">
                 @csrf
                 <div>
                     <div>
@@ -138,394 +138,109 @@
 
             {{-- lists  --}}
             <div class="flex flex-col gap-1">
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
+                @foreach ($allproducts as $value)
+                    <ul
+                        class="grid grid-cols-5  gap-32 items-center hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-xs">{{ $value->nom }}</p>
+                        </li>
 
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
+                        {{-- <li>
+                            <p class="text-xs">Men, Watch</p>
+                        </li> --}}
 
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-xs">{{ $value->prix }}</p>
+                        </li>
 
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-xs">{{ $value->quantite }}</p>
+                        </li>
 
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
+                        {{-- <li>
+                            <p class="text-xs">66</p>
+                        </li> --}}
 
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-xs">{{ $value->description }}</p>
+                        </li>
 
-                    <li class="flex items-center gap-2">
-                        <div id="editbtn"
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-
-                        {{-- formulaire edit  --}}
-                        <form id="editProductModal"
-                            class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-[#1B9C85]"
-                            action="#" method="POST">
-                            @csrf
-                            <div>
-                                <div>
-                                    <ul class="flex justify-between items-center py-7">
-                                        <li class="text-2xl font-bold">Big Bazzar</li>
-                                        <button type="button" id="closeEditBtn"
-                                            class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
-                                            close
-                                        </button>
-                                    </ul>
+                        <li class="col-span-1 grid items-center justify-center">
+                            <div class="flex items-center gap-2 ">
+                                <div id="editbtn"
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                    <a href="#">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
                                 </div>
 
-                                <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
+                                {{-- formulaire edit  --}}
+                                <form id="editProductModal"
+                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-[#1B9C85]"
+                                    action="#" method="POST">
+                                    @csrf
+                                    <div>
+                                        <div>
+                                            <ul class="flex justify-between items-center py-7">
+                                                <li class="text-2xl font-bold">Big Bazzar</li>
+                                                <button type="button" id="closeEditBtn"
+                                                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
+                                                    close
+                                                </button>
+                                            </ul>
+                                        </div>
 
-                                <div class="flex flex-col gap-4 mx-auto">
-                                    <div>
-                                        <label for="nom" class="font-bold">Product Name</label><br>
-                                        <input type="text" name="nom"
-                                            class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
-                                    </div>
-                                    <div>
-                                        <label for="prix" class="font-bold">Price</label><br>
-                                        <input type="number" name="prix"
-                                            class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                        <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
 
+                                        <div class="flex flex-col gap-4 mx-auto">
+                                            <div>
+                                                <label for="nom" class="font-bold">Product Name</label><br>
+                                                <input type="text" name="nom"
+                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                            </div>
+                                            <div>
+                                                <label for="prix" class="font-bold">Price</label><br>
+                                                <input type="number" name="prix"
+                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+
+                                            </div>
+                                            <div>
+                                                <label for="quantite" class="font-bold">Quantity</label><br>
+                                                <input type="number" name="quq=antite"
+                                                    class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                            </div>
+                                            <div>
+                                                <label for="description" class="font-bold">Description</label><br>
+                                                <textarea type="text" rows="4" name="description"
+                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
+                                            type="submit">Save</button>
                                     </div>
-                                    <div>
-                                        <label for="quantite" class="font-bold">Quantity</label><br>
-                                        <input type="number" name="quq=antite"
-                                            class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
-                                    </div>
-                                    <div>
-                                        <label for="description" class="font-bold">Description</label><br>
-                                        <textarea type="text" rows="4" name="description"
-                                            class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
-                                    </div>
+                                </form>
+
+                                <div
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                    <form action="{{ route('delete_product') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                        <button type="submit" class="text-[#FF0060]"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                    {{-- <a href="#" class="text-[#FF0060]">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a> --}}
                                 </div>
-
-                                <button
-                                    class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
-                                    type="submit">Save</button>
                             </div>
-                        </form>
-
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                @endforeach
             </div>
 
             {{-- pagination  --}}
-            <ul class="flex justify-between items-center py-3.5">
+            <ul class="flex  gap-[600px] absolute bottom-0 py-3.5">
                 <div class="flex px-2 py-1 rounded-md items-center gap-4 border border-gray-400">
                     <p class="text-sm">Show: 8</p>
                     <i class="fa-solid fa-caret-down"></i>

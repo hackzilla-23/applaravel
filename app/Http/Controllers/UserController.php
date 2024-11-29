@@ -7,6 +7,7 @@ use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\RequestLogs;
 use App\Http\Requests\RequestReset;
 use App\Models\Personne;
+use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
@@ -75,7 +76,8 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            return view('dashboard.product_dashboard');
+            $products = Produit::all();
+            return view('dashboard.product_dashboard')->with('allproducts' , $products);
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -154,8 +156,9 @@ class UserController extends Controller
         // Tentative de connexion
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
-
-        if (Auth::guard('personnes')->attempt($credentials)) {
+        
+        // dd(Auth::guard('personnes')->attempt($credentials));
+        if (Auth::guard('personnes')->attempt($credentials)){
             // Connexion réussie
             sleep(1);
             return redirect()->intended('dashboard');
