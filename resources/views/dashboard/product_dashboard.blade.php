@@ -62,7 +62,7 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div class="bg-white relative h-[76vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
@@ -70,20 +70,20 @@
                     <li>
                         <p class="text-sm text-white">Product Name</p>
                     </li>
-                    <li>
+                    {{-- <li>
                         <p class="text-sm text-white">Category</p>
-                    </li>
+                    </li> --}}
                     <li>
                         <p class="text-sm text-white">Price</p>
                     </li>
                     <li>
-                        <p class="text-sm text-white">Stock</p>
+                        <p class="text-sm text-white">Quantite</p>
                     </li>
-                    <li>
+                    {{-- <li>
                         <p class="text-sm text-white">Sold</p>
-                    </li>
+                    </li> --}}
                     <li>
-                        <p class="text-sm text-white">Revenew</p>
+                        <p class="text-sm text-white">Description</p>
                     </li>
                     <li>
                         <p class="text-sm text-white">Actions</p>
@@ -145,10 +145,6 @@
                     </li>
 
                     <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
                         <p class="text-xs">$230</p>
                     </li>
 
@@ -157,11 +153,7 @@
                     </li>
 
                     <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
+                        <p class="text-xs">Super Cool</p>
                     </li>
 
                     <li class="flex items-center gap-2">
@@ -228,304 +220,10 @@
                         </div>
                     </li>
                 </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul
-                    class="flex gap-10 items-center hover:bg-gray-100 duration-300 rounded-md justify-between px-6 py-2 border-gray-200 border-2">
-                    <li>
-                        <p class="text-xs">Novy Blue Smart Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">Men, Watch</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$230</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">500</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">66</p>
-                    </li>
-
-                    <li>
-                        <p class="text-xs">$14,950</p>
-                    </li>
-
-                    <li class="flex items-center gap-2">
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                        </div>
-                        <div
-                            class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                            <a href="#" class="text-[#FF0060]">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
             </div>
 
             {{-- pagination  --}}
-            <ul class="flex justify-between items-center py-3.5">
+            <ul class="flex gap-[600px] absolute bottom-0 py-3.5">
                 <div class="flex px-2 py-1 rounded-md items-center gap-4 border border-gray-400">
                     <p class="text-sm">Show: 8</p>
                     <i class="fa-solid fa-caret-down"></i>

@@ -36,6 +36,6 @@ class ProductController extends Controller
         $produit->personne_id = Auth::id(); // Associer le produit à la personne authentifiée
         $produit->save();
 
-        return redirect()->intended('dashboard')->with('success', 'Produit ajouté avec succès!');
+        return redirect()->route('main_dash');
     }
 }
