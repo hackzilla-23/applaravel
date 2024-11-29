@@ -23,8 +23,8 @@ class RequestLogs extends FormRequest
     {
         return [
             //
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string',
         ];
     }
 }

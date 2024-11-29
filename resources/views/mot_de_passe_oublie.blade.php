@@ -1,82 +1,14 @@
-@extends('users.text')
+<!DOCTYPE html>
+=<html lang="en">
 
-@section('stylemdp0')
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-items: center;
-            align-items: center;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 40px 40px 5px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .form-group input:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-        }
-
-        .status {
-            color: green;
-            text-align: center;
-            font-size: 16px;
-        }
-    </style>
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('MDPo.css') }}">
+    @vite('resources/css/app.css')
+</head>
 
 <body class="flex justify-center items-center h-lvh">
     <div class="container mx-auto w-96">

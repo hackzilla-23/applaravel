@@ -7,10 +7,11 @@ use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\RequestLogs;
 use App\Http\Requests\RequestReset;
 use App\Models\Personne;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
+
 class UserController extends Controller
 {
     public function login()
@@ -19,39 +20,40 @@ class UserController extends Controller
         return view('login');
     }
 
-    // public function store(Request $request){
-    //     // dd($request);
-    //     //la premiere methode validation
-    //     // $isvalid = $request->validate([
-    //     //     'nom' =>'required',
-    //     //     'prenom' => 'required',
-    //     //     'age' => 'required',
-    //     //     'email' =>'required|email',
-    //     //     'password' =>'required|min:8',
-    //     //     'confirm-password' =>'required|confirmed:password',
-    //     // ]);
+    public function store(PersonneFormRequest $request)
+    {
+        // dd($request);
+        //la premiere methode validation
+        // $isvalid = $request->validate([
+        //     'nom' =>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
 
-    //     //la deuxieme methode validation
-    //     // Validator::make($request->all() , [
-    //     //     'nom'=>'required',
-    //     //     'prenom' => 'required',
-    //     //     'age' => 'required',
-    //     //     'email' =>'required|email',
-    //     //     'password' =>'required|min:8',
-    //     //     'confirm-password' =>'required|confirmed:password',
-    //     // ]);
+        //la deuxieme methode validation
+        // Validator::make($request->all() , [
+        //     'nom'=>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
 
-    //     // dd($isvalid);
-    //     $newpersonne = Personne::create([
-    //         'nom' => $request->nom,
-    //         'prenom' => $request->prenom,
-    //         'age' => $request->age,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password)
-    //     ]);
-    //     // dd($newpersonne);
-    //     return view('login', compact('newpersonne'));
-    // }
+        // dd($isvalid);
+        $newpersonne = Personne::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'age' => $request->age,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        // dd($newpersonne);
+        return view('login', compact('newpersonne'));
+    }
 
     public function regi()
     {
@@ -63,8 +65,7 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
-            return view('dashboard.main_dashboard', compact('user'));
+            return view('dashboard.main_dashboard');
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -76,8 +77,7 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
-            return view('dashboard.product_dashboard', compact('user'));
+            return view('dashboard.product_dashboard');
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -108,65 +108,47 @@ class UserController extends Controller
         return view('form');
     }
 
-    public function store(PersonneFormRequest $request)
+    // public function store(Request $request)
+    // {
+    //     // Validate the form data
+    //     $validated = $request->validate([
+    //         'nom' => 'required',
+    //         // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
+    //         'prenom' => 'required|alpha|min:2|max:50',
+    //         'age' => 'required|integer|between:18,150',
+    //         'email' => 'required|email|unique:personnes,email|max:255',
+    //         'password' => 'required',
+    //         // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+    //         'confirm-password' => 'required|confirmed:password',
+    //         // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+    //     ]);
+
+    //     // // Store the user in the database
+    //     $user = Personne::create([
+    //         'nom' => $request->nom,
+    //         'prenom' => $request->prenom,
+    //         'age' => $request->age,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password),
+    //     ]);
+
+    //     // // Redirect to the login page
+    //     // return redirect()->route('register')->with('success', 'Success, vous serez rediriger dans 3 secondes...');
+    //     sleep(1);
+    //     return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
+    // }
+
+    // public function log(RequestLogs $request){
+
+    // }
+
+    public function logs(RequestLogs $request)
     {
-        // Validate the form data
-        // $validated = $request->validate([
-        //     'nom' => 'required',
-        //     // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
-        //     'prenom' => 'required|alpha|min:2|max:50',
-        //     'age' => 'required|integer|between:18,150',
-        //     'email' => 'required|email|unique:personnes,email|max:255',
-        //     'password' => 'required',
-        //     // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-        //     'confirm-password' => 'required|confirmed:password',
-        //     // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+        // Validation des données
+        // $validator = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string',
         // ]);
-
-        // // Store the user in the database
-        $user = Personne::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'age' => $request->age,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        // // Redirect to the login page
-        // return redirect()->route('register')->with('success', 'Success, vous serez rediriger dans 3 secondes...');
-        sleep(1);
-        return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
-    }
-
-    public function store_product(Request $request)
-    {
-
-        // Validation des données
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            // Ajoute d'autres validations pour ton produit ici
-        ]);
-
-        // Création du produit
-        $product = new Product();
-        $product->name = $request->input('name');
-        $product->price = $request->input('price');
-        // Ajoute d'autres champs ici
-        $product->user_id = Auth::id(); // Lier le produit à l'utilisateur authentifié
-        $product->save();
-
-        return redirect()->route('dashboard')->with('success', 'Produit ajouté avec succès');
-
-    }
-
-    public function logs(Request $request)
-    {
-        // Validation des données
-        $validator = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
         // dd($validator);
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
@@ -179,15 +161,22 @@ class UserController extends Controller
         // dd(Auth::guard('personnes')->attempt($credentials));
         if (Auth::guard('personnes')->attempt($credentials)){
             // Connexion réussie
-            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur authentifié
             sleep(1);
-            return redirect()->intended('dashboard')->with('user', $user);
+            return redirect()->intended('dashboard');
         }
-        
+
     }
 
     public function reset(RequestReset $request)
     {
+
+        // Validation des champs
+        // $request->validate([
+        //     'password' => 'required',
+        //     'new_password' => 'required',
+        //     'password_confirmation' => 'required|confirmed:new_password',
+        // ]);
+
         // // Validation des champs
         // $request->validate([
         //     'password' => 'required|string',
@@ -213,11 +202,11 @@ class UserController extends Controller
         //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
         // }
 
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
-        ]);
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
 
         $response = Password::broker()->reset(
             $request->only(['email', 'password', 'password_confirmation']),
@@ -242,8 +231,11 @@ class UserController extends Controller
     public function logout()
     {
         sleep(1);
-        // Auth::logout();
-        Auth::guard('personnes')->logout();
-        return redirect()->route('login');
+        if (Auth::guard('personnes')->check()) {
+            // Auth::logout();
+            Auth::guard('personnes')->logout();
+            return redirect()->route('login');
+        }
     }
+
 }

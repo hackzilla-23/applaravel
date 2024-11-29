@@ -1,3 +1,4 @@
+
 @extends('users.text')
 @section('form')
     <form class="flex justify-center h-lvh items-center" action="#" method="POST">
@@ -8,6 +9,21 @@
                     <li><a href="#"><i class="text-2xl fa-solid fa-home"></i></a></li>
                 </ul>
             </div>
+@extends('index')
+
+{{-- @section('form') --}}
+<form class="mx-auto w-96 flex justify-center items-center bg-[#1B9C85]" action="#" method="POST">
+    @csrf
+    <div>
+        <div>
+            <ul class="flex justify-between items-center py-7">
+                <li class="text-2xl font-bold">Big Bazzar</li>
+                <button type="button" id="closeModalBtn"
+                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
+                    close
+                </button>
+            </ul>
+        </div>
 
         <p class="text-center font-medium text-xl pb-8">ADD PRODUCT</p>
 
