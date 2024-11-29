@@ -59,10 +59,29 @@ class UserController extends Controller
         return view('register');
     }
 
-    public function dashboard()
+    public function main_dashboard()
     {
-        sleep(1);
-        return view('dashboard');
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+            return view('dashboard.main_dashboard', compact('user'));
+        } else {
+            sleep(1);
+            return redirect()->route('login');
+        }
+
+    }
+
+    public function product_dashboard()
+    {
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+            return view('dashboard.product_dashboard', compact('user'));
+        } else {
+            sleep(1);
+            return redirect()->route('login');
+        }
     }
 
     public function error()
@@ -119,13 +138,35 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
     }
 
-    public function logs(RequestLogs $request)
-    {   
+    public function store_product(Request $request)
+    {
+
         // Validation des données
-        // $validator = $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required|string',
-        // ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            // Ajoute d'autres validations pour ton produit ici
+        ]);
+
+        // Création du produit
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        // Ajoute d'autres champs ici
+        $product->user_id = Auth::id(); // Lier le produit à l'utilisateur authentifié
+        $product->save();
+
+        return redirect()->route('dashboard')->with('success', 'Produit ajouté avec succès');
+
+    }
+
+    public function logs(Request $request)
+    {
+        // Validation des données
+        $validator = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
         // dd($validator);
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
@@ -138,41 +179,64 @@ class UserController extends Controller
         // dd(Auth::guard('personnes')->attempt($credentials));
         if (Auth::guard('personnes')->attempt($credentials)){
             // Connexion réussie
+            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur authentifié
             sleep(1);
-            return redirect()->intended('/dashboard');
-        }else{
-            sleep(1);
-            return redirect()->back()->withErrors(['email1'=>'identifiant incorrect'])->withInput();
+            return redirect()->intended('dashboard')->with('user', $user);
         }
         
     }
 
     public function reset(RequestReset $request)
     {
-        // Validation des champs
+        // // Validation des champs
         // $request->validate([
-        //     'password' => 'required',
-        //     'new_password' => 'required',
-        //     'password_confirmation' => 'required|confirmed:new_password',
+        //     'password' => 'required|string',
+        //     'new_password' => 'required|string',
+        //     'password_confirmation' => 'required|string|confirmed:new_password',
         // ]);
 
-        // Réinitialiser le mot de passe
-        $status = Password::reset(
-            $request->only('password', 'new_password'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => bcrypt($request->password),
-                ])->save();
+        // // Réinitialiser le mot de passe
+        // $status = Password::reset(
+        //     $request->only('password', 'new_password'),
+        //     function ($user) use ($request) {
+        //         $user->forceFill([
+        //             'password' => bcrypt($request->password),
+        //         ])->save();
+        //     }
+        // );
+
+        // // Vérifier si la réinitialisation a réussi
+        // if ($status === Password::PASSWORD_RESET) {
+        //     sleep(1);
+        //     return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
+        // } else {
+        //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        // }
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $response = Password::broker()->reset(
+            $request->only(['email', 'password', 'password_confirmation']),
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
+                return redirect()->route('login');
             }
         );
 
-        // Vérifier si la réinitialisation a réussi
-        if ($status === Password::PASSWORD_RESET) {
-            sleep(1);
-            return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
-        } else {
-            throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        if ($response == Password::INVALID_USER) {
+            return redirect()->back()->withErrors(['email' => 'Adresse e-mail non trouvée']);
         }
+
+        if ($response == Password::INVALID_TOKEN) {
+            return redirect()->back()->withErrors(['token' => 'Jetons de réinitialisation non valides']);
+        }
+
+        return $response;
     }
 
     public function logout()

@@ -31,7 +31,9 @@ Route::get('/', [UserController::class, 'login'])->name('login');
 
 Route::get('/register', [UserController::class, 'regi'])->name('register');
 
-Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'main_dashboard'])->name('dashboard');
+
+Route::get('/dashboard/product', [UserController::class, 'product_dashboard'])->name('main_dash');
 
 Route::get('/product/edit', [UserController::class, 'edit'])->name('edit');
 
@@ -50,3 +52,5 @@ Route::get('/password/mot_de_passe_oublie', [UserController::class, 'newpass'])-
 Route::post('/password/mot_de_passe_oublie', [UserController::class, 'reset'])->name('changePass');
 
 Route::post('/', [UserController::class, 'logs'])->name('login_personne');
+
+Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');

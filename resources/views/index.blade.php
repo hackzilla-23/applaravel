@@ -15,7 +15,7 @@
     @yield('style404')
 </head>
 
-<body>
+<body class="flex items-center justify-center">
     {{-- @if ($a < 10)
         @dd("bonjour miguel, il est ".$a."h");
     @else
