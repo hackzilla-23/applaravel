@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PersonneFormRequest;
+use App\Http\Requests\RequestLogs;
+use App\Http\Requests\RequestReset;
 use App\Models\Personne;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +19,7 @@ class UserController extends Controller
         return view('login');
     }
 
-    // public function store(PersonneFormRequest $request){
+    // public function store(Request $request){
     //     // dd($request);
     //     //la premiere methode validation
     //     // $isvalid = $request->validate([
@@ -86,20 +89,20 @@ class UserController extends Controller
         return view('form');
     }
 
-    public function store(Request $request)
+    public function store(PersonneFormRequest $request)
     {
         // Validate the form data
-        $validated = $request->validate([
-            'nom' => 'required',
-            // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
-            'prenom' => 'required|alpha|min:2|max:50',
-            'age' => 'required|integer|between:18,150',
-            'email' => 'required|email|unique:personnes,email|max:255',
-            'password' => 'required',
-            // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-            'confirm-password' => 'required|confirmed:password',
-            // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
-        ]);
+        // $validated = $request->validate([
+        //     'nom' => 'required',
+        //     // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
+        //     'prenom' => 'required|alpha|min:2|max:50',
+        //     'age' => 'required|integer|between:18,150',
+        //     'email' => 'required|email|unique:personnes,email|max:255',
+        //     'password' => 'required',
+        //     // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        //     'confirm-password' => 'required|confirmed:password',
+        //     // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+        // ]);
 
         // // Store the user in the database
         $user = Personne::create([
@@ -117,12 +120,12 @@ class UserController extends Controller
     }
 
     public function logs(RequestLogs $request)
-    {
+    {   
         // Validation des données
-        $validator = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+        // $validator = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string',
+        // ]);
         // dd($validator);
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
@@ -131,11 +134,15 @@ class UserController extends Controller
         // Tentative de connexion
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
-
-        if (Auth::guard('personnes')->attempt($credentials)) {
+        
+        // dd(Auth::guard('personnes')->attempt($credentials));
+        if (Auth::guard('personnes')->attempt($credentials)){
             // Connexion réussie
             sleep(1);
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/dashboard');
+        }else{
+            sleep(1);
+            return redirect()->back()->withErrors(['email1'=>'identifiant incorrect'])->withInput();
         }
         
     }
