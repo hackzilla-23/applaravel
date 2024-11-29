@@ -1,4 +1,4 @@
-@extends('index')
+@extends('users.text')
 {{-- @section('register') --}}
 
 <link rel="stylesheet" href="{{ asset('register.css') }}">
