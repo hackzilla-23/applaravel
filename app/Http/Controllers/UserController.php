@@ -8,7 +8,6 @@ use App\Http\Requests\RequestLogs;
 use App\Http\Requests\RequestReset;
 use App\Models\Personne;
 use App\Models\Produit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
@@ -77,7 +76,8 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            return view('dashboard.product_dashboard');
+            $products = Produit::all();
+            return view('dashboard.product_dashboard')->with('allproducts' , $products);
         } else {
             sleep(1);
             return redirect()->route('login');

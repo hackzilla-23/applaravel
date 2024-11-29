@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,8 @@ Route::post('/password/mot_de_passe_oublie', [UserController::class, 'reset'])->
 Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
 Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');
+
+Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product');
+
+Route::post('/delete_product', [ProductController::class, 'delete_product'])->name('delete_product');
+
