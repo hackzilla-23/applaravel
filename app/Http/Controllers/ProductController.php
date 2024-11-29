@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     // Assurez-vous que l'utilisateur est authentifié avant d'accéder à cette méthode
-    public function __construct()
-    {
-        $this->middleware('auth'); // Seulement pour les utilisateurs authentifiés
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth'); // Seulement pour les utilisateurs authentifiés
+    // }
 
 
     // Sauvegarder un produit associé à la personne authentifiée

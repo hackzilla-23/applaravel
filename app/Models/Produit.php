@@ -10,8 +10,8 @@ class Produit extends Model
     protected $fillable = ['nom', 'prix', 'quantite', 'description'];
 
     // Définir la relation inverse : Un produit appartient à une personne
-    public function personne()
-    {
-        return $this->belongsTo(Personne::class);
-    }
+    // public function personne()
+    // {
+    //     return $this->belongsTo(Personne::class);
+    // }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Personne;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -60,13 +61,19 @@ class UserController extends Controller
     public function main_dashboard()
     {
         // Vérifier si l'utilisateur est authentifié
-        if (Auth::guard('personnes')->check()) {
-            $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
-            return view('dashboard.main_dashboard', compact('user'));
-        } else {
-            sleep(1);
-            return redirect()->route('login');
-        }
+        
+            // $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+            // dd($user->prenom);
+            return view('dashboard.main_dashboard');
+        
+        // if (Auth::guard('personnes')->check()) {
+        //     $user = Auth::guard('personnes')->user(); // Récupérer l'utilisateur connecté
+        //     dd($user->prenom);
+        //     return view('dashboard.main_dashboard');
+        // } else {
+        //     sleep(1);
+        //     return redirect()->route('login');
+        // }
 
     }
 
@@ -147,7 +154,7 @@ class UserController extends Controller
         ]);
 
         // Création du produit
-        $product = new Product();
+        $product = new Produit();
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         // Ajoute d'autres champs ici
@@ -169,7 +176,6 @@ class UserController extends Controller
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
         // }
-
         // Tentative de connexion
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
@@ -183,7 +189,7 @@ class UserController extends Controller
 
         // Connexion échouée, renvoyer l'utilisateur avec une erreur
         sleep(1);
-        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
+        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.']);
 
     }
 
