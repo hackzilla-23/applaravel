@@ -64,7 +64,7 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white relative h-[76vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
@@ -92,49 +92,49 @@
             </div>
 
             {{-- formulaire d'ajout  --}}
-            <div
-                class="login-container -translate-y-[800px] absolute z-10 addProductModal left-60 transition-all duration-500 -top-20 md:w-[400px] md:px-[42px] px-[30px] py-[30px]">
-                <form class="login-form" method="POST" action="{{ route('ajout_product') }}">
-                    @csrf
-                    <div class="flex items-center justify-between pb-6">
-                        <h2>Add Product</h2>
-                        <img class="close" src="{{ asset('img/close_24dp_000000.svg') }}" alt="">
-                    </div>
-                    <div class="input-group">
-                        <label for="nom">Product Name</label>
-                        <input type="text" id="email" name="nom" placeholder="Entrer le nom du produit">
-                        {!! $errors->first('email', '<p class = "text-red-500">email incorrect</p>') !!}
-                    </div>
-
-                    <div class="input-group">
-                        <label for="prix">Price</label>
-                        <input type="number" id="prix" name="prix" placeholder="Entrer le prix du rpoduit">
-                        {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+            <form id="addProductModal"
+                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                action="{{ route('ajout_product') }}" method="POST">
+                @csrf
+                <div>
+                    <div>
+                        <ul class="flex justify-between items-center py-7">
+                            <li class="text-2xl font-bold">Big Bazzar</li>
+                            <button type="button" id="closeModalBtn"
+                                class="px-1.5 text-sm py-0.5 font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
+                                close
+                            </button>
+                        </ul>
                     </div>
 
-                    <div class="input-group">
-                        <label for="password">Quantity</label>
-                        <input type="number" id="quantite" name="quantite" placeholder="Entrer la quantite du produit">
-                        {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+                    <p class="text-center font-medium text-xl pb-8">ADD PRODUCT</p>
+
+                    <div class="flex flex-col gap-4 mx-auto">
+                        <div>
+                            <label for="nom" class="font-bold">Product Name</label><br>
+                            <input type="text" name="nom" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                        </div>
+                        <div>
+                            <label for="prix" class="font-bold">Price</label><br>
+                            <input type="number" name="prix" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+
+                        </div>
+                        <div>
+                            <label for="quantite" class="font-bold">Quantity</label><br>
+                            <input type="number" name="quantite"
+                                class="rounded-lg  bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                        </div>
+                        <div>
+                            <label for="description" class="font-bold">Description</label><br>
+                            <textarea type="text" rows="4" name="description" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label for="description">Description</label>
-                        <textarea class="p-[12px]" name="description" id="desc" cols="30" rows="5"
-                            placeholder="Entrer la description du produit"></textarea>
-                        {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
-                    </div>
-
-                    @error('email1')
-                        <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
-                    @enderror
-
-                    <div class="input-group">
-                        <button type="submit" class="submit-btn bg-[#FF0060] hover:bg-[#ff003c] duration-300">Save</button>
-                    </div>
-
-                </form>
-            </div>
+                    <button
+                        class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black  hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300"
+                        type="submit">Save</button>
+                </div>
+            </form>
 
             {{-- lists  --}}
             <div class="flex flex-col gap-1">
@@ -167,55 +167,54 @@
                                 </div>
 
                                 {{-- formulaire edit  --}}
-                                <div
-                                    class="login-container -translate-y-[800px] absolute z-10 addEditModal left-60 transition-all duration-500 -top-20 md:w-[400px] md:px-[42px] px-[30px] py-[30px]">
-                                    <form class="login-form" method="POST" action="{{ route('edit_Product') }}">
-                                        @csrf
-                                        <input type="hidden" name="product_id" id="" value="{{ $value->id }}">
-                                        <div class="flex items-center justify-between pb-6">
-                                            <h2>Edit Product</h2>
-                                            <img class="closes" src="{{ asset('img/close_24dp_000000.svg') }}"
-                                                alt="">
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="nom">Product Name</label>
-                                            <input value="{{ $value->nom }}" type="text" id="email" name="nom"
-                                                placeholder="Entrer le nom du produit">
-                                            {!! $errors->first('email', '<p class = "text-red-500">email incorrect</p>') !!}
-                                        </div>
-
-                                        <div class="input-group">
-                                            <label for="prix">Price</label>
-                                            <input value="{{ $value->prix }}" type="number" id="prix" name="prix"
-                                                placeholder="Entrer le prix du rpoduit">
-                                            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+                                <form id="editProductModal"
+                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                    action="{{ route('edit_Product') }}" method="POST">
+                                    @csrf
+                                    
+                                    <div>
+                                        <div>
+                                            <ul class="flex justify-between items-center py-7">
+                                                <li class="text-2xl font-bold">Big Bazzar</li>
+                                                <button type="button" id="closeEditBtn"
+                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
+                                                    close
+                                                </button>
+                                            </ul>
                                         </div>
 
-                                        <div class="input-group">
-                                            <label for="password">Quantity</label>
-                                            <input value="{{ $value->quantite }}" type="number" id="quantite" name="quantite"
-                                                placeholder="Entrer la quantite du produit">
-                                            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+                                        <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
+
+                                        <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                        <div class="flex flex-col gap-4 mx-auto ">
+                                            <div>
+                                                <label for="nom" class="font-bold">Product Name</label><br>
+                                                <input type="text" name="nom" value="{{ $value->nom }}"
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                            </div>
+                                            <div>
+                                                <label for="prix" class="font-bold">Price</label><br>
+                                                <input type="number" name="prix" value="{{ $value->prix }}"
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
+
+                                            </div>
+                                            <div>
+                                                <label for="quantite" class="font-bold">Quantity</label><br>
+                                                <input type="number" name="quantite" value="{{ $value->quantite }}"
+                                                    class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                            </div>
+                                            <div>
+                                                <label for="description" class="font-bold">Description</label><br>
+                                                <textarea type="text" rows="4" name="description"
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
+                                            </div>
                                         </div>
 
-                                        <div class="input-group">
-                                            <label for="description">Description</label>
-                                            <textarea class="p-[12px]" name="description" id="desc" cols="30" rows="5"
-                                                placeholder="Entrer la description du produit">{{ $value->description }}</textarea>
-                                            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
-                                        </div>
-
-                                        @error('email1')
-                                            <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
-                                        @enderror
-
-                                        <div class="input-group">
-                                            <button type="submit"
-                                                class="submit-btn bg-[#FF0060] hover:bg-[#ff003c] duration-300">Save</button>
-                                        </div>
-
-                                    </form>
-                                </div>
+                                        <button
+                                            class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
+                                            type="submit">Save</button>
+                                    </div>
+                                </form>
 
                                 <div
                                     class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
