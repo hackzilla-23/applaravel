@@ -7,6 +7,7 @@ use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,13 +39,22 @@ class ProductController extends Controller
         // $produit->personne_id = Auth::id(); // Associer le produit à la personne authentifiée
         // $produit->save();
 
-        $newproduct = new Produit();
-        $newproduct->nom = $request->nom;
-        $newproduct->prix = $request->prix;
-        $newproduct->quantite = $request->quantite;
-        $newproduct->description = $request->description;
-        $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
-        $newproduct->save();
+        try {
+            DB::transaction(function () use ($request){
+                $newproduct = new Produit();
+                $newproduct->nom = $request->nom;
+                $newproduct->prix = $request->prix;
+                $newproduct->quantite = $request->quantite;
+                $newproduct->description = $request->description;
+                $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
+                $newproduct->save();
+            });
+            return redirect()->route('main_dash');
+
+        } catch (\Throwable $th) {
+            // throw $th;
+            return back();
+        }
 
         // $newproduct = Produit::create([
         //     'nom' => $request->nom,
@@ -54,7 +64,6 @@ class ProductController extends Controller
         //     'personne_id' =>  Auth::guard('personnes')->user()->id, // Associer le produit à la personne authentifiée
         // ]);
 
-        return redirect()->route('main_dash');
     }
 
     public function delete_product(Request $request){
