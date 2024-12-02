@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductFormRequest;
-use App\Http\Requests\RequestReset;
 use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -59,10 +58,28 @@ class ProductController extends Controller
     }
 
     public function delete_product(Request $request){
-        // dd('Product');
         $id = $request->product_id;
-        $product = Produit::find($id);
+        // $product = Produit::find($id);
+        $product = Produit::where('id',$id);
         $product->delete();
+        return redirect()->route('main_dash');
+    }
+    public function update_product(Request $request){
+        $id = $request->product_id;
+
+        // $newproduct = Produit::find($id);
+        // $newproduct->nom = $request->nom;
+        // $newproduct->prix = $request->prix;
+        // $newproduct->quantite = $request->quantite;
+        // $newproduct->description = $request->description;
+        // $newproduct->save();
+
+        Produit::where('id', $id)->update([
+            'nom' => $request->nom,
+            "prix" => $request->prix,
+            "quantite"=> $request->quantite,
+            "description" => $request->description
+        ]);
         return redirect()->route('main_dash');
     }
 }
