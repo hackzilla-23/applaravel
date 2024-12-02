@@ -9,7 +9,7 @@
                     <li><a href="#"><i class="text-2xl fa-solid fa-home"></i></a></li>
                 </ul>
             </div>
-@extends('index')
+{{-- @extends('index') --}}
 
 {{-- @section('form') --}}
 <form class="mx-auto w-96 flex justify-center items-center bg-[#1B9C85]" action="#" method="POST">
@@ -39,7 +39,7 @@
             </div>
             <div>
                 <label for="quantite" class="font-bold">Quantity</label><br>
-                <input type="number" name="quq=antite" class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                <input type="number" name="quantite" class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
             </div>
             <div>
                 <label for="description" class="font-bold">Description</label><br>

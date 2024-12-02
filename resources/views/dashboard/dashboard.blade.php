@@ -77,6 +77,10 @@
                         <img src="{{ asset('img/settings_24dp_5F6368.svg') }}" alt="">
                         <a href="#">Settings</a>
                     </li>
+                    <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                        <img src="{{ asset('img/mail_outline_24dp_5F6368.svg') }}" alt="">
+                        <a href="{{ route('email') }}">Email</a>
+                    </li>
 
                     <li
                         class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 absolute bottom-10 items-center gap-4">
@@ -89,8 +93,8 @@
         <!-- End of Sidebar Section -->
 
         @yield('main')
+        @yield('email')
     </div>
-
 
 
     
@@ -329,51 +333,51 @@
 
     <script>
         // Récupérer les éléments du DOM
-        const addProductBtn = document.getElementById('editbtn');
-        const addProductModal = document.getElementById('editProductModal');
-        const closeModalBtn = document.getElementById('closeEditBtn');
+        const editbtn = document.getElementById('editbtn');
+        const editProductModal = document.getElementById('editProductModal');
+        const closeEditBtn = document.getElementById('closeEditBtn');
 
         // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
         function resets() {
             // Réinitialiser les classes de translation avant de commencer une nouvelle animation
-            addProductModal.classList.remove('translate-y-0',
+            editProductModal.classList.remove('translate-y-0',
                 '-translate-y-[800px]'); // Supprimer les classes de translation
-            addProductModal.classList.add('-translate-y-[800px]',
+            editProductModal.classList.add('-translate-y-[800px]',
                 'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
         }
 
         // Afficher le modal avec une animation lors du clic sur "Ajouter un produit"
-        addProductBtn.addEventListener('click', function() {
+        editbtn.addEventListener('click', function() {
             resets(); // Réinitialiser l'animation à chaque fois
-            addProductModal.classList.remove('hidden'); // Rendre le modal visible
-            addProductModal.classList.add('flex'); // Activer le display flex pour le modal
+            editProductModal.classList.remove('hidden'); // Rendre le modal visible
+            editProductModal.classList.add('flex'); // Activer le display flex pour le modal
 
             // Lancer l'animation de translation (du bas vers sa position normale)
             setTimeout(() => {
-                addProductModal.classList.remove('-translate-y-[800px]',
+                editProductModal.classList.remove('-translate-y-[800px]',
                     'opacity-0'); // Supprimer les classes initiales
-                addProductModal.classList.add('translate-y-0',
+                editProductModal.classList.add('translate-y-0',
                     'opacity-100'); // Appliquer les classes finales
             }, 10); // Petit délai pour appliquer la transition
         });
 
         // Fermer le modal lorsque le bouton "Fermer" est cliqué
-        closeModalBtn.addEventListener('click', function() {
+        closeEditBtn.addEventListener('click', function() {
             // Réinitialiser les classes de translation avant de fermer
-            addProductModal.classList.remove('translate-y-0', 'opacity-100');
-            addProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
+            editProductModal.classList.remove('translate-y-0', 'opacity-100');
+            editProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
 
             // Cacher le modal après la fin de l'animation
             setTimeout(() => {
-                addProductModal.classList.add('hidden'); // Cacher le modal après l'animation
-                addProductModal.classList.remove('flex'); // Retirer le flex
+                editProductModal.classList.add('hidden'); // Cacher le modal après l'animation
+                editProductModal.classList.remove('flex'); // Retirer le flex
             }, 700); // La durée de l'animation correspond à la durée de transition
         });
 
         // Fermer le modal si on clique en dehors du modal
         window.addEventListener('click', function(event) {
             // Vérifie si l'élément cliqué est bien l'overlay (background), pas le contenu du modal
-            if (event.target === addProductModal) {
+            if (event.target === editProductModal) {
                 closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
             }
         });

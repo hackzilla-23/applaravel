@@ -5,7 +5,7 @@
     <main>
         <h2 class="my-3 text-3xl font-bold">Dashboard</h2>
         {{-- Dashboard --}}
-        <div class="dashboard grid grid-cols-3 gap-7">
+        <div class="dashboard  grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-7">
             <div
                 class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
                 <div class="flex items-center gap-10">
@@ -80,9 +80,9 @@
 
         {{-- New Users section  --}}
         <div class="new-users mt-3">
-            <h2 class="text-xl font-medium pb-3">New Users</h2>
+            <h2 class="text-xl font-medium pb-3 ">New Users</h2>
             <div
-                class="user-list py-7 rounded-[20px] shadow-first hover:shadow-none duration-300 bg-white flex items-center justify-between px-[74px]">
+                class="user-list py-7 rounded-[20px] grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  grid shadow-first hover:shadow-none duration-300 bg-white  items-center justify-between px-[74px]">
                 <div class="user">
                     <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover"
                         src="{{ asset('img/profile-2.jpg') }}">

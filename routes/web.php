@@ -5,8 +5,15 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+//pour regrouper les elements
+Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function() {
+    // Route::get('/' , [UserController::class, 'index'])->name('login');
+    Route::get('/' , 'index')->name('login');
+});
+
 // Route::get('/' , [UserController::class, 'index'])->name('login');
-Route::get('/', [UserController::class, 'login'])->name('login');
+// Route::get('/', [UserController::class, 'login'])->name('login');
+Route::get('/', [UserController::class, 'product_dashboard'])->name('login');
 // Route::get('/', function () {
 //     return view('login');
 // })->name('login');
@@ -59,4 +66,10 @@ Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_perso
 Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product');
 
 Route::post('/delete_product', [ProductController::class, 'delete_product'])->name('delete_product');
+
+Route::post('/edit_Product', [ProductController::class, 'update_product'])->name('edit_Product');
+
+Route::get('/email', function(){
+    return view('email');
+})->name('email');
 

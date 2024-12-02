@@ -78,7 +78,7 @@ class UserController extends Controller
         if (Auth::guard('personnes')->check()) {
             $products = Produit::all();
             return view('dashboard.product_dashboard')->with('allproducts' , $products);
-        } else {
+        }else {
             sleep(1);
             return redirect()->route('login');
         }
