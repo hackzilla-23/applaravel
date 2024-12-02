@@ -2,14 +2,14 @@
 
 @section('main')
     <!-- Main Content -->
-    <main>
-        <h2 class="my-3 text-3xl font-bold">Dashboard</h2>
+    <main class="lg:overflow-auto xl:overscroll-none xl:h-full lg:h-[90vh] pb-5 xl:pb-0 mt-12 lg:mt-4">
+        <h2 class="mb-6 mt-7 xl:mt-0 lg:my-3 text-3xl font-bold pl-8 lg:pl-0">Dashboard</h2>
         {{-- Dashboard --}}
-        <div class="dashboard grid grid-cols-3 gap-7">
+        <div class="dashboard xl:grid xl:grid-cols-3 lg:mx-0 mx-8 flex flex-col gap-5 lg:gap-7 lg:flex lg:flex-col">
             <div
-                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
-                <div class="flex items-center gap-10">
-                    <div class="text-center pl-3">
+                class="bg-white shadow-first lg:w-full hover:shadow-none duration-300 xl:flex xl:justify-center xl:items-center rounded-[20px] py-4 px-5 md:px-10 lg:px-8">
+                <div class="flex items-center justify-between xl:gap-10">
+                    <div class="text-center xl:pl-3">
                         <p class="font-[400]">Total Sales</p>
                         <p class="font-extrabold text-[27px]">$65,024</p>
                     </div>
@@ -31,8 +31,8 @@
             </div>
 
             <div
-                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
-                <div class="flex items-center gap-10">
+                class="bg-white shadow-first lg:w-full hover:shadow-none duration-300 xl:flex xl:justify-center xl:items-center rounded-[20px] py-4 px-5 md:px-10 lg:px-8">
+                <div class="flex items-center justify-between xl:gap-10">
                     <div class="text-center pl-3">
                         <p class="font-[400]">Site Visit</p>
                         <p class="font-extrabold text-[27px]">24,921</p>
@@ -54,8 +54,8 @@
             </div>
 
             <div
-                class="bg-white shadow-first hover:shadow-none duration-300 flex justify-center items-center w-[280px] rounded-[20px] py-4 px-10">
-                <div class="flex items-center gap-10">
+                class="bg-white shadow-first lg:w-full hover:shadow-none duration-300 xl:flex xl:justify-center xl:items-center rounded-[20px] py-4 px-5 md:px-10 lg:px-8">
+                <div class="flex items-center justify-between xl:gap-10">
                     <div class="text-center pl-3">
                         <p class="font-[400]">Searches</p>
                         <p class="font-extrabold text-[27px]">14,147</p>
@@ -80,9 +80,9 @@
 
         {{-- New Users section  --}}
         <div class="new-users mt-3">
-            <h2 class="text-xl font-medium pb-3">New Users</h2>
+            <h2 class="pl-8 pt-4 lg:pt-0 lg:pl-0 text-xl font-medium pb-3">New Users</h2>
             <div
-                class="user-list py-7 rounded-[20px] shadow-first hover:shadow-none duration-300 bg-white flex items-center justify-between px-[74px]">
+                class="user-list py-7 xl:gap-0 lg:gap-7 lg:mx-0 mx-8 rounded-[20px] shadow-first hover:shadow-none duration-300 bg-white flex flex-wrap items-center justify-between gap-7 px-[40px] lg:px-[45px] xl:px-[74px]">
                 <div class="user">
                     <img class="w-[80px] h-[80px] rounded-[50%] mb-[7px] object-cover"
                         src="{{ asset('img/profile-2.jpg') }}">
@@ -114,7 +114,7 @@
         {{-- End of New Users section  --}}
 
         <!-- Recent Orders Table -->
-        <div class="recent-orders text-center mt-4">
+        <div class="recent-orders text-center mt-4 lg:mx-0 mx-8">
             <h2 class="text-xl text-left font-medium pb-3">Recent Orders</h2>
             <table
                 class="min-w-full mb-2 shadow-first hover:shadow-none duration-300 table-auto border-collapse rounded-[20px] bg-white overflow-hidden">
@@ -124,7 +124,7 @@
                         <th class="pt-6 text-center text-xs font-bold">Course Name</th>
                         <th class="pt-6 text-center text-xs font-bold">Course Number</th>
                         <th class="pt-6 text-center text-xs font-bold">Payment</th>
-                        <th class="pt-6 text-center text-xs font-bold">Status</th>
+                        <th class="hidden lg:flex pt-6 text-center text-xs font-bold">Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -136,7 +136,7 @@
                         <td class="py-4 text-sm text-center">85743</td>
                         <td class="py-4 text-sm text-center">Due</td>
                         <td class="py-4 text-sm text-center text-yellow-500">Pending</td>
-                        <td class="text-[12px] text-[#6C9BCF]">Details</td>
+                        <td class="hidden lg:flex text-[12px] text-[#6C9BCF]">Details</td>
                     </tr>
 
                     <tr class="border-b hover:bg-indigo-50 duration-500">
@@ -144,7 +144,7 @@
                         <td class="py-4 text-sm text-center">97245</td>
                         <td class="py-4 text-sm text-center ">Refunded</td>
                         <td class="py-4 text-sm text-center text-red-500">Declined</td>
-                        <td class="text-[12px] text-[#6C9BCF]">Details</td>
+                        <td class="hidden lg:flex text-[12px] text-[#6C9BCF]">Details</td>
                     </tr>
 
                     <tr class="border-b hover:bg-indigo-50 duration-500">
@@ -152,7 +152,7 @@
                         <td class="pt-4 text-sm pb-8 text-center">36452</td>
                         <td class="pt-4 text-sm pb-8 text-center ">Paid</td>
                         <td class="pt-4 text-sm pb-8 text-center text-green-500">Active</td>
-                        <td class="text-[12px] text-[#6C9BCF] pb-3">Details</td>
+                        <td class="hidden lg:flex text-[12px] text-[#6C9BCF] pb-3">Details</td>
                     </tr>
                 </tbody>
             </table>
@@ -163,8 +163,9 @@
     {{-- End of Main Content  --}}
 
     <!-- Right Section -->
-    <div class="right-section ">
-        <div class="nav">
+    <div class="right-section lg:mx-0 mx-8 mb-10 lg:mb-0">
+        {{-- nav  --}}
+        <div class="nav hidden lg:block">
             <div class="profile flex items-center justify-end gap-6 py-2">
                 <div class="info text-right">
                     <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p>
@@ -178,8 +179,8 @@
         </div>
         <!-- End of Nav -->
 
-        <div class="user-profile">
-            <div class="logo py-8 bg-white rounded-[20px] text-center shadow-first hover:shadow-none duration-300">
+        <div>
+            <div class="py-8 bg-white rounded-[20px] text-center shadow-first hover:shadow-none duration-300">
                 <img class="mx-auto w-[160px] h-[160px]" src="{{ asset('img/logo.png') }}">
                 <h2 class="text-xl font-bold pt-3">Big Bazzar</h2>
                 <p class="text-sm text-[#7d8da1] pt-1.5">Fullstack Web Developer</p>

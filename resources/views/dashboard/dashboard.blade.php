@@ -20,12 +20,91 @@
 
 <body class="bg-[#f6f6f9]">
 
-    <div class="container mx-auto grid w-[96%] gap-[20px] grid-cols-[13rem_auto_18rem]">
+    {{-- slidabar btn  --}}
+    <div class="navbar fixed -translate-x-52 transition-all duration-500 bottom-0 top-0 bg-white z-30 w-[210px]">
+        <div class="my-4 flex items-center justify-between mx-6">
+            <p><span class="font-bold text-xl">Big</span> <span class="text-[#FF0060] text-xl font-bold">Bazzar</span>
+            </p>
+            <img class="close-menu" src="{{ asset('img/close_24dp_000000.svg') }}" alt="">
+        </div>
+
+        <div
+            class="slidebar overflow-hidden relative h-[94vh] text-sm  text-[#7d8da1] font-medium shadow-first hover:shadow-none duration-300">
+            <ul>
+                <li
+                    class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 pb-4 pt-4 items-center gap-4">
+                    <img src="{{ asset('img/dashboard_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}" alt="">
+                    <a id="dashboard" href="{{ route('dashboard') }}">Dashboard</a>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}" alt="">
+                    <a href="#">Users</a>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/production_quantity_limits_24dp_5F6368.svg') }}" alt="">
+                    <a id="products" href="{{ route('main_dash') }}">Products</a>
+                </li>
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/receipt_long_24dp_5F6368.svg') }}" alt="">
+                    <a href="#">History</a>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/mail_outline_24dp_5F6368.svg') }}" alt="">
+                    <a href="#">Tickets</a>
+                    <p class="bg-[#FF0060] px-1.5 py-0.5 text-xs text-white rounded-md ">27</p>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/inventory_24dp_5F6368.svg') }}" alt="">
+                    <a href="#">Sale list</a>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt="">
+                    <a href="#">Reports</a>
+                </li>
+
+                <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <img src="{{ asset('img/settings_24dp_5F6368.svg') }}" alt="">
+                    <a href="#">Settings</a>
+                </li>
+
+                <li
+                    class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 absolute bottom-10 items-center gap-4">
+                    <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
+                    <a href="{{ route('logout_personne') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Header md Section -->
+    <nav
+        class="lg:hidden fixed right-0 left-0 z-20 flex items-center justify-between px-10 bg-white shadow-first hover:shadow-none duration-300">
+        <img class="hamburger" src="{{ asset('img/notes_24dp_5F6368.svg') }}" alt="">
+
+        <div class="profile flex items-center justify-end gap-6 py-2">
+            <div class="info text-right">
+                <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p>
+                <small class="text-xs text-[#7d8da1]">Admin</small>
+            </div>
+
+            <div class="profile-photo">
+                <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ asset('img/profile-1.jpg') }}">
+            </div>
+        </div>
+    </nav>
+
+    <div
+        class="mx-auto grid lg:grid w-[96%] gap-[20px] relative lg:grid-cols-[6rem_auto_18rem] xl:grid-cols-[13rem_auto_18rem]">
         <!-- Sidebar Section -->
-        <aside>
+        <aside class="hidden lg:flex lg:flex-col">
             <div class="my-4 text-center">
-                <p><span class="font-bold text-xl">Big</span> <span
-                        class="text-[#FF0060] text-xl font-bold">Bazzar</span></p>
+                <p><span class="font-bold lg:text-sm xl:text-xl">Big</span> <span
+                        class="text-[#FF0060] lg:text-sm xl:text-xl font-bold">Bazzar</span></p>
             </div>
 
             <div
@@ -35,49 +114,52 @@
                         class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 pb-4 pt-4 items-center gap-4">
                         <img src="{{ asset('img/dashboard_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}"
                             alt="">
-                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                        <a class="hidden xl:flex" id="dashboard" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
 
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}"
                             alt="">
-                        <a href="#">Users</a>
+                        <a class="hidden xl:flex" href="#">Users</a>
                     </li>
 
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/production_quantity_limits_24dp_5F6368.svg') }}" alt="">
-                        <a href="{{ route('main_dash') }}">Products</a>
+                        <a class="hidden xl:flex" id="products" href="{{ route('main_dash') }}">Products</a>
                     </li>
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/receipt_long_24dp_5F6368.svg') }}" alt="">
-                        <a href="#">History</a>
+                        <a class="hidden xl:flex" href="#">History</a>
                     </li>
 
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/mail_outline_24dp_5F6368.svg') }}" alt="">
-                        <a href="#">Tickets</a>
+                        <a class="hidden xl:flex" href="#">Tickets</a>
                         <p class="bg-[#FF0060] px-1.5 py-0.5 text-xs text-white rounded-md ">27</p>
                     </li>
 
-                    <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <li
+                        class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/inventory_24dp_5F6368.svg') }}" alt="">
-                        <a href="#">Sale list</a>
+                        <a class="hidden xl:flex" href="#">Sale list</a>
                     </li>
 
-                    <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <li
+                        class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt="">
-                        <a href="#">Reports</a>
+                        <a class="hidden xl:flex" href="#">Reports</a>
                     </li>
 
-                    <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    <li
+                        class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/settings_24dp_5F6368.svg') }}" alt="">
-                        <a href="#">Settings</a>
+                        <a class="hidden xl:flex" href="#">Settings</a>
                     </li>
 
                     <li
                         class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 absolute bottom-10 items-center gap-4">
                         <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
-                        <a href="{{ route('logout_personne') }}">Logout</a>
+                        <a class="hidden xl:flex" href="{{ route('logout_personne') }}">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -88,8 +170,25 @@
     </div>
 
 
+    {{-- navbar  --}}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            const hamburger = document.querySelector('.hamburger');
+            const closeMenu = document.querySelector('.close-menu');
 
-    
+            hamburger.addEventListener('click', function() {
+                navbar.classList.add('-translate-x-0');
+                navbar.classList.remove('-translate-x-52');
+            });
+
+            closeMenu.addEventListener('click', function() {
+                navbar.classList.add('-translate-x-52');
+                navbar.classList.remove('-translate-x-0');
+            });
+        });
+    </script>
+
     {{-- pourcentage circle  --}}
     <script>
         window.addEventListener('load', function() {
@@ -269,107 +368,39 @@
 
     {{-- formulaire ajout  --}}
     <script>
-        // Récupérer les éléments du DOM
-        const addProductBtn = document.getElementById('addProductBtn');
-        const addProductModal = document.getElementById('addProductModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
+        window.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.addProductModal');
+            const hamburger = document.querySelector('.addProductBtn');
+            const closeMenu = document.querySelector('.close');
 
-        // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
-        function reset() {
-            // Réinitialiser les classes de translation avant de commencer une nouvelle animation
-            addProductModal.classList.remove('translate-y-0',
-                '-translate-y-[800px]'); // Supprimer les classes de translation
-            addProductModal.classList.add('-translate-y-[800px]',
-                'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
-        }
+            hamburger.addEventListener('click', function() {
+                navbar.classList.add('-translate-y-0');
+                navbar.classList.remove('-translate-y-[800px]');
+            });
 
-        // Afficher le modal avec une animation lors du clic sur "Ajouter un produit"
-        addProductBtn.addEventListener('click', function() {
-            reset(); // Réinitialiser l'animation à chaque fois
-            addProductModal.classList.remove('hidden'); // Rendre le modal visible
-            addProductModal.classList.add('flex'); // Activer le display flex pour le modal
-
-            // Lancer l'animation de translation (du bas vers sa position normale)
-            setTimeout(() => {
-                addProductModal.classList.remove('-translate-y-[800px]',
-                    'opacity-0'); // Supprimer les classes initiales
-                addProductModal.classList.add('translate-y-0',
-                    'opacity-100'); // Appliquer les classes finales
-            }, 10); // Petit délai pour appliquer la transition
-        });
-
-        // Fermer le modal lorsque le bouton "Fermer" est cliqué
-        closeModalBtn.addEventListener('click', function() {
-            // Réinitialiser les classes de translation avant de fermer
-            addProductModal.classList.remove('translate-y-0', 'opacity-100');
-            addProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
-
-            // Cacher le modal après la fin de l'animation
-            setTimeout(() => {
-                addProductModal.classList.add('hidden'); // Cacher le modal après l'animation
-                addProductModal.classList.remove('flex'); // Retirer le flex
-            }, 700); // La durée de l'animation correspond à la durée de transition
-        });
-
-        // Fermer le modal si on clique en dehors du modal
-        window.addEventListener('click', function(event) {
-            // Vérifie si l'élément cliqué est bien l'overlay (background), pas le contenu du modal
-            if (event.target === addProductModal) {
-                closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
-            }
+            closeMenu.addEventListener('click', function() {
+                navbar.classList.add('-translate-y-[800px]');
+                navbar.classList.remove('-translate-y-0');
+            });
         });
     </script>
 
     {{-- formulaire edit  --}}
     <script>
-        // Récupérer les éléments du DOM
-        const addProductBtn = document.getElementById('editbtn');
-        const addProductModal = document.getElementById('editProductModal');
-        const closeModalBtn = document.getElementById('closeEditBtn');
+        window.addEventListener('DOMContentLoaded', function() {
+            const nav = document.querySelector('.addEditModal');
+            const burger = document.querySelector('.editbtn');
+            const close = document.querySelector('.closes');
 
-        // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
-        function resets() {
-            // Réinitialiser les classes de translation avant de commencer une nouvelle animation
-            addProductModal.classList.remove('translate-y-0',
-                '-translate-y-[800px]'); // Supprimer les classes de translation
-            addProductModal.classList.add('-translate-y-[800px]',
-                'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
-        }
+            burger.addEventListener('click', function() {
+                nav.classList.add('-translate-y-0');
+                nav.classList.remove('-translate-y-[800px]');
+            });
 
-        // Afficher le modal avec une animation lors du clic sur "Ajouter un produit"
-        addProductBtn.addEventListener('click', function() {
-            resets(); // Réinitialiser l'animation à chaque fois
-            addProductModal.classList.remove('hidden'); // Rendre le modal visible
-            addProductModal.classList.add('flex'); // Activer le display flex pour le modal
-
-            // Lancer l'animation de translation (du bas vers sa position normale)
-            setTimeout(() => {
-                addProductModal.classList.remove('-translate-y-[800px]',
-                    'opacity-0'); // Supprimer les classes initiales
-                addProductModal.classList.add('translate-y-0',
-                    'opacity-100'); // Appliquer les classes finales
-            }, 10); // Petit délai pour appliquer la transition
-        });
-
-        // Fermer le modal lorsque le bouton "Fermer" est cliqué
-        closeModalBtn.addEventListener('click', function() {
-            // Réinitialiser les classes de translation avant de fermer
-            addProductModal.classList.remove('translate-y-0', 'opacity-100');
-            addProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
-
-            // Cacher le modal après la fin de l'animation
-            setTimeout(() => {
-                addProductModal.classList.add('hidden'); // Cacher le modal après l'animation
-                addProductModal.classList.remove('flex'); // Retirer le flex
-            }, 700); // La durée de l'animation correspond à la durée de transition
-        });
-
-        // Fermer le modal si on clique en dehors du modal
-        window.addEventListener('click', function(event) {
-            // Vérifie si l'élément cliqué est bien l'overlay (background), pas le contenu du modal
-            if (event.target === addProductModal) {
-                closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
-            }
+            close.addEventListener('click', function() {
+                nav.classList.add('-translate-y-[800px]');
+                nav.classList.remove('-translate-y-0');
+            });
         });
     </script>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-=<html lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,8 @@
 </head>
 
 <body class="flex justify-center items-center h-lvh">
-    <div class="container mx-auto w-96">
-        <h1 class="text-xl font-bold pb-8">Changer votre mot de passe</h1>
+    <div class="container mx-auto w-[90%] md:w-[52%] xl:w-[27%]">
+        <h1 class="text-xl font-bold pb-8">Change Password</h1>
 
         @if (session('status'))
             <div class="status">{{ session('status') }}</div>

@@ -1,57 +1,50 @@
-
-@extends('users.text')
-@section('form')
-    <form class="flex justify-center h-lvh items-center" action="#" method="POST">
-        <div class="w-[400px] px-10 container rounded-md mx-auto">
-            <div class="text-white">
-                <ul class="flex justify-between items-center py-7">
-                    <li class="text-2xl font-bold">MarketX</li>
-                    <li><a href="#"><i class="text-2xl fa-solid fa-home"></i></a></li>
-                </ul>
-            </div>
 @extends('index')
 
-{{-- @section('form') --}}
-<form class="mx-auto w-96 flex justify-center items-center bg-[#1B9C85]" action="#" method="POST">
-    @csrf
-    <div>
-        <div>
-            <ul class="flex justify-between items-center py-7">
-                <li class="text-2xl font-bold">Big Bazzar</li>
-                <button type="button" id="closeModalBtn"
-                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
-                    close
-                </button>
-            </ul>
+<link rel="stylesheet" href="{{ asset('login.css') }}">
+
+<div class="login-container md:w-[400px] md:px-[42px] px-[30px] py-[30px]">
+
+    <form class="login-form" method="POST" action="{{ route('login_personne') }}">
+        @csrf
+        <div class="flex items-center justify-between pb-6">
+            <h2>Add Product</h2>
+            <img src="{{ asset('img/close_24dp_000000.svg') }}" alt="">
+        </div>
+        <div class="input-group">
+            <label for="nom">Product Name</label>
+            <input type="text" id="email" name="nom" placeholder="Entrer le nom du produit">
+            {!! $errors->first('email', '<p class = "text-red-500">email incorrect</p>') !!}
         </div>
 
-        <p class="text-center font-medium text-xl pb-8">ADD PRODUCT</p>
-
-        <div class="flex flex-col gap-4 mx-auto">
-            <div>
-                <label for="nom" class="font-bold">Product Name</label><br>
-                <input type="text" name="nom" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
-            </div>
-            <div>
-                <label for="prix" class="font-bold">Price</label><br>
-                <input type="number" name="prix" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
-
-            </div>
-            <div>
-                <label for="quantite" class="font-bold">Quantity</label><br>
-                <input type="number" name="quq=antite" class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
-            </div>
-            <div>
-                <label for="description" class="font-bold">Description</label><br>
-                <textarea type="text" rows="4" name="description" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
-            </div>
+        <div class="input-group">
+            <label for="prix">Price</label>
+            <input type="number" id="prix" name="prix" placeholder="Entrer le prix du rpoduit">
+            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
         </div>
 
-        <button
-            class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
-            type="submit">Save</button>
-    </div>
-</form>
+        <div class="input-group">
+            <label for="password">Quantity</label>
+            <input type="number" id="quantite" name="quantite" placeholder="Entrer la quantite du produit">
+            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+        </div>
+
+        <div class="input-group">
+            <label for="description">Description</label>
+            <textarea class="p-[12px]" name="description" id="desc" cols="30" rows="5"
+                placeholder="Entrer la description du produit"></textarea>
+            {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+        </div>
+
+        @error('email1')
+            <p class="text-red-500 text-sm text-center pb-2">{{ $message }}</p>
+        @enderror
+
+        <div class="input-group">
+            <button type="submit" class="submit-btn">Save</button>
+        </div>
+
+    </form>
+</div>
 
 {{-- @include('partials._form') --}}
 {{-- @endsection --}}
