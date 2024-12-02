@@ -62,7 +62,7 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white relative h-[75vh] overflow-auto rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
@@ -113,7 +113,7 @@
 
             {{-- formulaire d'ajout  --}}
             <form id="addProductModal"
-                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-gradient-to-tl from-[#d93367] via-[#ec5b89] to-[#d93367]"
+                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                 action="{{ route('ajout_product') }}" method="POST">
                 @csrf
                 <div>
@@ -121,7 +121,7 @@
                         <ul class="flex justify-between items-center py-7">
                             <li class="text-2xl font-bold">Big Bazzar</li>
                             <button type="button" id="closeModalBtn"
-                                class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black duration-300">
+                                class="px-1.5 text-sm py-0.5 font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
                                 close
                             </button>
                         </ul>
@@ -132,26 +132,26 @@
                     <div class="flex flex-col gap-4 mx-auto">
                         <div>
                             <label for="nom" class="font-bold">Product Name</label><br>
-                            <input type="text" name="nom" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="text" name="nom" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="prix" class="font-bold">Price</label><br>
-                            <input type="number" name="prix" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="number" name="prix" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                         </div>
                         <div>
                             <label for="quantite" class="font-bold">Quantity</label><br>
                             <input type="number" name="quantite"
-                                class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                class="rounded-lg  bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="description" class="font-bold">Description</label><br>
-                            <textarea type="text" rows="4" name="description" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                            <textarea type="text" rows="4" name="description" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
                         </div>
                     </div>
 
                     <button
-                        class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black  hover:shadow-lg  hover:shadow-black duration-300"
+                        class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black  hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300"
                         type="submit">Save</button>
                 </div>
             </form>
@@ -196,7 +196,7 @@
 
                                 {{-- formulaire edit  --}}
                                 <form id="editProductModal"
-                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-gradient-to-tl from-[#d93367] via-[#ec5b89] to-[#d93367]"
+                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
                                     
@@ -205,7 +205,7 @@
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
                                                 <button type="button" id="closeEditBtn"
-                                                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
+                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
                                             </ul>
@@ -214,32 +214,32 @@
                                         <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
 
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <div class="flex flex-col gap-4 mx-auto">
+                                        <div class="flex flex-col gap-4 mx-auto ">
                                             <div>
                                                 <label for="nom" class="font-bold">Product Name</label><br>
                                                 <input type="text" name="nom" value="{{ $value->nom }}"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
                                             </div>
                                             <div>
                                                 <label for="prix" class="font-bold">Price</label><br>
                                                 <input type="number" name="prix" value="{{ $value->prix }}"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                                             </div>
                                             <div>
                                                 <label for="quantite" class="font-bold">Quantity</label><br>
                                                 <input type="number" name="quantite" value="{{ $value->quantite }}"
-                                                    class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                    class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                                             </div>
                                             <div>
                                                 <label for="description" class="font-bold">Description</label><br>
                                                 <textarea type="text" rows="4" name="description"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
                                             </div>
                                         </div>
 
                                         <button
-                                            class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300"
+                                            class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
                                             type="submit">Save</button>
                                     </div>
                                 </form>
