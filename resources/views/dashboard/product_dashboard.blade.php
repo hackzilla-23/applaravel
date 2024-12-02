@@ -88,31 +88,6 @@
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
-                </ul> --}}
-
-
-                <ul
-                    class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
-                        <div class=" grid items-center justify-center">
-                            <p class="text-sm text-white">Product Name</p>
-                        </div>
-
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Category</p>
-                        </li>
-
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Price</p>
-                        </li>
-
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Description</p>
-                        </li>
-
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Actions</p>
-                        </li>
-
                 </ul>
             </div>
 
@@ -194,8 +169,9 @@
                                 {{-- formulaire edit  --}}
                                 <div
                                     class="login-container -translate-y-[800px] absolute z-10 addEditModal left-60 transition-all duration-500 -top-20 md:w-[400px] md:px-[42px] px-[30px] py-[30px]">
-                                    <form class="login-form" method="POST" action="{{ route('edit') }}">
+                                    <form class="login-form" method="POST" action="{{ route('edit_Product') }}">
                                         @csrf
+                                        <input type="hidden" name="" id="" value="{{ $value->id }}">
                                         <div class="flex items-center justify-between pb-6">
                                             <h2>Edit Product</h2>
                                             <img class="closes" src="{{ asset('img/close_24dp_000000.svg') }}"
@@ -203,21 +179,21 @@
                                         </div>
                                         <div class="input-group">
                                             <label for="nom">Product Name</label>
-                                            <input type="text" id="email" name="nom"
+                                            <input value="{{ $value->nom }}" type="text" id="email" name="nom"
                                                 placeholder="Entrer le nom du produit">
                                             {!! $errors->first('email', '<p class = "text-red-500">email incorrect</p>') !!}
                                         </div>
 
                                         <div class="input-group">
                                             <label for="prix">Price</label>
-                                            <input type="number" id="prix" name="prix"
+                                            <input value="{{ $value->prix }}" type="number" id="prix" name="prix"
                                                 placeholder="Entrer le prix du rpoduit">
                                             {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
                                         </div>
 
                                         <div class="input-group">
                                             <label for="password">Quantity</label>
-                                            <input type="number" id="quantite" name="quantite"
+                                            <input value="{{ $value->quantite }}" type="number" id="quantite" name="quantite"
                                                 placeholder="Entrer la quantite du produit">
                                             {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
                                         </div>
@@ -225,7 +201,7 @@
                                         <div class="input-group">
                                             <label for="description">Description</label>
                                             <textarea class="p-[12px]" name="description" id="desc" cols="30" rows="5"
-                                                placeholder="Entrer la description du produit"></textarea>
+                                                placeholder="Entrer la description du produit">{{ $value->description }}</textarea>
                                             {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
                                         </div>
 
@@ -294,7 +270,7 @@
                         </a>
                     </li>
                 </div>
-            </ul> --}}
+            </ul>
         </div>
     </div>
 @endsection
