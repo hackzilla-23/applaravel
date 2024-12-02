@@ -88,6 +88,31 @@
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
+                </ul> --}}
+
+
+                <ul
+                    class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                        <div class=" grid items-center justify-center">
+                            <p class="text-sm text-white">Product Name</p>
+                        </div>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Category</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Price</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Description</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Actions</p>
+                        </li>
+
                 </ul>
             </div>
 
@@ -142,7 +167,7 @@
                     <ul
                         class="flex items-center gap-40 hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
                         <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->nom }}</p>
+                            <p class="text-xs pl-1">{{ $value->nom }}</p>
                         </li>
 
                         <li class="col-span-1 grid items-center justify-center">
@@ -154,7 +179,7 @@
                         </li>
 
                         <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->description }}</p>
+                            <p class="text-xs ">{{ $value->description }}</p>
                         </li>
 
                         <li class="col-span-1 grid items-center justify-center">
@@ -269,7 +294,7 @@
                         </a>
                     </li>
                 </div>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 @endsection

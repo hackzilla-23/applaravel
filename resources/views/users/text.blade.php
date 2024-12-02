@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     @yield("style_form")
     @vite(['resources/css/app.css'])
     @yield('style_dashboard')
@@ -50,7 +51,7 @@
     </div>
 
     <div>
-        @yield("form_edit_product")
+        @yield('email')
     </div>
 
     @yield('script')

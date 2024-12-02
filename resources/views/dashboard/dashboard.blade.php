@@ -167,6 +167,7 @@
         <!-- End of Sidebar Section -->
 
         @yield('main')
+        @yield('email')
     </div>
 
 

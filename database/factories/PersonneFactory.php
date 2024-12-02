@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Produit>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personne>
  */
-class ProduitFactory extends Factory
+class PersonneFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,10 +22,11 @@ class ProduitFactory extends Factory
         return [
             //
             "nom"=>fake()->name(),
-            "prix"=>fake()->randomNumber(2),
-            "quantite"=>fake()->numberBetween(1,20),
-            "description" =>Str::random(10),
-            "personne_id" => Personne::factory()->create()->id,
+            "prenom"=>fake()->randomNumber(2),
+            "email"=>fake()->numberBetween(1,20),
+            "password" =>Str::random(10),
+            "age" => fake()->numberBetween(1,100),
+            "id" => Personne::factory()->create()->id
         ];
     }
 }
