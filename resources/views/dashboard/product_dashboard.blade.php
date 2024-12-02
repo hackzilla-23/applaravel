@@ -171,7 +171,7 @@
                                     class="login-container -translate-y-[800px] absolute z-10 addEditModal left-60 transition-all duration-500 -top-20 md:w-[400px] md:px-[42px] px-[30px] py-[30px]">
                                     <form class="login-form" method="POST" action="{{ route('edit_Product') }}">
                                         @csrf
-                                        <input type="hidden" name="" id="" value="{{ $value->id }}">
+                                        <input type="hidden" name="product_id" id="" value="{{ $value->id }}">
                                         <div class="flex items-center justify-between pb-6">
                                             <h2>Edit Product</h2>
                                             <img class="closes" src="{{ asset('img/close_24dp_000000.svg') }}"
