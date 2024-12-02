@@ -62,38 +62,58 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white relative h-[75vh] rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
-                <ul class="grid grid-cols-5 items-center rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
+                {{-- <ul class="grid grid-cols-5 items-center rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Product Name</p>
                     </li>
-                    {{-- <li>
+                    <li>
                         <p class="text-sm text-white">Category</p>
-                    </li> --}}
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Price</p>
                     </li>
+
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Quantite</p>
                     </li>
-                    {{-- <li>
-                        <p class="text-sm text-white">Sold</p>
-                    </li> --}}
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Description</p>
                     </li>
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
+                </ul> --}}
+
+
+                <ul
+                    class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                        <div class=" grid items-center justify-center">
+                            <p class="text-sm text-white">Product Name</p>
+                        </div>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Category</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Price</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Description</p>
+                        </li>
+
+                        <li class="col-span-1 grid items-center justify-center">
+                            <p class="text-sm text-white">Actions</p>
+                        </li>
+
                 </ul>
             </div>
 
             {{-- formulaire d'ajout  --}}
             <form id="addProductModal"
-                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-[#1B9C85]"
+                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                 action="{{ route('ajout_product') }}" method="POST">
                 @csrf
                 <div>
@@ -101,7 +121,7 @@
                         <ul class="flex justify-between items-center py-7">
                             <li class="text-2xl font-bold">Big Bazzar</li>
                             <button type="button" id="closeModalBtn"
-                                class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
+                                class="px-1.5 text-sm py-0.5 font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
                                 close
                             </button>
                         </ul>
@@ -112,26 +132,26 @@
                     <div class="flex flex-col gap-4 mx-auto">
                         <div>
                             <label for="nom" class="font-bold">Product Name</label><br>
-                            <input type="text" name="nom" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="text" name="nom" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="prix" class="font-bold">Price</label><br>
-                            <input type="number" name="prix" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="number" name="prix" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                         </div>
                         <div>
                             <label for="quantite" class="font-bold">Quantity</label><br>
                             <input type="number" name="quantite"
-                                class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                class="rounded-lg  bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="description" class="font-bold">Description</label><br>
-                            <textarea type="text" rows="4" name="description" class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                            <textarea type="text" rows="4" name="description" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
                         </div>
                     </div>
 
                     <button
-                        class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
+                        class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black  hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300"
                         type="submit">Save</button>
                 </div>
             </form>
@@ -140,9 +160,9 @@
             <div class="flex flex-col gap-1">
                 @foreach ($allproducts as $value)
                     <ul
-                        class="grid grid-cols-5  gap-32 items-center hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                        class="grid grid-cols-5  gap-25 items-center hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
                         <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->nom }}</p>
+                            <p class="text-xs pl-1">{{ $value->nom }}</p>
                         </li>
 
                         {{-- <li>
@@ -162,7 +182,7 @@
                         </li> --}}
 
                         <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->description }}</p>
+                            <p class="text-xs ">{{ $value->description }}</p>
                         </li>
 
                         <li class="col-span-1 grid items-center justify-center">
@@ -176,15 +196,16 @@
 
                                 {{-- formulaire edit  --}}
                                 <form id="editProductModal"
-                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-[#1B9C85]"
-                                    action="#" method="POST">
+                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                    action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
+                                    
                                     <div>
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
                                                 <button type="button" id="closeEditBtn"
-                                                    class="px-1.5 text-sm py-0.5 bg-[363949] font-bold rounded-lg shadow-md shadow-black hover:shadow-none duration-300">
+                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
                                             </ul>
@@ -192,32 +213,33 @@
 
                                         <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
 
-                                        <div class="flex flex-col gap-4 mx-auto">
+                                        <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                        <div class="flex flex-col gap-4 mx-auto ">
                                             <div>
                                                 <label for="nom" class="font-bold">Product Name</label><br>
-                                                <input type="text" name="nom"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                <input type="text" name="nom" value="{{ $value->nom }}"
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
                                             </div>
                                             <div>
                                                 <label for="prix" class="font-bold">Price</label><br>
-                                                <input type="number" name="prix"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                <input type="number" name="prix" value="{{ $value->prix }}"
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                                             </div>
                                             <div>
                                                 <label for="quantite" class="font-bold">Quantity</label><br>
-                                                <input type="number" name="quq=antite"
-                                                    class="rounded-lg  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                <input type="number" name="quantite" value="{{ $value->quantite }}"
+                                                    class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                                             </div>
                                             <div>
                                                 <label for="description" class="font-bold">Description</label><br>
                                                 <textarea type="text" rows="4" name="description"
-                                                    class="rounded-lg mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
                                             </div>
                                         </div>
 
                                         <button
-                                            class="mb-8 bg-[363949] mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-none duration-300"
+                                            class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
                                             type="submit">Save</button>
                                     </div>
                                 </form>
@@ -240,7 +262,7 @@
             </div>
 
             {{-- pagination  --}}
-            <ul class="flex  gap-[600px] absolute bottom-0 py-3.5">
+            {{-- <ul class="flex  gap-[600px] absolute bottom-0 py-3.5">
                 <div class="flex px-2 py-1 rounded-md items-center gap-4 border border-gray-400">
                     <p class="text-sm">Show: 8</p>
                     <i class="fa-solid fa-caret-down"></i>
@@ -274,7 +296,7 @@
                         </a>
                     </li>
                 </div>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 @endsection
