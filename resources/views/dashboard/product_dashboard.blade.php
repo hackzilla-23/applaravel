@@ -64,7 +64,8 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div
+            class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
@@ -92,16 +93,16 @@
             </div>
 
             {{-- formulaire d'ajout  --}}
-            <form id="addProductModal"
-                class="fixed top-12 left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+            <form
+                class="fixed top-12 addProductModal left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                 action="{{ route('ajout_product') }}" method="POST">
                 @csrf
                 <div>
                     <div>
                         <ul class="flex justify-between items-center py-7">
                             <li class="text-2xl font-bold">Big Bazzar</li>
-                            <button type="button" id="closeModalBtn"
-                                class="px-1.5 text-sm py-0.5 font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
+                            <button type="button"
+                                class="px-1.5 text-sm py-0.5 close font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
                                 close
                             </button>
                         </ul>
@@ -112,11 +113,13 @@
                     <div class="flex flex-col gap-4 mx-auto">
                         <div>
                             <label for="nom" class="font-bold">Product Name</label><br>
-                            <input type="text" name="nom" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="text" name="nom"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="prix" class="font-bold">Price</label><br>
-                            <input type="number" name="prix" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="number" name="prix"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                         </div>
                         <div>
@@ -126,7 +129,8 @@
                         </div>
                         <div>
                             <label for="description" class="font-bold">Description</label><br>
-                            <textarea type="text" rows="4" name="description" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                            <textarea type="text" rows="4" name="description"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
                         </div>
                     </div>
 
@@ -160,24 +164,24 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <div class="flex items-center gap-2 ">
                                 <div
-                                    class="bg-gray-100 editbtn px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                                    <a href="#">
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                    <a href="#" class="editbtn">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
                                 </div>
 
                                 {{-- formulaire edit  --}}
-                                <form id="editProductModal"
-                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                <form
+                                    class="fixed addEditModal top-12 left-[500px] z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
-                                    
+
                                     <div>
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
-                                                <button type="button" id="closeEditBtn"
-                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
+                                                <button type="button"
+                                                    class="px-1.5 closes text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
                                             </ul>
@@ -186,7 +190,7 @@
                                         <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
 
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <div class="flex flex-col gap-4 mx-auto ">
+                                        <div class="flex flex-col gap-4 ml-10">
                                             <div>
                                                 <label for="nom" class="font-bold">Product Name</label><br>
                                                 <input type="text" name="nom" value="{{ $value->nom }}"

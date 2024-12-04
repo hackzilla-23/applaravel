@@ -55,14 +55,14 @@
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                         @enderror
                     </div>
-                    <div class="input-group md:hidden">
+                    {{-- <div class="input-group md:hidden">
                         <label for="age">Age</label>
                         <input value="{{ old('age') }}" type="number" id="age" name="age"
                             placeholder="Choisissez un age">
                         @error('age')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div>
@@ -83,13 +83,13 @@
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
                         @enderror
                     </div>
-                    <div class="input-group md:hidden">
+                    {{-- <div class="input-group md:hidden">
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                         @error('password')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="input-group">
                         <label for="confirm-password">Confirmer le mot de passe</label>
