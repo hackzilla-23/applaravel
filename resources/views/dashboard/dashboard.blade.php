@@ -335,6 +335,7 @@
         const editProductModal = document.getElementById('editProductModal');
         const closeEditBtn = document.getElementById('closeEditBtn');
 
+
         // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
         function resets() {
             // Réinitialiser les classes de translation avant de commencer une nouvelle animation

@@ -1,7 +1,7 @@
 @extends('dashboard.dashboard')
 
 @section('main')
-    <div class="mt-5 w-[81vw]">
+    <div class="mt-5 w-[79vw]">
         {{-- haeder --}}
         <div class="flex items-center justify-between">
             <div
@@ -235,7 +235,7 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <div class="flex items-center gap-2 ">
                                 <div id="editbtn"
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300" onclick="editProduct()">
                                     <a href="#">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
@@ -246,7 +246,6 @@
                                     class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
-                                    
                                     <div>
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
@@ -290,7 +289,27 @@
                                             type="submit">Save</button>
                                     </div>
                                 </form>
-
+                                {{-- <script>
+                                    function resets() {
+                                        // Réinitialiser les classes de translation avant de commencer une nouvelle animation
+                                        editProductModal.classList.remove('translate-y-0',
+                                            '-translate-y-[800px]'); // Supprimer les classes de translation
+                                        editProductModal.classList.add('-translate-y-[800px]',
+                                            'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
+                                    }
+                                    function editProduct()  {
+                                        resets(); // Réinitialiser l'animation à chaque fois
+                                        editProductModal.classList.remove('hidden'); // Rendre le modal visible
+                                        editProductModal.classList.add('flex'); // Activer le display flex pour le modal
+                                        // Lancer l'animation de translation (du bas vers sa position normale)
+                                        setTimeout(() => {
+                                            editProductModal.classList.remove('-translate-y-[800px]',
+                                                'opacity-0'); // Supprimer les classes initiales
+                                            editProductModal.classList.add('translate-y-0',
+                                                'opacity-100'); // Appliquer les classes finales
+                                        }, 10); // Petit délai pour appliquer la transition
+                                    }
+                                </script> --}}
                                 <div
                                     class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
                                     <form action="{{ route('delete_product') }}" method="POST">
@@ -306,6 +325,8 @@
                         </li>
                     </ul>
                 @endforeach
+
+                
             </div>
 
             {{-- pagination  --}}
