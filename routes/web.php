@@ -63,7 +63,7 @@ Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
 Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');
 
-Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product');
+Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware("is_admin:admin");
 
 Route::post('/delete_product', [ProductController::class, 'delete_product'])->name('delete_product');
 
@@ -72,4 +72,3 @@ Route::post('/edit_Product', [ProductController::class, 'update_product'])->name
 Route::get('/email', function(){
     return view('email');
 })->name('email');
-
