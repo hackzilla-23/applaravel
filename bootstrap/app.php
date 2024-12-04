@@ -3,6 +3,7 @@
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsPersonne;
 use Illuminate\Foundation\Application;
+use PhpParser\Node\Stmt\TraitUseAdaptation\Alias;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
