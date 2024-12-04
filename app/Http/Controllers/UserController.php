@@ -18,9 +18,9 @@ class UserController extends Controller
         sleep(1);
         return view('login');
     }
-    public function store(PersonneFormRequest $request)
-    {
-
+    // public function store(PersonneFormRequest $request)
+    // {
+    // }
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
