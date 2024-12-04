@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->appendToGroup('group_admin' , [
-            IsAdmin::class , 
+            IsAdmin::class ,
             IsPersonne::class
         ]);
         $middleware->prependToGroup('group_admin' , [

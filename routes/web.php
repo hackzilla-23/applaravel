@@ -65,22 +65,22 @@ Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
 Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');
 
-/*Quand tu utilise la class*/
+/*Quand tu utilises la class*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware(IsAdmin::class);
 
-/*Quand tu utilise la class et le parametre*/
+/*Quand tu utilises la class et le parametre*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware(IsAdmin::class.'admin');
 
-/*Quand tu utilise les alias*/
+/*Quand tu utilises les alias*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin');
 
-/*Quand tu utilise la alias et le parametre*/
+/*Quand tu utilises la alias et le parametre*/
 Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin:admin');
 
-/*Quand tu utilise les group avec les class*/
+/*Quand tu utilises les groups avec les class*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware([IsAdmin::class , IsPersonne::class]);
 
-/*Quand tu utilise les group avec les appendToGroup ou prependToGRoup*/
+/*Quand tu utilises les group avec les appendToGroup ou prependToGRoup*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('group_admin');
 
 
