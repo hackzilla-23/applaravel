@@ -64,16 +64,19 @@ class ProductController extends Controller
         //     'personne_id' =>  Auth::guard('personnes')->user()->id, // Associer le produit à la personne authentifiée
         // ]);
 
+       
     }
 
-    public function delete_product(Request $request){
+    public function delete_product(Request $request)
+    {
         $id = $request->product_id;
         // $product = Produit::find($id);
-        $product = Produit::where('id',$id);
+        $product = Produit::where('id', $id);
         $product->delete();
         return redirect()->route('main_dash');
     }
-    public function update_product(Request $request){
+    public function update_product(Request $request)
+    {
         $id = $request->product_id;
 
         // $newproduct = Produit::find($id);
@@ -86,7 +89,7 @@ class ProductController extends Controller
         Produit::where('id', $id)->update([
             'nom' => $request->nom,
             "prix" => $request->prix,
-            "quantite"=> $request->quantite,
+            "quantite" => $request->quantite,
             "description" => $request->description
         ]);
         return redirect()->route('main_dash');
