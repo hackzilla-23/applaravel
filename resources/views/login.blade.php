@@ -23,7 +23,7 @@
         </div>
     </form> --}}
 
-    <div class="login-container">
+    <div class="login-container md:w-[400px] md:p-[42px] px-[30px] py-[30px]">
 
         <!-- Afficher le message de succès s'il existe -->
         @if (session('success'))
@@ -38,13 +38,13 @@
             <div class="input-group">
                 <label for="email">email</label>
                 <input type="email" id="email" name="email" placeholder="Votre email">
-                {!! $errors->first('email' , '<p class = "text-red-500">email incorrect</p>') !!}
+                {!! $errors->first('email', '<p class = "text-red-500">email incorrect</p>') !!}
             </div>
 
             <div class="input-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                {!! $errors->first('password' , '<p class = "text-red-500">mot de passe incorrect</p>') !!}
+                {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
             </div>
 
             @error('email1')
@@ -72,7 +72,7 @@
 {{-- @section('style_form')
 	<link rel="stylesheet" href="style.css">
 @endsection --}}
-{{-- @section("login")
+{{-- @section('login')
     <form action="">
         <label for="email">Email</label>
         <input type="text" name="email" id="email">
