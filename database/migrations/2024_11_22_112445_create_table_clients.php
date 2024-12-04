@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->timestamps();
-            // $table->primaryKey('num_compte'); // ou $table->bigIncrements('')
-            
         });
     }
 

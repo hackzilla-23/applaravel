@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonneFormRequest;
+use App\Http\Requests\RequestLogs;
+use App\Http\Requests\RequestReset;
 use App\Models\Personne;
-use Illuminate\Http\Request;
+use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -17,6 +18,9 @@ class UserController extends Controller
         sleep(1);
         return view('login');
     }
+    public function store(PersonneFormRequest $request)
+    {
+
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
@@ -50,7 +54,6 @@ class UserController extends Controller
         ]);
         // dd($newpersonne);
         return view('login', compact('newpersonne'));
-
     }
 
     public function regi()
@@ -59,10 +62,28 @@ class UserController extends Controller
         return view('register');
     }
 
-    public function dashboard()
+    public function main_dashboard()
     {
-        sleep(1);
-        return view('dashboard');
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            return view('dashboard.main_dashboard');
+        } else {
+            sleep(1);
+            return redirect()->route('login');
+        }
+
+    }
+
+    public function product_dashboard()
+    {
+        // Vérifier si l'utilisateur est authentifié
+        if (Auth::guard('personnes')->check()) {
+            $products = Produit::all();
+            return view('dashboard.product_dashboard')->with('allproducts' , $products);
+        }else {
+            sleep(1);
+            return redirect()->route('login');
+        }
     }
 
     public function error()
@@ -77,16 +98,31 @@ class UserController extends Controller
         return view('mot_de_passe_oublie');
     }
 
+    public function edit()
+    {
+        sleep(1);
+        return view('edit');
+    }
+
+    public function add()
+    {
+        sleep(1);
+        return view('form');
+    }
+
     // public function store(Request $request)
     // {
     //     // Validate the form data
     //     $validated = $request->validate([
-    //         'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
+    //         'nom' => 'required',
+    //         // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
     //         'prenom' => 'required|alpha|min:2|max:50',
     //         'age' => 'required|integer|between:18,150',
     //         'email' => 'required|email|unique:personnes,email|max:255',
-    //         'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-    //         'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
+    //         'password' => 'required',
+    //         // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+    //         'confirm-password' => 'required|confirmed:password',
+    //         // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
     //     ]);
 
     //     // // Store the user in the database
@@ -95,7 +131,7 @@ class UserController extends Controller
     //         'prenom' => $request->prenom,
     //         'age' => $request->age,
     //         'email' => $request->email,
-    //         'password' => $request->password,
+    //         'password' => bcrypt($request->password),
     //     ]);
 
     //     // // Redirect to the login page
@@ -104,14 +140,18 @@ class UserController extends Controller
     //     return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
     // }
 
-    public function logs(Request $request)
+    // public function log(RequestLogs $request){
+
+    // }
+
+    public function logs(RequestLogs $request)
     {
         // Validation des données
-        $validator = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-
+        // $validator = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string',
+        // ]);
+        // dd($validator);
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
         // }
@@ -120,51 +160,84 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
-        if (Auth::attempt($credentials, $remember)) {
+        // dd(Auth::guard('personnes')->attempt($credentials));
+        if (Auth::guard('personnes')->attempt($credentials)){
             // Connexion réussie
             sleep(1);
-            return redirect()->route('dashboard');
+            return redirect()->intended('dashboard');
         }
-
-        // Connexion échouée, renvoyer l'utilisateur avec une erreur
-        sleep(1);
-        return redirect()->back()->withErrors(['email1' => 'Identifiants incorrects.'])->withInput();
 
     }
 
-    public function reset(Request $request)
+    public function reset(RequestReset $request)
     {
-        // Validation des champs
-        $request->validate([
-            'password' => 'required',
-            'new_password' => 'required',
-            'password_confirmation' => 'required|confirmed:new_password',
-        ]);
 
-        // Réinitialiser le mot de passe
-        $status = Password::reset(
-            $request->only('password', 'new_password'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => bcrypt($request->password),
-                ])->save();
+        // Validation des champs
+        // $request->validate([
+        //     'password' => 'required',
+        //     'new_password' => 'required',
+        //     'password_confirmation' => 'required|confirmed:new_password',
+        // ]);
+
+        // // Validation des champs
+        // $request->validate([
+        //     'password' => 'required|string',
+        //     'new_password' => 'required|string',
+        //     'password_confirmation' => 'required|string|confirmed:new_password',
+        // ]);
+
+        // // Réinitialiser le mot de passe
+        // $status = Password::reset(
+        //     $request->only('password', 'new_password'),
+        //     function ($user) use ($request) {
+        //         $user->forceFill([
+        //             'password' => bcrypt($request->password),
+        //         ])->save();
+        //     }
+        // );
+
+        // // Vérifier si la réinitialisation a réussi
+        // if ($status === Password::PASSWORD_RESET) {
+        //     sleep(1);
+        //     return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
+        // } else {
+        //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        // }
+
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
+
+        $response = Password::broker()->reset(
+            $request->only(['email', 'password', 'password_confirmation']),
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
+                return redirect()->route('login');
             }
         );
 
-        // Vérifier si la réinitialisation a réussi
-        if ($status === Password::PASSWORD_RESET) {
-            sleep(1);
-            return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
-        } else {
-            throw ValidationException::withMessages(['email1' => [trans($status)]]);
+        if ($response == Password::INVALID_USER) {
+            return redirect()->back()->withErrors(['email' => 'Adresse e-mail non trouvée']);
         }
+
+        if ($response == Password::INVALID_TOKEN) {
+            return redirect()->back()->withErrors(['token' => 'Jetons de réinitialisation non valides']);
+        }
+
+        return $response;
     }
 
     public function logout()
     {
         sleep(1);
-        Auth::logout();
-        return redirect()->route('login');
+        if (Auth::guard('personnes')->check()) {
+            // Auth::logout();
+            Auth::guard('personnes')->logout();
+            return redirect()->route('login');
+        }
     }
 
 }
