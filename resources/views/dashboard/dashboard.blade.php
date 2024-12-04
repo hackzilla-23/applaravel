@@ -368,7 +368,6 @@
 
     {{-- formulaire edit  --}}
     <script>
-        // console.log(document.getElementById('editbtn'+{{ $value->id }}));
         function editeproduct(id) {
             // console.log(id);
             // Récupérer les éléments du DOM

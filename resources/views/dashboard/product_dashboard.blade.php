@@ -117,30 +117,7 @@
             class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
-            <div class="">
-                <ul class="flex items-center justify-center gap-32 rounded-b-lg bg-[#FF0060] py-3 mt-3 pl-8">
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Product Name</p>
-                    </li>
-
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Price</p>
-                    </li>
-
-                    <li>
-                        <p class="text-sm text-white">Quantite</p>
-                    </li>
-
-                    <li>
-                        <p class="text-sm text-white">Description</p>
-                    </li>
-
-                    <li class="col-span-1 ">
-                        <p class="text-sm text-white">Actions</p>
-                    </li>
-                </ul> --}}
-
-
+            <div>
                 <ul
                     class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
                     <div class=" grid items-center justify-center">
