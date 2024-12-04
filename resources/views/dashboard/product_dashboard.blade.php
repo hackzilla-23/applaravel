@@ -29,7 +29,7 @@
                             <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
                             <p class="text-[8px]">Admin Account</p>
                         </div>
-                        <a href="#"><i class="fa-solid fa-caret-down"></i></a>
+                        <a href="#"><i class="fa-solid fa-caret-down"></i></a> 
                     </div>
                 </div>
             </div> --}}
@@ -138,6 +138,31 @@
                     <li class="col-span-1 ">
                         <p class="text-sm text-white">Actions</p>
                     </li>
+                </ul> --}}
+
+
+                <ul
+                    class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                    <div class=" grid items-center justify-center">
+                        <p class="text-sm text-white">Product Name</p>
+                    </div>
+
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Category</p>
+                    </li>
+
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Price</p>
+                    </li>
+
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Description</p>
+                    </li>
+
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Actions</p>
+                    </li>
+
                 </ul>
             </div>
 
@@ -209,19 +234,23 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs ">{{ $value->description }}</p>
                         </li>
-
+                        {{-- @dd("{!!$value->id!!}") --}}
+                        {{-- @dd({!!$value->id!!}) --}}
                         <li class="col-span-1 grid items-center justify-center">
                             <div class="flex items-center gap-2 ">
-                                <div
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                                    <a href="#" class="editbtn">
+                                <div id="editbtn{{$value->id}}" onclick="editeproduct({{$value->id}})"
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300"
+                                    >
+                                    <a href="#">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
                                 </div>
 
                                 {{-- formulaire edit  --}}
-                                <form
-                                    class="fixed addEditModal top-12 left-[500px] z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                {{-- @dump($value->id)
+                                @dd("editProductModal".$value->id) --}}
+                                <form id="{{$value->id}}"
+                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
 
@@ -229,8 +258,8 @@
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
-                                                <button type="button"
-                                                    class="px-1.5 closes text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
+                                                <button type="button" id="closeEditBtn{{$value->id}}"
+                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
                                             </ul>
@@ -285,6 +314,8 @@
                         </li>
                     </ul>
                 @endforeach
+
+
             </div>
 
             {{-- pagination  --}}
