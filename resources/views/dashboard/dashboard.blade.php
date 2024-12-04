@@ -96,8 +96,6 @@
         @yield('email')
     </div>
 
-
-    
     {{-- pourcentage circle  --}}
     <script>
         window.addEventListener('load', function() {

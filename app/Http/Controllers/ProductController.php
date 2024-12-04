@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,9 +39,9 @@ class ProductController extends Controller
         // $produit->description = $request->input('description');
         // $produit->personne_id = Auth::id(); // Associer le produit à la personne authentifiée
         // $produit->save();
+
         try {
-            //code...
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request){
                 $newproduct = new Produit();
                 $newproduct->nom = $request->nom;
                 $newproduct->prix = $request->prix;
@@ -49,10 +50,10 @@ class ProductController extends Controller
                 $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
                 $newproduct->save();
             });
-
             return redirect()->route('main_dash');
+
         } catch (\Throwable $th) {
-            //throw $th;
+            // throw $th;
             return back();
         }
 
@@ -63,6 +64,7 @@ class ProductController extends Controller
         //     'description' => $request->description,
         //     'personne_id' =>  Auth::guard('personnes')->user()->id, // Associer le produit à la personne authentifiée
         // ]);
+
        
     }
 

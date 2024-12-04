@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsPersonne;
 use Illuminate\Support\Facades\Route;
 
 //pour regrouper les elements
@@ -63,7 +65,24 @@ Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
 Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');
 
-Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware("is_admin:admin");
+/*Quand tu utilises la class*/
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware(IsAdmin::class);
+
+/*Quand tu utilises la class et le parametre*/
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware(IsAdmin::class.'admin');
+
+/*Quand tu utilises les alias*/
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin');
+
+/*Quand tu utilises la alias et le parametre*/
+Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin:admin');
+
+/*Quand tu utilises les groups avec les class*/
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware([IsAdmin::class , IsPersonne::class]);
+
+/*Quand tu utilises les group avec les appendToGroup ou prependToGRoup*/
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('group_admin');
+
 
 Route::post('/delete_product', [ProductController::class, 'delete_product'])->name('delete_product');
 
