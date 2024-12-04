@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonneFormRequest;
-use App\Http\Requests\RequestLogs;
-use App\Http\Requests\RequestReset;
-use App\Models\Personne;
 use App\Models\Produit;
+use App\Models\Personne;
+use App\Mail\RegisterMail;
+use App\Http\Requests\RequestLogs;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RequestReset;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use App\Http\Requests\PersonneFormRequest;
 
 class UserController extends Controller
 {
@@ -43,15 +46,34 @@ class UserController extends Controller
         // ]);
 
         // dd($isvalid);
-        $newpersonne = Personne::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'age' => $request->age,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        try {
+            $newpersonne = DB::transaction(function() use ($request){
+                $user = Personne::create([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                ]);
+                // if($newpersonne){
+                //     //Envoie d'un email de confirmation
+                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // }
+                return $user;
+            });
+
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+            
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+
+            return view('login', compact('newpersonne'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            // return back();
+        }
+        
         // dd($newpersonne);
-        return view('login', compact('newpersonne'));
     }
 
     public function regi()
