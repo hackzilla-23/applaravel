@@ -370,7 +370,7 @@
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             const nav = document.querySelector('.addEditModal');
-            const burger = document.querySelector('.editbtn');
+            const burger = document.querySelectory('.editbtn');
             const close = document.querySelector('.closes');
 
             burger.addEventListener('click', function() {

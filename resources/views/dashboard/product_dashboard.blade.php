@@ -43,9 +43,9 @@
                 </div>
                 <div class="relative font-[sans-serif] w-max mx-auto">
                     <button type="button" id="dropdownToggle"
-                    class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
+                        class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
                         <img src="{{ asset('img/profile-2.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
-                        alt="">
+                            alt="">
                         <div class="flex items-center gap-6">
                             <div>
                                 <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
@@ -54,8 +54,9 @@
                             <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                         </div>
                     </button>
-            
-                    <ul id="dropdownMenu" class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
+
+                    <ul id="dropdownMenu"
+                        class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
                         <li
                             class="'py-3 px-5 flex items-center gap-2 hover:bg-blue-100 text-gray-800 text-sm cursor-pointer">
                             <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
@@ -64,6 +65,7 @@
                     </ul>
                 </div>
             </div>
+
             <script>
                 let dropdownToggle = document.getElementById('dropdownToggle');
                 let dropdownMenu = document.getElementById('dropdownMenu');
@@ -286,7 +288,7 @@
             </div>
 
             {{-- pagination  --}}
-            <ul class="flex gap-[600px] absolute bottom-0 py-3.5">
+            {{-- <ul class="flex gap-[600px] absolute bottom-0 py-3.5">
                 <div class="flex px-2 py-1 rounded-md items-center gap-4 border border-gray-400">
                     <p class="text-sm">Show: 8</p>
                     <i class="fa-solid fa-caret-down"></i>
@@ -320,7 +322,7 @@
                         </a>
                     </li>
                 </div>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 @endsection
