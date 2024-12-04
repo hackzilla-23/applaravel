@@ -16,7 +16,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next , string $name): Response
     {
         // dd('hello middleware IsAdmin');
-        dd($name);
+        // dd($name);
         if(auth()->guard('personnes')->check()){
            return  $next($request);
         }

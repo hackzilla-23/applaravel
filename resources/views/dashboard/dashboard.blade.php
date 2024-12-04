@@ -330,23 +330,17 @@
     {{-- formulaire edit  --}}
 
     <script>
-        // Récupérer les éléments du DOM
-        const editbtn = document.getElementById('editbtn');
-        const editProductModal = document.getElementById('editProductModal');
-        const closeEditBtn = document.getElementById('closeEditBtn');
-
-        // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
-        function resets() {
-            // Réinitialiser les classes de translation avant de commencer une nouvelle animation
-            editProductModal.classList.remove('translate-y-0',
-                '-translate-y-[800px]'); // Supprimer les classes de translation
-            editProductModal.classList.add('-translate-y-[800px]',
-                'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
-        }
-
-        // Afficher le modal avec une animation lors du clic sur "Ajouter un produit"
-        editbtn.addEventListener('click', function() {
-            resets(); // Réinitialiser l'animation à chaque fois
+        // console.log(document.getElementById('editbtn'+{{ $value->id }}));
+        function editeproduct(id) {
+            // console.log(id);
+            // Récupérer les éléments du DOM
+            const editbtn = document.getElementById('editbtn' + id);
+            const editProductModal = document.getElementById(id);
+            const closeEditBtn = document.getElementById('closeEditBtn'+id);
+            // console.log(editbtn);
+            // console.log(editProductModal);
+            // editbtn.addEventListener('click', function() {
+            // resets(editProductModal); // Réinitialiser l'animation à chaque fois
             editProductModal.classList.remove('hidden'); // Rendre le modal visible
             editProductModal.classList.add('flex'); // Activer le display flex pour le modal
 
@@ -357,28 +351,44 @@
                 editProductModal.classList.add('translate-y-0',
                     'opacity-100'); // Appliquer les classes finales
             }, 10); // Petit délai pour appliquer la transition
-        });
+            // });
+            // Fermer le modal lorsque le bouton "Fermer" est cliqué
+            closeEditBtn.addEventListener('click', function() {
+                // Réinitialiser les classes de translation avant de fermer
+                editProductModal.classList.remove('translate-y-0', 'opacity-100');
+                editProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
 
-        // Fermer le modal lorsque le bouton "Fermer" est cliqué
-        closeEditBtn.addEventListener('click', function() {
-            // Réinitialiser les classes de translation avant de fermer
-            editProductModal.classList.remove('translate-y-0', 'opacity-100');
-            editProductModal.classList.add('-translate-y-[800px]', 'opacity-0');
+                // Cacher le modal après la fin de l'animation
+                setTimeout(() => {
+                    editProductModal.classList.add('hidden'); // Cacher le modal après l'animation
+                    editProductModal.classList.remove('flex'); // Retirer le flex
+                }, 700); // La durée de l'animation correspond à la durée de transition
+            });
+            // if (event.target !== editProductModal) {
+            //     closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
+            // }
+        }
+        // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
+        
+        // function resets(editProductModal) {
+        //     // Réinitialiser les classes de translation avant de commencer une nouvelle animation
+        //     // console.log(editProductModal);
+        //     editProductModal.classList.remove('translate-y-0',
+        //         '-translate-y-[800px]'); // Supprimer les classes de translation
+        //     editProductModal.classList.add('-translate-y-[800px]',
+        //         'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
+        // }
 
-            // Cacher le modal après la fin de l'animation
-            setTimeout(() => {
-                editProductModal.classList.add('hidden'); // Cacher le modal après l'animation
-                editProductModal.classList.remove('flex'); // Retirer le flex
-            }, 700); // La durée de l'animation correspond à la durée de transition
-        });
+        // Afficher le modal avec une animation lors du clic sur "Ajouter un produit"
+
 
         // Fermer le modal si on clique en dehors du modal
-        window.addEventListener('click', function(event) {
-            // Vérifie si l'élément cliqué est bien l'overlay (background), pas le contenu du modal
-            if (event.target === editProductModal) {
-                closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
-            }
-        });
+        // window.addEventListener('click', function(event) {
+        //     // Vérifie si l'élément cliqué est bien l'overlay (background), pas le contenu du modal
+        //     if (event.target === editProductModal) {
+        //         closeModalBtn.click(); // Fermer le modal si l'utilisateur clique en dehors du contenu
+        //     }
+        // });
     </script>
 
 </body>
