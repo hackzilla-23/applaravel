@@ -1,4 +1,4 @@
-@extends('users.text')
+@extends('index')
 {{-- @section('register') --}}
 
 @section('styleregister')
@@ -111,8 +111,8 @@
         <h2>Inscription</h2>
         <div class="input-group">
             <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="nom" placeholder="Choisissez un nom d'utilisateur">
-            {!! $errors->first('nom' , '<p class = "text-red-500">:message</p>') !!}
+            {{-- <input type="text" id="username" name="nom" placeholder="Choisissez un nom d'utilisateur">
+            {!! $errors->first('nom' , '<p class = "text-red-500">:message</p>') !!} --}}
             <input value="{{ old('nom') }}" type="text" id="username" name="nom"
                 placeholder="Choisissez un nom d'utilisateur">
             @error('nom')
@@ -124,8 +124,8 @@
 
         <div class="input-group">
             <label for="prenom">Prenom</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Choisissez un prenom">
-            {!! $errors->first('prenom' , '<p class = "text-red-500">:message</p>') !!}
+            {{-- <input type="text" id="prenom" name="prenom" placeholder="Choisissez un prenom">
+            {!! $errors->first('prenom' , '<p class = "text-red-500">:message</p>') !!} --}}
             <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
                 placeholder="Choisissez un prenom">
             @error('prenom')
@@ -135,8 +135,8 @@
 
         <div class="input-group">
             <label for="age">Age</label>
-            <input type="number" id="age" name="age" placeholder="Choisissez un age">
-            {!! $errors->first('age' , '<p class = "text-red-500">:message</p>') !!}
+            {{-- <input type="number" id="age" name="age" placeholder="Choisissez un age">
+            {!! $errors->first('age' , '<p class = "text-red-500">:message</p>') !!} --}}
             <input value="{{ old('age') }}" type="number" id="age" name="age"
                 placeholder="Choisissez un age">
             @error('age')
@@ -146,8 +146,8 @@
 
         <div class="input-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Votre adresse email">
-            {!! $errors->first('email' , '<p class = "text-red-500">:message</p>') !!}
+            {{-- <input type="email" id="email" name="email" placeholder="Votre adresse email">
+            {!! $errors->first('email' , '<p class = "text-red-500">:message</p>') !!} --}}
             <input value="{{ old('email') }}" type="email" id="email" name="email"
                 placeholder="Votre adresse email">
             @error('email')
@@ -158,7 +158,7 @@
         <div class="input-group">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-            {!! $errors->first('password' , '<p class = "text-red-500">:message</p>') !!}
+            {{-- {!! $errors->first('password' , '<p class = "text-red-500">:message</p>') !!} --}}
             @error('password')
                 <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
             @enderror
@@ -169,7 +169,7 @@
             <label for="confirm-password">Confirmer le mot de passe</label>
             <input type="password" id="confirm-password" name="confirm-password"
                 placeholder="Confirmez votre mot de passe">
-                {!! $errors->first('confirm-password' , '<p class = "text-red-500">:message</p>') !!}
+                {{-- {!! $errors->first('confirm-password' , '<p class = "text-red-500">:message</p>') !!} --}}
             @error('confirm-password')
                 <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
             @enderror

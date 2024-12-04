@@ -1,4 +1,4 @@
-@extends('users.text')
+@extends('index')
 
 @section('stylelogin')
     <style>
@@ -95,12 +95,14 @@
             text-decoration: underline;
         }
     </style>
-@section('login')
+@endsection
+
+{{-- @section('login')
     <p>Nom : {{ $newpersonne->nom }}</p>
     <p>Prenom : {{ $newpersonne->prenom }}</p>
     <p>Email : {{ $newpersonne->email }}</p>
     <p>Password : {{ $newpersonne->password }}</p>
-@endsection
+@endsection --}}
 
 @section('login')
     {{-- <form action="#" method="POST">
@@ -180,7 +182,7 @@
 {{-- @section("style_form")
 	<link rel="stylesheet" href="style.css">
 @endsection --}}
-@section("login")
+{{-- @section("login") --}}
     {{-- <form action="">
         <label for="email">Email</label>
         <input type="text" name="email" id="email">
@@ -190,7 +192,7 @@
 
         <button type="submit">envoyer</button>
     </form> --}}
-	@include('partials._form')
+	{{-- @include('partials._form') --}}
 	{{-- <a href="{{ route('registermmmm') }}">vers register</a> --}}
 	{{-- <a href="/register">vers register</a> --}}
-@endsection
+{{-- @endsection --}}

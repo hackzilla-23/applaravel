@@ -85,7 +85,7 @@
         <div class="status">{{ session('status') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('changePass') }}">
+    <form method="POST" action="">
         @csrf
         <div class="form-group">
             <label for="current_password">Mot de passe actuel</label>
