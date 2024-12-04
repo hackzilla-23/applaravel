@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('login.css') }}">
 
 @section('main')
-    <div class="mt-5">
+    <div class="mt-5 w-[81vw]">
         {{-- haeder --}}
         <div class="flex items-center justify-between">
             <div
@@ -12,7 +12,7 @@
                 <input type="text" placeholder="Search for..." class="text-sm py-2 w-80 outline-none px-3">
             </div>
 
-            <div class="flex items-center gap-4">
+            {{-- <div class="flex items-center gap-4">
                 <div
                     class="bg-white rounded-md shadow-first hover:shadow-none duration-300 px-3.5 py-2 flex justify-center items-center">
                     <a href="#">
@@ -32,7 +32,54 @@
                         <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="flex flex-row gap-4">
+                <div
+                    class="bg-white rounded-md shadow-first hover:shadow-none duration-300 px-3.5 py-2 flex justify-center items-center">
+                    <a href="#">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+                </div>
+                <div class="relative font-[sans-serif] w-max mx-auto">
+                    <button type="button" id="dropdownToggle"
+                    class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
+                        <img src="{{ asset('img/profile-2.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
+                        alt="">
+                        <div class="flex items-center gap-6">
+                            <div>
+                                <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                <p class="text-[8px]">Admin Account</p>
+                            </div>
+                            <a href="#"><i class="fa-solid fa-caret-down"></i></a>
+                        </div>
+                    </button>
+            
+                    <ul id="dropdownMenu" class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
+                        <li
+                            class="'py-3 px-5 flex items-center gap-2 hover:bg-blue-100 text-gray-800 text-sm cursor-pointer">
+                            <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
+                            <a href="{{ route('logout_personne') }}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <script>
+                let dropdownToggle = document.getElementById('dropdownToggle');
+                let dropdownMenu = document.getElementById('dropdownMenu');
+
+                function handleClick() {
+                    if (dropdownMenu.className.includes('block')) {
+                        dropdownMenu.classList.add('hidden')
+                        dropdownMenu.classList.remove('block')
+                    } else {
+                        dropdownMenu.classList.add('block')
+                        dropdownMenu.classList.remove('hidden')
+                    }
+                }
+
+                dropdownToggle.addEventListener('click', handleClick);
+            </script>
         </div>
 
         {{-- menu  --}}

@@ -13,12 +13,12 @@ class IsAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $name): Response
+    public function handle(Request $request, Closure $next , string $name): Response
     {
-        // dd($name);
         // dd('hello middleware IsAdmin');
-        if(auth()->guard('admins')->check()){
-            return $next($request);
+        dd($name);
+        if(auth()->guard('personnes')->check()){
+           return  $next($request);
         }
         return redirect()->route('dashboard');
     }

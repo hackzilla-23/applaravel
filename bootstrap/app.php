@@ -17,17 +17,17 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         // $middleware->append(IsAdmin::class);
         $middleware->alias([
-            "Is_Admin" => App\Http\Middleware\IsAdmin::class,
+            "is_admin" => App\Http\Middleware\IsAdmin::class
         ]);
 
-        $middleware->alias([
-            "Is_Personne" => App\Http\Middleware\IsPersonne::class,
+        $middleware->appendToGroup('group_admin' , [
+            IsAdmin::class ,
+            IsPersonne::class
         ]);
-
-        // $middleware->appendToGroup('Is_Admin', [
-        //     IsAdmin::class,
-        //     IsPersonne::class,
-        // ]);
+        $middleware->prependToGroup('group_admin' , [
+            IsAdmin::class , 
+            IsPersonne::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

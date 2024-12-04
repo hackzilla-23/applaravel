@@ -15,10 +15,11 @@ class IsPersonne
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd('hello middleware IsPersonne');
-        if(auth()->guard('personnes')->check()){
-            return $next($request);
-        }
-        return redirect()->route('dashboard');
+        dd('hello middleware IsPersonne');
+        return $next($request);
+        // if(auth()->guard('personnes')->check()){
+        //     return redirect()->route('login');
+        // }
+        // return  $next($request);
     }
 }

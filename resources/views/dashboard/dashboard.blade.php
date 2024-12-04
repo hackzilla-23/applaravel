@@ -170,26 +170,6 @@
         @yield('email')
     </div>
 
-
-    {{-- navbar  --}}
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            const navbar = document.querySelector('.navbar');
-            const hamburger = document.querySelector('.hamburger');
-            const closeMenu = document.querySelector('.close-menu');
-
-            hamburger.addEventListener('click', function() {
-                navbar.classList.add('-translate-x-0');
-                navbar.classList.remove('-translate-x-52');
-            });
-
-            closeMenu.addEventListener('click', function() {
-                navbar.classList.add('-translate-x-52');
-                navbar.classList.remove('-translate-x-0');
-            });
-        });
-    </script>
-
     {{-- pourcentage circle  --}}
     <script>
         window.addEventListener('load', function() {
