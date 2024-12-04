@@ -91,4 +91,3 @@ Route::post('/edit_Product', [ProductController::class, 'update_product'])->name
 Route::get('/email', function(){
     return view('email');
 })->name('email');
-

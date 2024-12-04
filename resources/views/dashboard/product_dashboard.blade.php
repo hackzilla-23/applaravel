@@ -27,7 +27,7 @@
                             <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
                             <p class="text-[8px]">Admin Account</p>
                         </div>
-                        <a href="#"><i class="fa-solid fa-caret-down"></i></a>
+                        <a href="#"><i class="fa-solid fa-caret-down"></i></a> 
                     </div>
                 </div>
             </div> --}}
@@ -41,9 +41,9 @@
                 </div>
                 <div class="relative font-[sans-serif] w-max mx-auto">
                     <button type="button" id="dropdownToggle"
-                    class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
+                        class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
                         <img src="{{ asset('img/profile-2.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
-                        alt="">
+                            alt="">
                         <div class="flex items-center gap-6">
                             <div>
                                 <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
@@ -52,8 +52,9 @@
                             <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                         </div>
                     </button>
-            
-                    <ul id="dropdownMenu" class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
+
+                    <ul id="dropdownMenu"
+                        class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
                         <li
                             class="'py-3 px-5 flex items-center gap-2 hover:bg-blue-100 text-gray-800 text-sm cursor-pointer">
                             <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
@@ -109,7 +110,8 @@
         </div>
 
         {{-- products  --}}
-        <div class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
+        <div
+            class="bg-white relative h-[75vh] overflow-auto p-6 rounded-[16px] shadow-first hover:shadow-none duration-300 px-6">
             <p class="pt-3">Products</p>
 
             <div class="">
@@ -135,25 +137,25 @@
 
                 <ul
                     class="grid grid-cols-5  gap-31 items-center bg-[#FF0060] rounded-md justify-center px-6 py-2 border-gray-200 border-2">
-                        <div class=" grid items-center justify-center">
-                            <p class="text-sm text-white">Product Name</p>
-                        </div>
+                    <div class=" grid items-center justify-center">
+                        <p class="text-sm text-white">Product Name</p>
+                    </div>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Category</p>
-                        </li>
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Category</p>
+                    </li>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Price</p>
-                        </li>
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Price</p>
+                    </li>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Description</p>
-                        </li>
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Description</p>
+                    </li>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-sm text-white">Actions</p>
-                        </li>
+                    <li class="col-span-1 grid items-center justify-center">
+                        <p class="text-sm text-white">Actions</p>
+                    </li>
 
                 </ul>
             </div>
@@ -179,11 +181,13 @@
                     <div class="flex flex-col gap-4 mx-auto">
                         <div>
                             <label for="nom" class="font-bold">Product Name</label><br>
-                            <input type="text" name="nom" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="text" name="nom"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
                         </div>
                         <div>
                             <label for="prix" class="font-bold">Price</label><br>
-                            <input type="number" name="prix" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                            <input type="number" name="prix"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
 
                         </div>
                         <div>
@@ -193,7 +197,8 @@
                         </div>
                         <div>
                             <label for="description" class="font-bold">Description</label><br>
-                            <textarea type="text" rows="4" name="description" class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
+                            <textarea type="text" rows="4" name="description"
+                                class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]"></textarea>
                         </div>
                     </div>
 
@@ -231,26 +236,31 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs ">{{ $value->description }}</p>
                         </li>
-
+                        {{-- @dd("{!!$value->id!!}") --}}
+                        {{-- @dd({!!$value->id!!}) --}}
                         <li class="col-span-1 grid items-center justify-center">
                             <div class="flex items-center gap-2 ">
-                                <div id="editbtn"
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300" onclick="editProduct()">
+                                <div id="editbtn{{$value->id}}" onclick="editeproduct({{$value->id}})"
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300"
+                                    >
                                     <a href="#">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
                                 </div>
 
                                 {{-- formulaire edit  --}}
-                                <form id="editProductModal"
+                                {{-- @dump($value->id)
+                                @dd("editProductModal".$value->id) --}}
+                                <form id="{{$value->id}}"
                                     class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
+
                                     <div>
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
-                                                <button type="button" id="closeEditBtn"
+                                                <button type="button" id="closeEditBtn{{$value->id}}"
                                                     class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
@@ -315,7 +325,8 @@
                                     <form action="{{ route('delete_product') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <button type="submit" class="text-[#FF0060]"><i class="fa-solid fa-trash"></i></button>
+                                        <button type="submit" class="text-[#FF0060]"><i
+                                                class="fa-solid fa-trash"></i></button>
                                     </form>
                                     {{-- <a href="#" class="text-[#FF0060]">
                                         <i class="fa-solid fa-trash"></i>
@@ -326,7 +337,7 @@
                     </ul>
                 @endforeach
 
-                
+
             </div>
 
             {{-- pagination  --}}
