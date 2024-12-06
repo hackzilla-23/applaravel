@@ -10,8 +10,8 @@ class Personne extends Authenticatable
 {
     use Notifiable, CanResetPassword;
 
-    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password'];
-    // protected $model = Personne::class;
+    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'images'];
+    protected $model = Personne::class;
 
     // Définir la relation : Une personne a plusieurs produits
     // public function produits()
