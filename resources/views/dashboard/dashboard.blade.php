@@ -372,7 +372,7 @@
             // Récupérer les éléments du DOM
             const editbtn = document.getElementById('editbtn' + id);
             const editProductModal = document.getElementById(id);
-            const closeEditBtn = document.getElementById('closeEditBtn'+id);
+            const closeEditBtn = document.getElementById('closeEditBtn' + id);
             // console.log(editbtn);
             // console.log(editProductModal);
             // editbtn.addEventListener('click', function() {
@@ -405,7 +405,7 @@
             // }
         }
         // Fonction pour réinitialiser les classes d'animation avant d'afficher le modal
-        
+
         // function resets(editProductModal) {
         //     // Réinitialiser les classes de translation avant de commencer une nouvelle animation
         //     // console.log(editProductModal);

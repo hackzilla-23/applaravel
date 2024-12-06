@@ -19,7 +19,7 @@
     {{-- @if ($a < 10)
         @dd("bonjour miguel, il est ".$a."h");
     @else
-        @dd("bonsoir miguel, il est ".$a."h");            
+        @dd("bonsoir miguel, il est ".$a."h");
     @endif --}}
 
     {{-- <div>

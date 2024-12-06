@@ -26,12 +26,20 @@ Route::get('/register', [RegisterController::class, 'register'])->name('register
 // route::get('/register', function() {
 //     return view('register');
 // })->name('registermmmm');
+Route::post('/register', [UserController::class, 'store'])->name('register_personne');
+
+Route::post('/login', [UserController::class, 'logs'])->name('login_personne');
+//     return view('register');
+// })->name('registermmmm');
 
 Route::post('/register', [UserController::class, 'store'])->name('register_personne');
 
+Route::get('/password',[UserController::class,'newpass'])->name('MDPo');
 // Route::get('/register', function () {
 //     return view('register');
 // })->name('register');
+
+// Route::get('/', [RegiController::class, 'regi'])->name('register');
 
 // Route::get('/index', function () {
 //     return view('index');
@@ -88,6 +96,6 @@ Route::post('/delete_product', [ProductController::class, 'delete_product'])->na
 
 Route::post('/edit_Product', [ProductController::class, 'update_product'])->name('edit_Product');
 
-// Route::get('/email', function(){
-//     return view('email');
-// })->name('email');
+Route::get('/email', function(){
+    return view('email');
+})->name('email');
