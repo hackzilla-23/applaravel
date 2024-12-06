@@ -88,6 +88,6 @@ Route::post('/delete_product', [ProductController::class, 'delete_product'])->na
 
 Route::post('/edit_Product', [ProductController::class, 'update_product'])->name('edit_Product');
 
-// Route::get('/email', function(){
-//     return view('email');
-// })->name('email');
+Route::get('/email', function(){
+    return view('email');
+})->name('email');

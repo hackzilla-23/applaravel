@@ -55,15 +55,16 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => bcrypt($request->password),
                 ]);
-                // if($newpersonne){
-                //     //Envoie d'un email de confirmation
-                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // if($user){
+                //     dd($user);
+                //     // Envoie d'un email de confirmation
+                //     Mail::to($user->email)->send(new RegisterMail ($user));
                 // }
                 return $user;
             });
 
             // Mail::to($request->email)->send(new RegisterMail ($request));
-            
+            // dd($newpersonne);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));

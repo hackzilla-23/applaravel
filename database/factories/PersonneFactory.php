@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Personne;
 use App\Models\User;
+use App\Models\Personne;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PersonneFactory extends Factory
 {
+    protected $model = Personne::class;
     /**
      * Define the model's default state.
      *
