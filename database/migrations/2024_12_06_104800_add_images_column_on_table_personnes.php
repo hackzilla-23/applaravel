@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('personnes', function (Blueprint $table) {
             //
-            $table->integer('age');
+            $table->string('images');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('personnes', function (Blueprint $table) {
             //
-            $table->dropColumn('age');
+            $table->dropColumn('images');
         });
     }
 };

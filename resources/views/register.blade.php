@@ -23,7 +23,8 @@
         </div>
     @endif --}}
 
-        <form class="register-form px-[20px] py-[20px]" method="POST" action="{{ route('register_personne') }}">
+        <form class="register-form px-[20px] py-[20px]" enctype="multipart/form-data" method="POST"
+            action="{{ route('register_personne') }}">
             @csrf
             <h2>Inscription</h2>
 
@@ -54,6 +55,12 @@
                         @error('password')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                         @enderror
+                    </div>
+
+                    <div>
+                        <p class="pb-2">Inserer une image</p>
+                        <input type="file" class="mb-5 mt-2 xl:mt-0 bg-gray-100 w-full py-3 pl-6 rounded-sm"
+                            name="images" id="images">
                     </div>
                     {{-- <div class="input-group md:hidden">
                         <label for="age">Age</label>

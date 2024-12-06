@@ -47,7 +47,7 @@ return [
 
         'personne' => [
             'driver' => 'local',
-            'root' => storage_path('app/public//personne_images'),
+            'root' => storage_path('app/public/personne_images'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
