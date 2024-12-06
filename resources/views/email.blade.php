@@ -1,3 +1,7 @@
+{{-- @extends('users.text') --}}
+{{-- @extends('dashboard.dashboard') --}}
+
+{{-- @section('email') --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,12 +72,8 @@
                 <p class="text-xl text-center font-bold"> Big <span class="text-[#FF0060]">Bazzar</span> </p>
 
                 <p class="text-2xl lg:text-3xl font-semi-bold text-center mt-6">Dites adieu aux limitations</p>
-                <p class="text-xl lg:text-2xl font-bold text-left mt-6">Vérifiez votre compte et profitez de nos
-                    services complets.</p>
-                <p class="my-6 text-gray-400 text-xl">{{ $personne->prenom }} Votre expérience de trading doit être
-                    fluide
-                    et ininterrompue. Pour y parvenir et profiter de tous nos services, il vous suffit de procéder à la
-                    vérification de votre compte.</p>
+                <p class="text-xl lg:text-2xl font-bold text-left mt-6">Vérifiez votre compte et profitez de nos services complets.</p>
+                <p class="my-6 text-gray-400 text-xl">{{ $personne->nom }}Votre expérience de trading doit être fluide et ininterrompue. Pour y parvenir et profiter de tous nos services, il vous suffit de procéder à la vérification de votre compte.</p>
                 <p class="my-6 text-gray-400 text-xl">Supprimer les limitations de votre compte
                     Avec un compte entièrement vérifié, vous pouvez continuer à déposer, transférer et négocier des
                     fonds.</p>
@@ -96,3 +96,5 @@
 </body>
 
 </html>
+   
+{{-- @endsection --}}

@@ -13,22 +13,22 @@ class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $personne;
     /**
      * Create a new message instance.
      */
+    public $personne;
     public function __construct($personne)
     {
+        //initialisation des attibutes
         $this->personne = $personne;
     }
-
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'register Mail',
+            subject: 'Register Mail',
         );
     }
 
@@ -37,6 +37,7 @@ class RegisterMail extends Mailable
      */
     public function content(): Content
     {
+        // dd($this->personne);
         return new Content(
             view: 'email',
         );
