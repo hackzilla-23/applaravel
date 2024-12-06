@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\RequestLogs;
 use App\Http\Requests\RequestReset;
+use App\Mail\RegisterMail;
 use App\Models\Personne;
 use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
@@ -45,15 +48,31 @@ class UserController extends Controller
         // ]);
 
         // dd($isvalid);
-        $newpersonne = Personne::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'age' => $request->age,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        // dd($newpersonne);
-        return view('login', compact('newpersonne'));
+
+        try {
+
+            DB::transaction(function () use ($request) {
+                $newpersonne = Personne::create([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                ]);
+                if ($newpersonne) {
+
+                    // Envoi d'un email de confirmation
+                    Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+                }
+            });
+            // return view('login', compact('newpersonne'));  // dd($newpersonne);
+            // return view('login', compact('newpersonne'));
+            return view('login');
+        } catch (\Throwable $th) {
+            // throw $th;
+            dd($th);
+            // return back();
+        }
     }
 
     public function regi()
@@ -79,8 +98,8 @@ class UserController extends Controller
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
             $products = Produit::all();
-            return view('dashboard.product_dashboard')->with('allproducts' , $products);
-        }else {
+            return view('dashboard.product_dashboard')->with('allproducts', $products);
+        } else {
             sleep(1);
             return redirect()->route('login');
         }
@@ -160,7 +179,7 @@ class UserController extends Controller
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
         // dd(Auth::guard('personnes')->attempt($credentials));
-        if (Auth::guard('personnes')->attempt($credentials)){
+        if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
             return redirect()->intended('dashboard');
