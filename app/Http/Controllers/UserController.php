@@ -21,6 +21,62 @@ class UserController extends Controller
         sleep(1);
         return view('login');
     }
+    // public function store(PersonneFormRequest $request)
+    // {
+    // }
+    public function store(PersonneFormRequest $request)
+    {
+        // dd($request);
+        //la premiere methode validation
+        // $isvalid = $request->validate([
+        //     'nom' =>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
+
+        //la deuxieme methode validation
+        // Validator::make($request->all() , [
+        //     'nom'=>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
+
+        // dd($isvalid);
+        try {
+            $newpersonne = DB::transaction(function() use ($request){
+                $user = Personne::create([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                ]);
+                // if($newpersonne){
+                //     //Envoie d'un email de confirmation
+                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // }
+                return $user;
+            });
+
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+
+            return view('login', compact('newpersonne'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            // return back();
+        }
+
+        // dd($newpersonne);
+    }
 
     public function regi()
     {

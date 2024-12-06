@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('personnes', function (Blueprint $table) {
-            //
             $table->integer('age');
+            //
+
         });
     }
 
@@ -23,8 +24,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('personnes', function (Blueprint $table) {
-            //
             $table->dropColumn('age');
+            //
         });
     }
 };

@@ -102,15 +102,15 @@
                 </div>
             </div>
 
-            <div class="input-group submit">
-                <button type="submit" class="submit-btn">S'inscrire</button>
-            </div>
+        <div class="input-group submit">
+            <button type="submit" class="submit-btn">S'inscrire</button>
+        </div>
 
-            <div class="login-link">
-                <p>Already a member ? <a href="{{ route('login') }}">Log in</a></p>
-            </div>
-        </form>
-    </div>
+        <div class="login-link">
+            <p>Already a member ? <a href="{{ route('login') }}">Log in</a></p>
+        </div>
+    </form>
+</div>
 
 
     {{-- @endsection --}}
