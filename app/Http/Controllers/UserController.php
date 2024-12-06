@@ -47,7 +47,7 @@ class UserController extends Controller
 
         // dd($isvalid);
         try {
-            $newpersonne = DB::transaction(function() use ($request){
+            $newpersonne = DB::transaction(function () use ($request) {
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
@@ -59,11 +59,11 @@ class UserController extends Controller
                 //     //Envoie d'un email de confirmation
                 //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
                 // }
+                // dd($user);
                 return $user;
             });
-
             // Mail::to($request->email)->send(new RegisterMail ($request));
-            
+
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));
@@ -72,7 +72,7 @@ class UserController extends Controller
             dd($th);
             // return back();
         }
-        
+
         // dd($newpersonne);
     }
 
@@ -91,7 +91,6 @@ class UserController extends Controller
             sleep(1);
             return redirect()->route('login');
         }
-
     }
 
     public function product_dashboard()
@@ -99,8 +98,8 @@ class UserController extends Controller
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
             $products = Produit::all();
-            return view('dashboard.product_dashboard')->with('allproducts' , $products);
-        }else {
+            return view('dashboard.product_dashboard')->with('allproducts', $products);
+        } else {
             sleep(1);
             return redirect()->route('login');
         }
@@ -178,14 +177,13 @@ class UserController extends Controller
         // Tentative de connexion
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
-        
+
         // dd(Auth::guard('personnes')->attempt($credentials));
-        if (Auth::guard('personnes')->attempt($credentials)){
+        if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
             return redirect()->intended('dashboard');
         }
-
     }
 
     public function reset(RequestReset $request)
@@ -258,5 +256,4 @@ class UserController extends Controller
             return redirect()->route('login');
         }
     }
-
 }
