@@ -49,7 +49,7 @@ class UserController extends Controller
 
         // dd($isvalid);
         try {
-            DB::transaction(function() use ($request){
+            $newpersonne = DB::transaction(function() use ($request){
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
@@ -61,11 +61,13 @@ class UserController extends Controller
                 //     //Envoie d'un email de confirmation
                 //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
                 // }
-                // return $user;
-                Mail::to($user->email)->send(new RegisterMail ($user));
+                return $user;
             });
 
-            // Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+            // dd($newpersonne);
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
