@@ -16,11 +16,11 @@ class RegisterMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public $personne;
+    public $user;
     public function __construct($personne)
     {
         //initialisation des attibutes
-        $this->personne = $personne;
+        $this->user = $personne;
     }
     /**
      * Get the message envelope.

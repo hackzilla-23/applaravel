@@ -63,7 +63,7 @@ class UserController extends Controller
                 return $user;
             });
             // Mail::to($request->email)->send(new RegisterMail ($request));
-
+            // dd($newpersonne);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));

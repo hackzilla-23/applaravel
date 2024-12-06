@@ -34,7 +34,7 @@
                         <input value="{{ old('nom') }}" type="text" id="username" name="nom"
                             placeholder="Entrez un nom">
                         @error('nom')
-                            <p class="text-red-500 text-sm pt-2">{{ "Veuillez entrer un nom d'utiliateur valide" }}
+                            <p class="text-red-500 text-sm pt-2">Veuillez entrer un nom d'utiliateur valide
                             </p>
                         @enderror
                     </div>
@@ -44,7 +44,7 @@
                         <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
                             placeholder="Choisissez un prenom">
                         @error('prenom')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
+                            <p class="text-red-500 text-sm pt-2">Veuillez entrer un prenom valide</p>
                         @enderror
                     </div>
 
@@ -52,7 +52,7 @@
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                         @error('password')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
+                            <p class="text-red-500 text-sm pt-2">Veuillez entrer un mot de passe valide</p>
                         @enderror
                     </div>
                     {{-- <div class="input-group md:hidden">
@@ -71,7 +71,7 @@
                         <input value="{{ old('email') }}" type="email" id="email" name="email"
                             placeholder="Votre adresse email">
                         @error('email')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
+                            <p class="text-red-500 text-sm pt-2">Veuillez entrer un email valide</p>
                         @enderror
                     </div>
 
@@ -80,7 +80,7 @@
                         <input value="{{ old('age') }}" type="number" id="age" name="age"
                             placeholder="Choisissez un age">
                         @error('age')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
+                            <p class="text-red-500 text-sm pt-2">Veuillez entrer un age valide</p>
                         @enderror
                     </div>
                     {{-- <div class="input-group md:hidden">
