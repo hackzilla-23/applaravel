@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Produit;
 use App\Models\Personne;
 use App\Mail\RegisterMail;
@@ -47,34 +46,33 @@ class UserController extends Controller
         // ]);
 
         // dd($isvalid);
-        // try {
-        //     //code...
-        //     DB::transaction(function() use ($request){
-
-        //     });
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
         try {
-            //code...
-           $newpersonne = DB::transaction(function() use ($request){
-               $user = Personne::create([
+            $newpersonne = DB::transaction(function() use ($request){
+                $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
                     'password' => bcrypt($request->password),
                 ]);
+                // if($newpersonne){
+                //     //Envoie d'un email de confirmation
+                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // }
                 return $user;
             });
-            // dd($newpersonne);
+
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+            
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
-            // dd($newpersonne);
+
             return view('login', compact('newpersonne'));
-        } catch (Exception $e) {
+        } catch (\Throwable $th) {
             //throw $th;
-            dd("error: {$e->getMessage()}");
+            dd($th);
+            // return back();
         }
+        
         // dd($newpersonne);
     }
 

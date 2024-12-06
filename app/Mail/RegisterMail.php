@@ -12,16 +12,16 @@ use Illuminate\Queue\SerializesModels;
 class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $personne;
+
     /**
      * Create a new message instance.
      */
+    public $personne;
     public function __construct($personne)
     {
-        // initialisation des attributs
+        //initialisation des attibutes
         $this->personne = $personne;
     }
-
     /**
      * Get the message envelope.
      */
@@ -37,6 +37,7 @@ class RegisterMail extends Mailable
      */
     public function content(): Content
     {
+        // dd($this->personne);
         return new Content(
             view: 'email',
         );
