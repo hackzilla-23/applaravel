@@ -21,6 +21,7 @@ class PersonneFormRequest extends FormRequest
      */
     public function rules(): array
     {
+      
         return [
             //la troisieme methode validation
             'nom' => 'required',
@@ -37,7 +38,6 @@ class PersonneFormRequest extends FormRequest
             // 'confirm-password' => 'required|confirmed:password',
             // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
             // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
-
         ];
     }
 }

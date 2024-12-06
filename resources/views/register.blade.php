@@ -97,7 +97,7 @@
                             placeholder="Confirmez le mot de passe">
                         @error('confirm-password')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
-                        @enderror
+                        @enderror 
                     </div>
                 </div>
             </div>
