@@ -145,7 +145,7 @@
 
             {{-- formulaire d'ajout  --}}
             <form
-                class="fixed top-12 addProductModal left-[500px] flex z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                class="fixed top-12 addProductModal left-[40vw] flex z-50 mx-auto w-96 h-auto -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                 action="{{ route('ajout_product') }}" method="POST">
                 @csrf
                 <div>
@@ -227,7 +227,7 @@
                                 {{-- @dump($value->id)
                                 @dd("editProductModal".$value->id) --}}
                                 <form id="{{$value->id}}"
-                                    class="fixed top-12 left-[500px] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                    class="fixed top-12 left-[40vw] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
 
@@ -245,7 +245,7 @@
                                         <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
 
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <div class="flex flex-col gap-4 ml-10">
+                                        <div class="flex flex-col gap-4">
                                             <div>
                                                 <label for="nom" class="font-bold">Product Name</label><br>
                                                 <input type="text" name="nom" value="{{ $value->nom }}"
@@ -274,27 +274,7 @@
                                             type="submit">Save</button>
                                     </div>
                                 </form>
-                                {{-- <script>
-                                    function resets() {
-                                        // Réinitialiser les classes de translation avant de commencer une nouvelle animation
-                                        editProductModal.classList.remove('translate-y-0',
-                                            '-translate-y-[800px]'); // Supprimer les classes de translation
-                                        editProductModal.classList.add('-translate-y-[800px]',
-                                            'opacity-0'); // Réinitialiser à une position basse et une opacité à 0
-                                    }
-                                    function editProduct()  {
-                                        resets(); // Réinitialiser l'animation à chaque fois
-                                        editProductModal.classList.remove('hidden'); // Rendre le modal visible
-                                        editProductModal.classList.add('flex'); // Activer le display flex pour le modal
-                                        // Lancer l'animation de translation (du bas vers sa position normale)
-                                        setTimeout(() => {
-                                            editProductModal.classList.remove('-translate-y-[800px]',
-                                                'opacity-0'); // Supprimer les classes initiales
-                                            editProductModal.classList.add('translate-y-0',
-                                                'opacity-100'); // Appliquer les classes finales
-                                        }, 10); // Petit délai pour appliquer la transition
-                                    }
-                                </script> --}}
+
                                 <div
                                     class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
                                     <form action="{{ route('delete_product') }}" method="POST">
