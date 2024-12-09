@@ -26,10 +26,7 @@ class UserController extends Controller
     // }
     public function store(PersonneFormRequest $request)
     {
-        // dd($request);
-
-
-        // dd($isvalid);
+        dd($request);
         try {
             $newpersonne = DB::transaction(function () use ($request) {
                 $user = Personne::create([

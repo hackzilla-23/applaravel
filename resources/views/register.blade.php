@@ -29,6 +29,7 @@
             <h2>Inscription</h2>
 
             <div class="md:grid md:grid-cols-2 md:gap-10">
+                {{-- grid left --}}
                 <div>
                     <div class="input-group">
                         <label for="username">Nom</label>
@@ -58,24 +59,18 @@
                     </div>
 
                     <div class="input-group">
-                        <label class="pb-2" for="images">Inserer une image</label>
-                        <input value="{{ old('images') }}" onchange="previewImage(event)" type="file"
-                            class="mb-5 mt-2 xl:mt-0 bg-gray-100 w-full py-3 pl-6 rounded-sm" name="images"
-                            id="images">
+                        <label class="pb-2 cursor-pointer" for="images">Inserer une image</label>
+                        <input value="{{ old('images') }}" onchange="previewImage(event)" type="file" accept="image/*"
+                            class="mb-5 mt-2 xl:mt-0 cursor-pointer bg-gray-100 w-full py-3 pl-6 rounded-sm" name="images"
+                            id="images"
+                        >
                         @error('images')
-                            <p class="text-red-500 text-sm">{{ 'Veuillez entrer un fichier valide (png,jpg,jpeg)' }}</p>
+                            <p class="text-red-500 text-sm">{{ 'Veuillez entrer un fichier valide (jpeg,jpg,png,gif,svg) et de taille maximale 2 Mo' }}</p>
                         @enderror
                     </div>
-                    {{-- <div class="input-group md:hidden">
-                        <label for="age">Age</label>
-                        <input value="{{ old('age') }}" type="number" id="age" name="age"
-                            placeholder="Choisissez un age">
-                        @error('age')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
-                        @enderror
-                    </div> --}}
                 </div>
-
+                
+                {{-- grid right --}}
                 <div>
                     <div class="input-group">
                         <label for="email">Email</label>
@@ -94,13 +89,6 @@
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
                         @enderror
                     </div>
-                    {{-- <div class="input-group md:hidden">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                        @error('password')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
-                        @enderror
-                    </div> --}}
 
                     <div class="input-group">
                         <label for="confirm-password">Confirmer le mot de passe</label>
@@ -113,7 +101,7 @@
 
                     <div class="input-group">
                         <img id="preview" src="#" alt="Aperçu de l'image"
-                            style="max-width: 200px; display: none; margin-top: 10px;">
+                            style="max-width: 340px; display: none; margin-top: 10px;">
                     </div>
                 </div>
             </div>
