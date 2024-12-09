@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonneFormRequest;
-use App\Http\Requests\RequestLogs;
-use App\Http\Requests\RequestReset;
-use App\Mail\RegisterMail;
-use App\Models\Personne;
 use App\Models\Produit;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Personne;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Str;
+use App\Http\Requests\RequestLogs;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RequestReset;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
+use App\Http\Requests\PersonneFormRequest;
 
 class UserController extends Controller
 {
@@ -26,15 +28,17 @@ class UserController extends Controller
     // }
     public function store(PersonneFormRequest $request)
     {
-        dd($request);
+        // dd($request);
+        $newname = str_replace(' ', '', Str::Random(5));
+        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
         try {
-            $newpersonne = DB::transaction(function () use ($request) {
+            $newpersonne = DB::transaction(function () use ($request , $finalimage) {
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
-                    'images' => $request->images,
+                    'images' => $finalimage,
                     'password' => bcrypt($request->password),
                 ]);
                 // if($user){
@@ -44,10 +48,10 @@ class UserController extends Controller
                 // }
                 return $user;
             });
-
+            $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
-            // dd($newpersonne);
+            // dd($saveimage);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));
