@@ -21,6 +21,7 @@ class PersonneFormRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd("The following rules");
       
         return [
             //la troisieme methode validation
@@ -29,7 +30,7 @@ class PersonneFormRequest extends FormRequest
             'age' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'images' => 'required',
+            'images' => 'required|image|mimes:jpeg,png,gif,svg,jpg|max:2000',
             'confirm-password' => 'required|confirmed:password',
             // 'nom' => 'required',
             // 'prenom' => 'required|alpha|min:2|max:50',

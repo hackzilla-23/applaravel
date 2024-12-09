@@ -26,7 +26,7 @@ class UserController extends Controller
     // }
     public function store(PersonneFormRequest $request)
     {
-        // dd($request);
+        dd($request);
         //la premiere methode validation
         // $isvalid = $request->validate([
         //     'nom' =>'required',
@@ -48,6 +48,7 @@ class UserController extends Controller
         // ]);
 
         // dd($isvalid);
+        // dd($request);
         try {
             $newpersonne = DB::transaction(function () use ($request) {
                 $user = Personne::create([
@@ -101,9 +102,7 @@ class UserController extends Controller
         if (Auth::guard('personnes')->check()) {
             $products = Produit::all();
             return view('dashboard.product_dashboard')->with('allproducts', $products);
-        } else {
-            return view('dashboard.product_dashboard')->with('allproducts', $products);
-        } else {
+        }else {
             sleep(1);
             return redirect()->route('login');
         }
@@ -184,7 +183,6 @@ class UserController extends Controller
 
 
         // dd(Auth::guard('personnes')->attempt($credentials));
-        if (Auth::guard('personnes')->attempt($credentials)) {
         if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);

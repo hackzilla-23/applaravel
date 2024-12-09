@@ -62,6 +62,9 @@
                         <input type="file" class="mb-5 mt-2 xl:mt-0 bg-gray-100 w-full py-3 pl-6 rounded-sm"
                             name="images" id="images">
                     </div>
+                    @error('images')
+                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer une image valide' }}</p>
+                    @enderror
                     {{-- <div class="input-group md:hidden">
                         <label for="age">Age</label>
                         <input value="{{ old('age') }}" type="number" id="age" name="age"
