@@ -110,55 +110,9 @@
 
 <body class="">
     <div class="container ">
-        {{-- <div  class="">
-            <div class="bg-white fixed w-[79vw] z-[100] overflow-hidden h-14 rounded-tl-xl rounded-tr-xl shadow-md grid grid-cols-1 gap-3 lg:grid-cols-2 items-center px-4">
-                <div class="flex gap-7 ">
-                    <a href="#" class="text-gray-400"><img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}"></a>
-                    <a href="#" class="text-gray-400"><img src="{{ asset('img/mail_outline_24dp_5F6368.svg') }}" alt=""></a>
-                    <a href="#" class="text-gray-400"><img src="{{ asset('img/dashboard_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}"
-                        alt=""></a>
-                    <a href="#" class="text-gray-400"><img src="{{ asset('img/production_quantity_limits_24dp_5F6368.svg') }}" alt=""></a>
-                    <span class="text-gray-200">|</span>
-                    <a href="#" class="text-gray-400"><img
-                            src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt=""></a>
-                    <img src="{{ asset('img/inventory_24dp_5F6368.svg') }}" alt=""></a>
-                    <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a>
-                </div>
-                <div class=" lg:justify-end flex gap-1">
-                    <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a>
-                    <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a>
-                    <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a>
-                </div>
-            </div>
-            <div class="p-4 pl-[75px] bg-white pt-20">
-                <div class="flex justify-between">
-                    <div>
-                        <p class=" text-sm lg:text-xl">Ne Restez pas avec un compte non verifié (et limité)   <button type="button" class="bg-gray-300 px-1 rounded-md text-sm hover:bg-gray-400 duration-200 ease-out">inbox</button></p>
-
-                        <p class=" text-sm lg:text-xl">Ne Restez pas avec un compte non verifié (et limité) <button
-                                type="button"
-                                class="bg-gray-300 px-1 rounded-md text-sm hover:bg-gray-400 duration-200 ease-out">inbox</button>
-                        </p>
-
-                    </div>
-                    <div class="flex flex-row gap-2">
-                        {{-- <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a>
-                        <a href="#" class="text-gray-400"><i class="fa-solid fa-edit"></i></a> --}}
-    </div>
-
-    {{-- <div class="grid grid-cols-1 lg:flex lg:justify-between lg:items-center "> --}}
-
-    {{-- <p class="mt-4 ">bigBazzar@gmail.com</p>
-        <p>1 decembre 2024 , 14:08</p> --}}
-
-
-    {{-- <div class="flex lg:justify-end flex-row gap-2 ">
-                    </div> --}}
-    {{-- </div> --}}
-
-    <div class="content">
-        <div class="center">
-            <p class="contentP"> Big <span class="">Bazzar</span> </p>
+        <div class="content">
+            <div class="center">
+                <p class="contentP"> Big <span class="">Bazzar</span> </p>
 
             <p class="">Dites adieu aux limitations</p>
             <p style="text-align: center">Vérifiez votre compte et profitez de nos services complets.</p>

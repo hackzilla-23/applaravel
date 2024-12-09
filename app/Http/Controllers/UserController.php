@@ -26,28 +26,7 @@ class UserController extends Controller
     // }
     public function store(PersonneFormRequest $request)
     {
-        // dd($request);
-        //la premiere methode validation
-        // $isvalid = $request->validate([
-        //     'nom' =>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
-
-        //la deuxieme methode validation
-        // Validator::make($request->all() , [
-        //     'nom'=>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
-
-        // dd($isvalid);
+        dd($request);
         try {
             $newpersonne = DB::transaction(function () use ($request) {
                 $user = Personne::create([
@@ -58,17 +37,17 @@ class UserController extends Controller
                     'images' => $request->images,
                     'password' => bcrypt($request->password),
                 ]);
-
-                // if($newpersonne){
-                //     //Envoie d'un email de confirmation
-                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // if($user){
+                //     dd($user);
+                //     // Envoie d'un email de confirmation
+                //     Mail::to($user->email)->send(new RegisterMail ($user));
                 // }
                 return $user;
             });
 
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
-
+            // dd($newpersonne);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
 
             return view('login', compact('newpersonne'));
@@ -77,8 +56,6 @@ class UserController extends Controller
             dd($th);
             // return back();
         }
-
-        // dd($newpersonne);
     }
 
     public function regi()
