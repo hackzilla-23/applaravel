@@ -27,25 +27,7 @@ class UserController extends Controller
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
-        //la premiere methode validation
-        // $isvalid = $request->validate([
-        //     'nom' =>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
 
-        //la deuxieme methode validation
-        // Validator::make($request->all() , [
-        //     'nom'=>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
 
         // dd($isvalid);
         try {
@@ -76,8 +58,6 @@ class UserController extends Controller
             dd($th);
             // return back();
         }
-
-        // dd($newpersonne);
     }
 
     public function regi()

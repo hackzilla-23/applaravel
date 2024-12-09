@@ -43,14 +43,14 @@ label {
 }
 
 .form-group input:focus {
-    border-color: #007bff;
+    border-color: #FF0060;
     outline: none;
 }
 
 .btn {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #FF0060;
     color: white;
     border: none;
     border-radius: 5px;
@@ -59,7 +59,7 @@ label {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #e30d5f;
 }
 
 .error {
