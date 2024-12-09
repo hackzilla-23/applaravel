@@ -28,7 +28,7 @@ class PersonneFormRequest extends FormRequest
             'age' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'images' => 'required',
+            'images' => 'required|mimes:png,jpg,jpeg|max:2048',
             'confirm-password' => 'required|confirmed:password',
             // 'nom' => 'required',
             // 'prenom' => 'required|alpha|min:2|max:50',
