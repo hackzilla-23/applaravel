@@ -42,6 +42,24 @@
         @yield('dashboard')
     </div> --}}
 
+    {{-- password  --}}
+    <script>
+        const password = document.getElementById('password');
+        const eyeIcon = document.querySelector('.fa-eye-slash');
+
+        eyeIcon.addEventListener('click', function() {
+            if (password.type === 'text') {
+                password.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        })
+    </script>
+
 </body>
 
 </html>

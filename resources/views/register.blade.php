@@ -57,16 +57,14 @@
                         @enderror
                     </div>
 
-                    <div>
-                        <p class="pb-2">Inserer une image</p>
-                        <input type="file" accept="image/*" class=" mt-2 xl:mt-0 bg-gray-100 w-full py-3 pl-6 rounded-sm"
-                            name="images" id="imageInput">
-                            {{-- <img src="" id="previewImage" alt="emplacement de l'Image" class="border-2 border-solid border-black rounded-lg p-2 mt-2"> --}}
+                    <div class="input-group">
+                        <label class="pb-2" for="images">Inserer une image</label>
+                        <input value="{{ old('images') }}" onchange="previewImage(event)" type="file"
+                            class="mb-5 mt-2 xl:mt-0 bg-gray-100 w-full py-3 pl-6 rounded-sm" name="images"
+                            id="images">
                         @error('images')
-                            <p class="text-red-500 text-sm pt-2  mb-5">Veuillez entrer une image</p>
+                            <p class="text-red-500 text-sm">{{ 'Veuillez entrer un fichier valide (png,jpg,jpeg)' }}</p>
                         @enderror
-                        
-                        
                     </div>
                     {{-- <div class="input-group md:hidden">
                         <label for="age">Age</label>
@@ -112,24 +110,10 @@
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <img src="" id="previewImage" alt="emplacement de l'Image" class="mt-14 border-2 border-solid border-black rounded-lg p-2">
-                        <script>
-                            function previewImage(e){
-                                const input = e.target
-                                const image = document.getElementById('previewImage')
-                                console.log(input.files);
-                                if(input.files && input.files[0]){
-                                    const reader = new FileReader();
-                                    reader.onload = function(e){
-                                        image.src = e.target.result;
-                                    }
-                                    reader.readAsDataURL(input.files[0]); 
-                                }
-                                
-                            }
-                            document.getElementById('imageInput').addEventListener('change', previewImage);
-                        </script>
+
+                    <div class="input-group">
+                        <img id="preview" src="#" alt="Aperçu de l'image"
+                            style="max-width: 200px; display: none; margin-top: 10px;">
                     </div>
                 </div>
             </div>
@@ -144,8 +128,20 @@
         </form>
     </div>
 
-
     {{-- @endsection --}}
+
+    {{-- preview  --}}
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>
