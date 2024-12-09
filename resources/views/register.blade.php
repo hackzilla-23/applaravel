@@ -66,9 +66,6 @@
                             <p class="text-red-500 text-sm">{{ 'Veuillez entrer un fichier valide (png,jpg,jpeg)' }}</p>
                         @enderror
                     </div>
-                    @error('images')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer une image valide' }}</p>
-                    @enderror
                     {{-- <div class="input-group md:hidden">
                         <label for="age">Age</label>
                         <input value="{{ old('age') }}" type="number" id="age" name="age"
