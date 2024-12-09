@@ -65,22 +65,7 @@
                         @error('images')
                             <p class="text-red-500 text-sm pt-2  mb-5">Veuillez entrer une image</p>
                         @enderror
-                        <script>
-                            function previewImage(e){
-                                const input = e.target
-                                const image = document.getElementById('previewImage')
-                                console.log(input.files);
-                                if(input.files && input.files[0]){
-                                    const reader = new FileReader();
-                                    reader.onload = function(e){
-                                        image.src = e.target.result;
-                                    }
-                                    reader.readAsDataURL(input.files[0]); 
-                                }
-                                
-                            }
-                            document.getElementById('imageInput').addEventListener('change', previewImage);
-                        </script>
+                        
                         
                     </div>
                     {{-- <div class="input-group md:hidden">
@@ -129,6 +114,22 @@
                     </div>
                     <div>
                         <img src="" id="previewImage" alt="emplacement de l'Image" class="mt-14 border-2 border-solid border-black rounded-lg p-2">
+                        <script>
+                            function previewImage(e){
+                                const input = e.target
+                                const image = document.getElementById('previewImage')
+                                console.log(input.files);
+                                if(input.files && input.files[0]){
+                                    const reader = new FileReader();
+                                    reader.onload = function(e){
+                                        image.src = e.target.result;
+                                    }
+                                    reader.readAsDataURL(input.files[0]); 
+                                }
+                                
+                            }
+                            document.getElementById('imageInput').addEventListener('change', previewImage);
+                        </script>
                     </div>
                 </div>
             </div>
