@@ -201,7 +201,7 @@
                     <div class="relative font-[sans-serif] w-max mx-auto">
                         <button type="button" id="dropdownToggle"
                         class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
-                            <img src="{{ asset('img/profile-2.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
+                            <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
                             alt="">
                             <div class="flex items-center gap-6">
                                 <div>
