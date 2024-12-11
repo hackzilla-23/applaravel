@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('register.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     @vite('resources/css/app.css')
     <title>Document</title>
 </head>
@@ -50,12 +50,14 @@
                         @enderror
                     </div>
 
-                    <div class="input-group hidden md:flex md:flex-col">
+                    <div class="input-group relative hidden md:flex md:flex-col">
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                        <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
                         @error('password')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
+                        <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                         @enderror
+
                     </div>
 
                     <div class="input-group">
@@ -90,10 +92,11 @@
                         @enderror
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group relative">
                         <label for="confirm-password">Confirmer le mot de passe</label>
                         <input type="password" id="confirm-password" name="confirm-password"
                             placeholder="Confirmez le mot de passe">
+                            <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
                         @error('confirm-password')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
                         @enderror
@@ -129,6 +132,29 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        const password = document.getElementById('password');
+        const confirm_password = document.getElementById('"confirm-password');
+        const eyeIcon = document.querySelector('.fa-eye-slash');
+
+        eyeIcon.addEventListener('click', function() {
+            if (password.type === 'text' ) {
+                password.type = 'password';
+                // confirm_password.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+            // else if (confirm_password.type === 'text' ) {
+            //     confirm_password.type = 'password';
+            //     eyeIcon.classList.remove('fa-eye');
+            //     eyeIcon.classList.add('fa-eye-slash');
+            // }
+            else {
+                password.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        })
     </script>
 </body>
 

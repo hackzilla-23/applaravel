@@ -93,7 +93,7 @@
             </div>
 
             <div class="profile-photo">
-                <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ asset('img/profile-1.jpg') }}">
+                <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}">
             </div>
         </div>
     </nav>
