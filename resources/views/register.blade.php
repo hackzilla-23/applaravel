@@ -94,9 +94,12 @@
 
                     <div class="input-group relative">
                         <label for="confirm-password">Confirmer le mot de passe</label>
-                        <input type="password" id="confirm-password" name="confirm-password"
+                        <div>
+
+                            <input type="password" id="confirm-password" name="confirm-password"
                             placeholder="Confirmez le mot de passe">
                             <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
+                        </div>
                         @error('confirm-password')
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe identique' }}</p>
                         @enderror
