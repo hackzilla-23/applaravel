@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
+use App\Models\Client;
+use App\Models\Adresse;
+use App\Models\Personne;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsPersonne;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterController;
 
 //pour regrouper les elements
 Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function() {
@@ -99,3 +102,45 @@ Route::post('/edit_Product', [ProductController::class, 'update_product'])->name
 Route::get('/email', function(){
     return view('email');
 })->name('email');
+
+/************************************* relation one to one *************************************/
+Route::get('/one_to_one' , function(){
+
+    //premiere methode
+    // $address = Adresse::create([
+    //     'nom_add' => 'logpom'
+    //     ]);
+    // Client::create([
+    // 'nom'=> 'souop',
+    // 'prenom'=> 'miguel',
+    // 'email'=>'miguel@souop.com',
+    // 'addr_id'=>$address->id
+    
+    // $clients = Client::find(1);
+    // return $clients->adresse->nom_add;
+    // ]);
+
+    //deuxieme methode
+
+    $address = Adresse::create([
+        'nom_add' => 'koto'
+        ]);
+    $address->client()->create([
+        'nom'=> 'souop',
+        'prenom'=> 'miguel',
+        'email'=>'miguel@souop.com',
+    ]);
+
+});
+
+/************************************* relation one to many *************************************/
+Route::get('/one_to_many' , function(){
+    $personne = Personne::has('voitures')->get();
+    $personne = Personne::doesntHave('voitures')->get();
+    // $personne->voitures()->create([
+    //     'marque' => 'ferari',
+    //     'couleur' => 'rouge',
+    // ]);
+    return $personne;
+    
+});

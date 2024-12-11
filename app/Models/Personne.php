@@ -16,4 +16,8 @@ class Personne extends Authenticatable
     // {
     //     return $this->hasMany(Produit::class);
     // }
+
+    public function voitures(){
+        return $this->hasMany(Voiture::class , 'personne_id' , 'id');
+    }
 }
