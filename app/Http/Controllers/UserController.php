@@ -12,6 +12,7 @@ use App\Http\Requests\RequestReset;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use App\Http\Requests\PersonneFormRequest;
@@ -84,7 +85,9 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            $products = Produit::all();
+            $id = Auth::guard('personnes')->user()->id;
+            $products = Produit::all()->where('personne_id' , $id);
+            // $products = Produit::all();
             return view('dashboard.product_dashboard')->with('allproducts', $products);
         } else {
             sleep(1);
@@ -116,40 +119,6 @@ class UserController extends Controller
         return view('form');
     }
 
-    // public function store(Request $request)
-    // {
-    //     // Validate the form data
-    //     $validated = $request->validate([
-    //         'nom' => 'required',
-    //         // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
-    //         'prenom' => 'required|alpha|min:2|max:50',
-    //         'age' => 'required|integer|between:18,150',
-    //         'email' => 'required|email|unique:personnes,email|max:255',
-    //         'password' => 'required',
-    //         // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-    //         'confirm-password' => 'required|confirmed:password',
-    //         // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
-    //     ]);
-
-    //     // // Store the user in the database
-    //     $user = Personne::create([
-    //         'nom' => $request->nom,
-    //         'prenom' => $request->prenom,
-    //         'age' => $request->age,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password),
-    //     ]);
-
-    //     // // Redirect to the login page
-    //     // return redirect()->route('register')->with('success', 'Success, vous serez rediriger dans 3 secondes...');
-    //     sleep(1);
-    //     return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
-    // }
-
-    // public function log(RequestLogs $request){
-
-    // }
-
     public function logs(RequestLogs $request)
     {
         // Validation des données
@@ -177,43 +146,6 @@ class UserController extends Controller
     public function reset(RequestReset $request)
     {
 
-        // Validation des champs
-        // $request->validate([
-        //     'password' => 'required',
-        //     'new_password' => 'required',
-        //     'password_confirmation' => 'required|confirmed:new_password',
-        // ]);
-
-        // // Validation des champs
-        // $request->validate([
-        //     'password' => 'required|string',
-        //     'new_password' => 'required|string',
-        //     'password_confirmation' => 'required|string|confirmed:new_password',
-        // ]);
-
-        // // Réinitialiser le mot de passe
-        // $status = Password::reset(
-        //     $request->only('password', 'new_password'),
-        //     function ($user) use ($request) {
-        //         $user->forceFill([
-        //             'password' => bcrypt($request->password),
-        //         ])->save();
-        //     }
-        // );
-
-        // // Vérifier si la réinitialisation a réussi
-        // if ($status === Password::PASSWORD_RESET) {
-        //     sleep(1);
-        //     return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
-        // } else {
-        //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
-        // }
-
-        // $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required|string|min:8|confirmed',
-        //     'password_confirmation' => 'required',
-        // ]);
 
         $response = Password::broker()->reset(
             $request->only(['email', 'password', 'password_confirmation']),
