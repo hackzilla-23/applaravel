@@ -18,8 +18,9 @@ return new class extends Migration
             $table->integer('quantite');
             $table->text('description');
             $table->foreignId('personne_id') // La clé étrangère qui relie le produit à une personne
-            ->constrained('personnes') // Fais la contrainte avec la table 'personnes'
-            ->onDelete('cascade'); // Supprime les produits associés si la personne est supprimée
+            ->constrained('personnes' , 'id') // Fais la contrainte avec la table 'personnes'
+            ->onDelete('cascade') // Supprime les produits associés si la personne est supprimée
+            ->onUpdate('cascade')->nullable();
             $table->timestamps();
         });
     }

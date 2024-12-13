@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\Client;
 use App\Models\Adresse;
 use App\Models\Personne;
@@ -143,4 +144,23 @@ Route::get('/one_to_many' , function(){
     // ]);
     return $personne;
     
+});
+
+/************************************* relation many to many *************************************/
+Route::get('/many_to_many' , function(){
+    // Role::create([
+    //     'nom_role' => 'admin'
+    // ]);
+    // Role::create([
+    //     'nom_role' => 'personne'
+    // ]);
+    $personne = Personne::find(32);
+    $role = Role::find(11);
+    // $personne->roles()->attach($role);
+    // return $personne->roles;
+
+    // $role->personnes()->attach($personne);
+    // return $personne->roles[0]->nom_role;
+    dd($role->personnes);
+    return $role->personnes[0];
 });

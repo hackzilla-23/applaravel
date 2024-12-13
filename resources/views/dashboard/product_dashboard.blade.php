@@ -160,7 +160,6 @@
                     </div>
 
                     <p class="text-center font-medium text-xl pb-8">ADD PRODUCT</p>
-
                     <div class="flex flex-col gap-4 mx-auto">
                         <div>
                             <label for="nom" class="font-bold">Product Name</label><br>
@@ -199,6 +198,7 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs pl-1">{{ $value->nom }}</p>
                         </li>
+                        {{-- <input type="hidden" name="personne_id"  value="{{ $value->personne_id }}"> --}}
 
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->prix }}</p>

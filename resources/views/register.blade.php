@@ -42,18 +42,20 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="prenom">Prenom</label>
-                        <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
-                            placeholder="Choisissez un prenom">
-                        @error('prenom')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
+                        <label for="email">Email</label>
+                        <input value="{{ old('email') }}" type="email" id="email" name="email"
+                            placeholder="Votre adresse email">
+                        @error('email')
+                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
                         @enderror
                     </div>
 
                     <div class="input-group relative hidden md:flex md:flex-col">
                         <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="password" placeholder="Votre mot de passe">
-                        <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
+                        <div class="    ">
+                            <input  type="password" id="password" name="password" placeholder="Votre mot de passe" class=" border-2 border-solid border-blue-500">
+                            <i class="fa fa-eye-slash absolute top-11 right-4"  aria-hidden="true"></i>
+                        </div>
                         @error('password')
                         <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un mot de passe valide' }}</p>
                         @enderror
@@ -74,12 +76,13 @@
                 
                 {{-- grid right --}}
                 <div>
+
                     <div class="input-group">
-                        <label for="email">Email</label>
-                        <input value="{{ old('email') }}" type="email" id="email" name="email"
-                            placeholder="Votre adresse email">
-                        @error('email')
-                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un email valide' }}</p>
+                        <label for="prenom">Prenom</label>
+                        <input value="{{ old('prenom') }}" type="text" id="prenom" name="prenom"
+                            placeholder="Choisissez un prenom">
+                        @error('prenom')
+                            <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un prenom valide' }}</p>
                         @enderror
                     </div>
 
@@ -91,6 +94,7 @@
                             <p class="text-red-500 text-sm pt-2">{{ 'Veuillez entrer un age valide' }}</p>
                         @enderror
                     </div>
+                    
 
                     <div class="input-group relative">
                         <label for="confirm-password">Confirmer le mot de passe</label>
