@@ -215,7 +215,7 @@ class UserController extends Controller
     public function takenusers(){
         $personne = Personne::all();
         return response()->json([
-            'success' => 'recuperation avec succes',
+            'success' => 'recuperation avec success',
             'data' => $personne
         ]);
     }
