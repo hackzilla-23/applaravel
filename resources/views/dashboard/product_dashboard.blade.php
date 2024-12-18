@@ -12,28 +12,6 @@
                 <input type="text" placeholder="Search for..." class="text-sm py-2 w-80 outline-none px-3">
             </div>
 
-            {{-- <div class="flex items-center gap-4">
-                <div
-                    class="bg-white rounded-md shadow-first hover:shadow-none duration-300 px-3.5 py-2 flex justify-center items-center">
-                    <a href="#">
-                        <i class="fa-solid fa-bell"></i>
-                    </a>
-                </div>
-
-                <div
-                    class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
-                    <img src="{{ asset('img/profile-2.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
-                        alt="">
-                    <div class="flex items-center gap-6">
-                        <div>
-                            <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
-                            <p class="text-[8px]">Admin Account</p>
-                        </div>
-                        <a href="#"><i class="fa-solid fa-caret-down"></i></a> 
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="flex flex-row gap-4">
                 <div
                     class="bg-white rounded-md shadow-first hover:shadow-none duration-300 px-3.5 py-2 flex justify-center items-center">
@@ -44,12 +22,26 @@
                 <div class="relative font-[sans-serif] w-max mx-auto">
                     <button type="button" id="dropdownToggle"
                         class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
-                        <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
+                        {{-- <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
+                            alt=""> --}}
+                        <img src="{{ asset('img/souop.jpg') }}" class="rounded-md w-[25px] h-[25px] object-cover"
                             alt="">
                         <div class="flex items-center gap-6">
                             <div>
-                                <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
-                                <p class="text-[8px]">Admin Account</p>
+                                {{-- <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                <p class="text-[8px]">Admin Account</p> --}}
+
+
+                                @if(Auth::guard('admins')->check())
+                                    <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p>
+                                    <p class="text-[8px]">Admin Account</p>
+                                
+                                @elseif(Auth::guard('personnes')->check())
+                                    <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                    <p class="text-[8px]">User Account</p>
+
+                                @endif
+                                {{-- <p class="text-[8px]">{{ $personne->role[0]->nom_role }}</p> --}}
                             </div>
                             <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                         </div>

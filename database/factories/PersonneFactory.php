@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Pays;
 use App\Models\User;
 use App\Models\Personne;
 use Illuminate\Support\Str;
@@ -22,12 +23,14 @@ class PersonneFactory extends Factory
     {
         return [
             //
-            "nom"=>fake()->name(),
-            "prenom"=>fake()->randomNumber(2),
-            "email"=>fake()->numberBetween(1,20),
-            "password" =>Str::random(10),
+            // "id" => Personne::factory()->create()->id,
+            "nom"=>Str::random(10),
+            "prenom"=>Str::random(10),
+            "email"=>Str::random(10).'@gmail.com',
             "age" => fake()->numberBetween(1,100),
-            "id" => Personne::factory()->create()->id
+            "password" =>bcrypt(Str::random(10)),
+            'images'=>Str::random(5).'.jpg',
+            'id_ville' =>fake()->randomNumber(1)
         ];
     }
 }

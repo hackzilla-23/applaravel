@@ -128,7 +128,8 @@
                 margin: 0 auto;
                 background: white;
                 height: auto;
-                padding: 12px" >
+                padding: 12px" 
+                >
                 <p class="contentP" style="
                 font-size: 20px;
                 line-height: 28px;
@@ -145,25 +146,54 @@
             {{-- <p class="styleP">{{ $personne->nom }}Votre expérience de trading doit être fluide et ininterrompue. Pour y parvenir et profiter de tous nos services, il vous suffit de procéder à la vérification de votre compte.</p> --}}
             <p class="styleP" style="margin: 12px 0;
                 font-size: 20px;
-                line-height: 32px;
+                line-height: 25px;
                 color: rgb(179, 169, 169);
                 padding: 12px;">Supprimer les limitations de votre compte
                 Avec un compte entièrement vérifié, vous pouvez continuer à déposer, transférer et négocier des fonds.
             </p>
             <p class="styleP" style="margin: 12px 0;
                 font-size: 20px;
-                line-height: 32px;
+                line-height: 25px;
                 color: rgb(179, 169, 169);
                 padding: 12px;">Si vous avez besoin d’aide avec vos documents, vous pouvez consulter l’article de notre
                 Centre d’aide ici ou contacter notre équipe d’assistance.</p>
             <p class="styleP" style="font-size: 20px;
-                line-height: 32px;
+                line-height: 25px;
                 color: rgb(179, 169, 169);
-                padding: 12px;">Faites-en plus avec un compte Exness entièrement vérifié.</p>
+                padding: 12px;">Faites-en plus avec un compte entièrement vérifié.</p>
+
+            <a href="#" type="submit" style="
+            background-color: #FF0060;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            margin : 25px 0;
+            display: inline-block;
+            ">
+                creer votre evenement maintenant
+            </a>
+
+            <h2 style="margin-bottom: 10px ; color: ; ">vous souhaitez assister à un événement ?</h2>
+            <p>Utilisez unniverse pour<a href="" style="text-decoration: none; color:#FF0060">découvrir les événements</a> qui se déroulent près de chez vous.</p>
+
+            <div style="
+               /* width: 100vw; */
+               background-color: rgb(0, 0, 0)
+               padding : 25px 0;
+               margin:  25px auto;
+               height: 100%;
+
+               "
+            >
+                <h2 style="margin-bottom: 10px">Vous avez des questions ?</h2>
+                <p>Nous sommes ici, apprenez-en plus sur Universe <a href="$" style="color:#FF0060">ici</a> ou <a href="#" style="color:#FF0060"> contactez-nous</a></p>
+            </div>
 
             <p class="styleP" style="margin: 12px 0;
                 font-size: 20px;
-                line-height: 32px;
+                line-height: 25px;
                 color: rgb(179, 169, 169);
                 padding: 12px;">Merci,<br><br> <span>L’équipe Big Bazzar</span></p>
 

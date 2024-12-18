@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('personne_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('id_role')->references('id')->on('roles');
             $table->foreignId('id_personne')->references('id')->on('personnes');
-            $table->timestamps();;
+            $table->foreignId('id_role')->references('id')->on('roles');
+            $table->timestamps();
         });
     }
 
