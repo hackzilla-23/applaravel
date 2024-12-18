@@ -201,12 +201,29 @@
                     <div class="relative font-[sans-serif] w-max mx-auto">
                         <button type="button" id="dropdownToggle"
                         class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
+
+                        @if(auth()->guard('personnes')->check())
                             <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
                             alt="">
+                        @elseif (auth()->guard('admins')->check())
+                            <img src="{{  asset('img/souop.jpg')}}" class="rounded-md w-[25px] h-[25px] object-cover"
+                            alt="">
+                        @endif
+                            
                             <div class="flex items-center gap-6">
                                 <div>
-                                    <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
-                                    <p class="text-[8px]">Admin Account</p>
+                                        {{-- <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p> --}}
+                                    @if(Auth::guard('admins')->check())
+                                        <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p>
+                                        <p class="text-[8px]">Admin Account</p>
+                                    
+                                    @elseif(Auth::guard('personnes')->check())
+                                        <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                        <p class="text-[8px]">User Account</p>
+                                    
+                                    @endif
+                                        {{-- <p class="text-xs font-semibold">souop</p>
+                                        <p class="text-[8px]">Admin Account</p> --}}
                                 </div>
                                 <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                             </div>

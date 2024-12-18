@@ -8,6 +8,7 @@ use App\Mail\RegisterMail;
 use Illuminate\Support\Str;
 use App\Http\Requests\RequestLogs;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\RequestReset;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -53,8 +54,14 @@ class UserController extends Controller
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
             // dd($saveimage);
-            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+            
+            $role_utilisateur = Role::find(2);
+            // dd($role_utilisateur);
+            $newpersonne->assignRole($role_utilisateur);
 
+
+            
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
             //throw $th;
@@ -73,6 +80,11 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
+
+            return view('dashboard.main_dashboard');
+
+        } else if (Auth::guard('admins')->check()) {
+
             return view('dashboard.main_dashboard');
         } else {
             sleep(1);
@@ -86,6 +98,12 @@ class UserController extends Controller
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
             $id = Auth::guard('personnes')->user()->id;
+            $products = Produit::all()->where('personne_id' , $id);
+            // $products = Produit::all();
+            return view('dashboard.product_dashboard')->with('allproducts', $products);
+        } 
+        else if (Auth::guard('admins')->check()) {
+            $id = Auth::guard('admins')->user()->id;
             $products = Produit::all()->where('personne_id' , $id);
             // $products = Produit::all();
             return view('dashboard.product_dashboard')->with('allproducts', $products);
@@ -135,10 +153,17 @@ class UserController extends Controller
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
         // dd(Auth::guard('personnes')->attempt($credentials));
-        if (Auth::guard('personnes')->attempt($credentials)) {
+        if(Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
+            // dd(Auth::guard('personnes')->user()->roles[0]->permissions->pluck('name'));
             return redirect()->intended('dashboard');
+        }else if (Auth::guard('admins')->attempt($credentials)) {
+
+            // dd(Auth::guard('admins')->user()->roles[0]->permissions->pluck('name'));
+            sleep(1);
+            return redirect()->intended('dashboard');
+            
         }
 
     }
@@ -175,6 +200,23 @@ class UserController extends Controller
             Auth::guard('personnes')->logout();
             return redirect()->route('login');
         }
+        if (Auth::guard('admins')->check()) {
+            // Auth::logout();
+            Auth::guard('admins')->logout();
+            return redirect()->route('login');
+        }
+    }
+    
+    public function selectOption(){
+        $personne = Personne::all();
+        return view('selectOption')->with('allPersonne' , $personne);
     }
 
+    public function takenusers(){
+        $personne = Personne::all();
+        return response()->json([
+            'success' => 'recuperation avec succes',
+            'data' => $personne
+        ]);
+    }
 }

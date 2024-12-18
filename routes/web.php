@@ -1,21 +1,25 @@
 <?php
 
-use App\Models\Role;
+use App\Models\Pays;
+use App\Models\Admin;
+use App\Models\Ville;
 use App\Models\Client;
 use App\Models\Adresse;
 use App\Models\Personne;
 use App\Http\Middleware\IsAdmin;
+use Spatie\Permission\Models\Role;
 use App\Http\Middleware\IsPersonne;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 
 //pour regrouper les elements
-Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function() {
-    // Route::get('/' , [UserController::class, 'index'])->name('login');
-    Route::get('/' , 'index')->name('login');
-});
+// Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(['middleware' =>['role:Admin' , 'permission:Ajouter,modifier , supprimer']],function() {
+//     // Route::get('/' , [UserController::class, 'index'])->name('login');
+//     Route::get('/' , 'index')->name('login');
+// });
 
 // Route::get('/' , [UserController::class, 'index'])->name('login');
 // Route::get('/', [UserController::class, 'login'])->name('login');
@@ -136,8 +140,12 @@ Route::get('/one_to_one' , function(){
 
 /************************************* relation one to many *************************************/
 Route::get('/one_to_many' , function(){
+    /*accede au personne qui ont une voiture*/
     $personne = Personne::has('voitures')->get();
+
+    /*accede au personne qui n'ont pas une voiture*/
     $personne = Personne::doesntHave('voitures')->get();
+
     // $personne->voitures()->create([
     //     'marque' => 'ferari',
     //     'couleur' => 'rouge',
@@ -149,18 +157,122 @@ Route::get('/one_to_many' , function(){
 /************************************* relation many to many *************************************/
 Route::get('/many_to_many' , function(){
     // Role::create([
-    //     'nom_role' => 'admin'
+    //     'nom_role' => 'client'
     // ]);
     // Role::create([
-    //     'nom_role' => 'personne'
+    //     'nom_role' => 'caissier'
     // ]);
+    // Role::create([
+    //     'nom_role' => 'comptable'
+    // ]);
+
+
     $personne = Personne::find(32);
-    $role = Role::find(11);
+    // $role = Role::find(11);
+    // $role = Role::all();
     // $personne->roles()->attach($role);
+    // $personne->roles()->detach($role);
+    $personne->roles()->attach([13,14,15]);
+    $personne->roles()->attach([
+        // $role[11]=>[
+        //     'description' => 'une description'
+        // ]
+    ]);
+
+    /* remplire un champ au niveau de notre table pivot */
     // return $personne->roles;
 
     // $role->personnes()->attach($personne);
     // return $personne->roles[0]->nom_role;
-    dd($role->personnes);
-    return $role->personnes[0];
+
+    /* acceder au champ created_at de la table pivot  */
+    // return $personne->roles[14]->pivot->created_at;
+    // return $role->personnes;
 });
+
+Route::get('/personne_ville_pays' , function (){
+    $pays = Pays::create([
+    'nom_pays' => 'Canada',
+    ]);
+    $personne = $pays->villes()->create([
+        'nom_ville' => 'Montreal',
+    ])->personnes()->create([
+        'nom' => 'souop',
+        'prenom' => 'miguel',
+        'email' => 'souop@gmail.com',
+        'age' => '12',
+        'password' => Bcrypt('1234567890'),
+        'images' => 'stmgR.jpg'
+    ]);
+
+    // return $personne;
+    return $pays->habitants[0]->nom;
+});
+
+Route::get('/personne_admin' , function (){
+    $personne = Personne::find(13);
+    // $admin = Admin::create([
+    //     'nom'=> 'souop',
+    //     'prenom'=>'miguel',
+    //     'age'=>'12',
+    //     'email'=>'miguelsouop@gmail.com',
+    //     'password'=>bcrypt('1234567890')
+    // ]);
+    $admin = Admin::find(1);
+
+
+    //administrateur
+    // $administrateur = Role::where('id' , 1)->update([
+    //     'name'=>'administrateur',
+    //     'guard_name'=>'admins',
+    // ]);
+    $role_administrateur = Role::find(1);
+    //utilisateur
+    // $utilisateur = Role::where('id' , 2)->update([
+    //     'name'=> 'utilisateur',
+    //     'guard_name'=> 'personnes',
+    // ]);
+    $role_utilisateur = Role::find(2);
+
+    /*****************************ajouter*****************************/
+    // $permissionAdd = Permission::create([
+    //     'name'=> 'Ajouter',
+    //     // 'guard_name'=> 'admins',
+
+    // ]);
+    // $permissionAddAdmin = Permission::create([
+    //     'name'=> 'Ajouter',
+    //     'guard_name'=> 'admins',
+
+    // ]);
+    $permissionAddUser = Permission::find(1);
+    $permissionAddAdmin = Permission::find(4);
+
+    /********************************supprimer********************************/
+    // $permissionDelete = Permission::create([
+    //     'name'=> 'supprimer',
+    //     // 'guard_name'=> 'admins',
+
+    // ]);
+    $permissionDelete = Permission::find(2);
+
+    /********************************modifier********************************/
+    // $permissionUpdate = Permission::create([
+    //     'name'=> 'modifier',
+    //     // 'guard_name'=> 'admins',
+    // ]);
+    $permissionUpdate = Permission::find(3);
+
+
+
+    $role_administrateur->givePermissionTo($permissionAddAdmin , $permissionDelete , $permissionUpdate);
+    $role_utilisateur->givePermissionTo($permissionAddUser);
+
+    $admin->assignRole($role_administrateur);
+    $personne->assignRole($role_utilisateur);
+    // $admin->assignRole('admin');
+    // $personne->assignRole('user');
+
+});
+
+Route::get('/select' , [UserController::class, 'selectOption'])->name('selectOption');

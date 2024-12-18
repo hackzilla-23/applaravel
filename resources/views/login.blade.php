@@ -45,7 +45,7 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                 {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
-                <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
+                <i class="fa fa-eye-slash absolute top-11 right-4 px-1 cursor-pointer" aria-hidden="true"></i>
             </div>
 
             @error('email1')

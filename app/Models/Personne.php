@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Models\Role;
 
 class Personne extends Authenticatable
 {
     use Notifiable, CanResetPassword;
+    use HasRoles;
+    use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'images'];
+    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'images' , 'id_ville '];
     // relation entre personnes et produits
     public function produits()
     {
@@ -24,8 +29,11 @@ class Personne extends Authenticatable
 
     //relation entre personnes et roles
     public function roles(){
-        return $this->belongsToMany(Role::class, 'personne_roles', 'id_personne', 'id_role');
+        return $this->belongsToMany(Role::class, 'personne_roles', 'id_personne', 'id_role')->withTimestamps();
     }
 
+    public function villes(){
+        return $this->belongsTo(Ville::class , 'id_ville' , 'id');
+    }
 
 }
