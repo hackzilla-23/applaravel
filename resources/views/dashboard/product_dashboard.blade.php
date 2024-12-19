@@ -44,12 +44,16 @@
                 <div class="relative font-[sans-serif] w-max mx-auto">
                     <button type="button" id="dropdownToggle"
                         class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
-                        <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
-                            alt="">
+                        {{-- <img src="{{ url('storage/personne_images/' . auth()->guard('personnes')->user()->images) }}" --}}
+                        <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}"
+                            class="rounded-md w-[25px] h-[25px] object-cover" alt="">
                         <div class="flex items-center gap-6">
                             <div>
-                                <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
-                                <p class="text-[8px]">Admin Account</p>
+                                {{-- <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p> --}}
+                                {{-- <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p> --}}
+                                <p class="text-xs font-semibold">Russel</p>
+                                {{-- <p class="text-[8px]">{{ $personne->roles[0]->nom_role }}</p> --}}
+                                <p class="text-[8px]">ADMIN</p>
                             </div>
                             <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                         </div>
@@ -153,7 +157,7 @@
                         <ul class="flex justify-between items-center py-7">
                             <li class="text-2xl font-bold">Big Bazzar</li>
                             <button type="button"
-                                class="px-1.5 text-sm py-0.5 close font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
+                                class="px-1.5 text-sm py-0.5 close font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black duration-300">
                                 close
                             </button>
                         </ul>
@@ -193,8 +197,8 @@
 
             {{-- lists  --}}
             <div class="flex flex-col gap-1">
-                @foreach ($allproducts as $value)
-                    <ul
+                {{-- @foreach ($allproducts as $value) --}}
+                {{-- <ul
                         class="grid grid-cols-5 items-center gap-35 hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs pl-1">{{ $value->nom }}</p>
@@ -210,23 +214,22 @@
 
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs ">{{ $value->description }}</p>
-                        </li>
-                        {{-- @dd("{!!$value->id!!}") --}}
-                        {{-- @dd({!!$value->id!!}) --}}
-                        <li class="col-span-1 grid items-center justify-center">
+                        </li> --}}
+                {{-- @dd("{!!$value->id!!}") --}}
+                {{-- @dd({!!$value->id!!}) --}}
+                {{-- <li class="col-span-1 grid items-center justify-center">
                             <div class="flex items-center gap-2 ">
-                                <div id="editbtn{{$value->id}}" onclick="editeproduct({{$value->id}})"
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300"
-                                    >
+                                <div id="editbtn{{ $value->id }}" onclick="editeproduct({{ $value->id }})"
+                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
                                     <a href="#">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
-                                </div>
+                                </div> --}}
 
-                                {{-- formulaire edit  --}}
-                                {{-- @dump($value->id)
+                {{-- formulaire edit  --}}
+                {{-- @dump($value->id)
                                 @dd("editProductModal".$value->id) --}}
-                                <form id="{{$value->id}}"
+                {{-- <form id="{{ $value->id }}"
                                     class="fixed top-12 left-[40vw] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
                                     action="{{ route('edit_Product') }}" method="POST">
                                     @csrf
@@ -235,7 +238,7 @@
                                         <div>
                                             <ul class="flex justify-between items-center py-7">
                                                 <li class="text-2xl font-bold">Big Bazzar</li>
-                                                <button type="button" id="closeEditBtn{{$value->id}}"
+                                                <button type="button" id="closeEditBtn{{ $value->id }}"
                                                     class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
                                                     close
                                                 </button>
@@ -273,26 +276,24 @@
                                             class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
                                             type="submit">Save</button>
                                     </div>
-                                </form>
+                                </form> --}}
 
-                                <div
+                {{-- <div
                                     class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
                                     <form action="{{ route('delete_product') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $value->id }}">
                                         <button type="submit" class="text-[#FF0060]"><i
                                                 class="fa-solid fa-trash"></i></button>
-                                    </form>
-                                    {{-- <a href="#" class="text-[#FF0060]">
+                                    </form> --}}
+                {{-- <a href="#" class="text-[#FF0060]">
                                         <i class="fa-solid fa-trash"></i>
                                     </a> --}}
-                                </div>
-                            </div>
+                {{-- </div> --}}
+                {{-- </div>
                         </li>
-                    </ul>
-                @endforeach
-
-
+                    </ul> --}}
+                {{-- @endforeach --}}
             </div>
 
             {{-- pagination  --}}

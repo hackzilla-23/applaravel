@@ -88,12 +88,17 @@
 
         <div class="profile flex items-center justify-end gap-6 py-2">
             <div class="info text-right">
-                <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p>
+                {{-- <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p> --}}
+                {{-- <p class="text-sm">Hey, <b>{{ auth()->guard('admins')->user()->prenom }}</b></p> --}}
+                <p class="text-xs font-semibold">Russel</p>
                 <small class="text-xs text-[#7d8da1]">Admin</small>
             </div>
 
             <div class="profile-photo">
-                <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}">
+                {{-- <img class="w-[40px] h-[40px] rounded-[50%]"
+                    src="{{ url('storage/personne_images/' . auth()->guard('personnes')->user()->images) }}"> --}}
+                <img class="w-[40px] h-[40px] rounded-[50%]"
+                    src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}">
             </div>
         </div>
     </nav>
@@ -117,11 +122,13 @@
                         <a class="hidden xl:flex" id="dashboard" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
 
-                    <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
-                        <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}"
-                            alt="">
-                        <a class="hidden xl:flex" href="#">Users</a>
-                    </li>
+                    @hasrole('admin')
+                        <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                            <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}"
+                                alt="">
+                            <a class="hidden xl:flex" href="{{ route('panel_admin') }}">Users</a>
+                        </li>
+                    @endhasrole
 
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/production_quantity_limits_24dp_5F6368.svg') }}" alt="">
@@ -168,6 +175,26 @@
 
         @yield('main')
     </div>
+
+
+    {{-- navbar  --}}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            const hamburger = document.querySelector('.hamburger');
+            const closeMenu = document.querySelector('.close-menu');
+
+            hamburger.addEventListener('click', function() {
+                navbar.classList.add('-translate-x-0');
+                navbar.classList.remove('-translate-x-52');
+            });
+
+            closeMenu.addEventListener('click', function() {
+                navbar.classList.add('-translate-x-52');
+                navbar.classList.remove('-translate-x-0');
+            });
+        });
+    </script>
 
     {{-- pourcentage circle  --}}
     <script>
