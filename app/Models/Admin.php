@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
     use HasRoles, HasFactory;
+
+    protected $guard_name = 'admins';
+
     protected $fillable = ['nom', 'prenom', 'email', 'password', 'id_role'];
 
     // Définir la relation : Une personne a plusieurs roles

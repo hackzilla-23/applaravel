@@ -122,13 +122,14 @@
                         <a class="hidden xl:flex" id="dashboard" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
 
-                    @hasrole('admin')
-                        <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                    @if (auth()->guard('admins')->user() && auth()->guard('admins')->user()->role->name == 'admin')
+                        <li
+                            class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                             <img src="{{ asset('img/person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 (1).svg') }}"
                                 alt="">
                             <a class="hidden xl:flex" href="{{ route('panel_admin') }}">Users</a>
                         </li>
-                    @endhasrole
+                    @endif
 
                     <li class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                         <img src="{{ asset('img/production_quantity_limits_24dp_5F6368.svg') }}" alt="">
