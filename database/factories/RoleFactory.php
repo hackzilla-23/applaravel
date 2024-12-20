@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class RoleFactory extends Factory
     {
         return [
             //
-            'nom_role' => fake()->name(),
+            'nom_role' => Str::random(10)
         ];
     }
 }

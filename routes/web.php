@@ -6,10 +6,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 //pour regrouper les elements
-Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function () {
-    // Route::get('/' , [UserController::class, 'index'])->name('login');
-    Route::get('/', 'index')->name('login');
-});
+// Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(['middleware' =>['role:Admin' , 'permission:Ajouter,modifier , supprimer']],function() {
+//     // Route::get('/' , [UserController::class, 'index'])->name('login');
+//     Route::get('/' , 'index')->name('login');
+// });
 
 // Route::get('/' , [UserController::class, 'index'])->name('login');
 // Route::get('/', [UserController::class, 'login'])->name('login');
