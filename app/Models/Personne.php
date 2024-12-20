@@ -2,38 +2,49 @@
 
 namespace App\Models;
 
+use App\Models\Ville;
+use App\Models\Produit;
+use App\Models\Voiture;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Models\Role;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
 class Personne extends Authenticatable
 {
-    use Notifiable, CanResetPassword;
-    use HasRoles;
-    use HasFactory;
+    use Notifiable, CanResetPassword, HasRoles;
 
-    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'images' , 'id_ville '];
-    // relation entre personnes et produits
+    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'id_ville', 'id_role'];
+
+    // Définir la relation : Une personne a plusieurs produit
     public function produits()
     {
-        return $this->hasMany(Produit::class , 'personne_id' ,'id');
+        return $this->hasMany(Produit::class, 'id_personne', 'id');
     }
 
-    // relation entre personnes et voitures
-    public function voitures(){
-        return $this->hasMany(Voiture::class , 'personne_id' , 'id');
+    // Définir la relation : Une personne a plusieurs voitures
+    // public function voitures()
+    // {
+    //     return $this->hasMany(Voiture::class, 'personne_id', 'id');
+    // }
+
+    // Définir la relation : Une personne a plusieurs roles
+    // public function roles()
+    // {
+    //     return $this->belongsToMany(Role::class, 'personne_roles', 'id_personne', 'id_role');
+    // }
+
+    // Définir la relation : Une personne a un role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role', 'id');
     }
 
-    //relation entre personnes et roles
-    public function roles(){
-        return $this->belongsToMany(Role::class, 'personne_roles', 'id_personne', 'id_role')->withTimestamps();
-    }
-
-    public function villes(){
-        return $this->belongsTo(Ville::class , 'id_ville' , 'id');
+    // Définir la relation avec la table villes
+    public function ville()
+    {
+        return $this->belongsTo(Ville::class, 'id_ville', 'id');
     }
 
 }

@@ -17,7 +17,7 @@ class IsAdmin
     {
         // dd('hello middleware IsAdmin');
         // dd($name);
-        if(auth()->guard('personnes')->check()){
+        if(auth()->guard('admins')->check()){
            return  $next($request);
         }
         return redirect()->route('dashboard');

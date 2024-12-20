@@ -32,14 +32,12 @@
                                 <p class="text-[8px]">Admin Account</p> --}}
 
 
-                                @if(Auth::guard('admins')->check())
+                                @if (Auth::guard('admins')->check())
                                     <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p>
                                     <p class="text-[8px]">Admin Account</p>
-                                
                                 @elseif(Auth::guard('personnes')->check())
                                     <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
                                     <p class="text-[8px]">User Account</p>
-
                                 @endif
                                 {{-- <p class="text-[8px]">{{ $personne->role[0]->nom_role }}</p> --}}
                             </div>
@@ -145,7 +143,7 @@
                         <ul class="flex justify-between items-center py-7">
                             <li class="text-2xl font-bold">Big Bazzar</li>
                             <button type="button"
-                                class="px-1.5 text-sm py-0.5 close font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060]   hover:shadow-black duration-300">
+                                class="px-1.5 text-sm py-0.5 close font-bold rounded-lg shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black duration-300">
                                 close
                             </button>
                         </ul>
@@ -184,107 +182,104 @@
 
             {{-- lists  --}}
             <div class="flex flex-col gap-1">
-                @foreach ($allproducts as $value)
-                    <ul
-                        class="grid grid-cols-5 items-center gap-35 hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs pl-1">{{ $value->nom }}</p>
-                        </li>
-                        {{-- <input type="hidden" name="personne_id"  value="{{ $value->personne_id }}"> --}}
+                @if ($allproducts)
+                    @foreach ($allproducts as $value)
+                        <ul
+                            class="grid grid-cols-5 items-center gap-35 hover:bg-gray-100 duration-300 rounded-md justify-center px-6 py-2 border-gray-200 border-2">
+                            <li class="col-span-1 grid items-center justify-center">
+                                <p class="text-xs pl-1">{{ $value->nom }}</p>
+                            </li>
+                            <input type="hidden" name="personne_id" value="{{ $value->personne_id }}">
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->prix }}</p>
-                        </li>
+                            <li class="col-span-1 grid items-center justify-center">
+                                <p class="text-xs">{{ $value->prix }}</p>
+                            </li>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs">{{ $value->quantite }}</p>
-                        </li>
+                            <li class="col-span-1 grid items-center justify-center">
+                                <p class="text-xs">{{ $value->quantite }}</p>
+                            </li>
 
-                        <li class="col-span-1 grid items-center justify-center">
-                            <p class="text-xs ">{{ $value->description }}</p>
-                        </li>
-                        {{-- @dd("{!!$value->id!!}") --}}
-                        {{-- @dd({!!$value->id!!}) --}}
-                        <li class="col-span-1 grid items-center justify-center">
-                            <div class="flex items-center gap-2 ">
-                                <div id="editbtn{{$value->id}}" onclick="editeproduct({{$value->id}})"
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300"
-                                    >
-                                    <a href="#">
-                                        <i class="fa-solid fa-edit"></i>
-                                    </a>
-                                </div>
-
-                                {{-- formulaire edit  --}}
-                                {{-- @dump($value->id)
-                                @dd("editProductModal".$value->id) --}}
-                                <form id="{{$value->id}}"
-                                    class="fixed top-12 left-[40vw] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
-                                    action="{{ route('edit_Product') }}" method="POST">
-                                    @csrf
-
-                                    <div>
-                                        <div>
-                                            <ul class="flex justify-between items-center py-7">
-                                                <li class="text-2xl font-bold">Big Bazzar</li>
-                                                <button type="button" id="closeEditBtn{{$value->id}}"
-                                                    class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
-                                                    close
-                                                </button>
-                                            </ul>
-                                        </div>
-
-                                        <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
-
-                                        <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <div class="flex flex-col gap-4">
-                                            <div>
-                                                <label for="nom" class="font-bold">Product Name</label><br>
-                                                <input type="text" name="nom" value="{{ $value->nom }}"
-                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
-                                            </div>
-                                            <div>
-                                                <label for="prix" class="font-bold">Price</label><br>
-                                                <input type="number" name="prix" value="{{ $value->prix }}"
-                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
-
-                                            </div>
-                                            <div>
-                                                <label for="quantite" class="font-bold">Quantity</label><br>
-                                                <input type="number" name="quantite" value="{{ $value->quantite }}"
-                                                    class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
-                                            </div>
-                                            <div>
-                                                <label for="description" class="font-bold">Description</label><br>
-                                                <textarea type="text" rows="4" name="description"
-                                                    class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
-                                            </div>
-                                        </div>
-
-                                        <button
-                                            class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
-                                            type="submit">Save</button>
+                            <li class="col-span-1 grid items-center justify-center">
+                                <p class="text-xs ">{{ $value->description }}</p>
+                            </li>
+                            {{-- @dd("{!!$value->id!!}") --}}
+                            {{-- @dd({!!$value->id!!}) --}}
+                            <li class="col-span-1 grid items-center justify-center">
+                                <div class="flex items-center gap-2 ">
+                                    <div id="editbtn{{ $value->id }}" onclick="editeproduct({{ $value->id }})"
+                                        class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                        <a href="#">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </a>
                                     </div>
-                                </form>
 
-                                <div
-                                    class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
-                                    <form action="{{ route('delete_product') }}" method="POST">
+                                    {{-- formulaire edit  --}}
+                                    {{-- @dump($value->id)
+                                @dd("editProductModal".$value->id) --}}
+                                    <form id="{{ $value->id }}"
+                                        class="fixed top-12 left-[40vw] hidden z-50 mx-auto w-96 -translate-y-[800px] transition-all duration-700 ease-out justify-center items-center bg-white shadow-lg"
+                                        action="{{ route('edit_Product') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{ $value->id }}">
-                                        <button type="submit" class="text-[#FF0060]"><i
-                                                class="fa-solid fa-trash"></i></button>
+
+                                        <div>
+                                            <div>
+                                                <ul class="flex justify-between items-center py-7">
+                                                    <li class="text-2xl font-bold">Big Bazzar</li>
+                                                    <button type="button" id="closeEditBtn{{ $value->id }}"
+                                                        class="px-1.5 text-sm py-0.5 bg-[#FF0060] font-bold rounded-lg shadow-md shadow-black hover:shadow-lg  hover:shadow-black  duration-300">
+                                                        close
+                                                    </button>
+                                                </ul>
+                                            </div>
+
+                                            <p class="text-center font-medium text-xl pb-8">EDIT PRODUCT</p>
+
+                                            <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                            <div class="flex flex-col gap-4">
+                                                <div>
+                                                    <label for="nom" class="font-bold">Product Name</label><br>
+                                                    <input type="text" name="nom" value="{{ $value->nom }}"
+                                                        class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                </div>
+                                                <div>
+                                                    <label for="prix" class="font-bold">Price</label><br>
+                                                    <input type="number" name="prix" value="{{ $value->prix }}"
+                                                        class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">
+
+                                                </div>
+                                                <div>
+                                                    <label for="quantite" class="font-bold">Quantity</label><br>
+                                                    <input type="number" name="quantite" value="{{ $value->quantite }}"
+                                                        class="rounded-lg bg-[#f1eeef]  mt-2 py-2.5 pl-5 outline-none w-[315px]">
+                                                </div>
+                                                <div>
+                                                    <label for="description" class="font-bold">Description</label><br>
+                                                    <textarea type="text" rows="4" name="description"
+                                                        class="rounded-lg bg-[#f1eeef] mt-2 py-2.5 pl-5 outline-none w-[315px]">{{ $value->description }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                class="mb-8 mt-8 py-2.5 w-[310px] rounded-lg font-bold shadow-md shadow-black hover:shadow-lg bg-[#FF0060] hover:shadow-black  duration-300"
+                                                type="submit">Save</button>
+                                        </div>
                                     </form>
-                                    {{-- <a href="#" class="text-[#FF0060]">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a> --}}
+
+                                    <div
+                                        class="bg-gray-100 px-2 py-1 flex items-center justify-center rounded-md shadow-first hover:shadow-none duration-300">
+                                        <form action="{{ route('delete_product') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                            <button type="submit" class="text-[#FF0060]"><i
+                                                    class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                @endforeach
-
-
+                            </li>
+                        </ul>
+                    @endforeach
+                @else
+                @endif
             </div>
 
             {{-- pagination  --}}
