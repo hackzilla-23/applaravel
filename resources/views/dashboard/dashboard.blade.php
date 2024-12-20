@@ -88,15 +88,12 @@
 
         <div class="profile flex items-center justify-end gap-6 py-2">
             <div class="info text-right">
-                @if(Auth::guard('admins')->check())
+                @if (Auth::guard('admins')->check())
                     <p class="text-sm">Hey, <b>{{ auth()->guard('admins')->user()->prenom }}</b></p>
                     <small class="text-xs text-[#7d8da1]">Admin</small>
-
                 @elseif(Auth::guard('personnes')->check())
-                
                     <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p>
                     <small class="text-xs text-[#7d8da1]">user</small>
-
                 @endif
                 {{-- <p class="text-sm">Hey, <b>{{ auth()->guard('personnes')->user()->prenom }}</b></p> --}}
             </div>
@@ -162,9 +159,9 @@
 
                     @if (auth()->guard('admins')->check())
                         <li
-                                class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
-                                <img src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt="">
-                                <a class="hidden xl:flex" href="">Permission</a>
+                            class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
+                            <img src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt="">
+                            <a class="hidden xl:flex" href="">Permission</a>
                         </li>
                     @endif
                     {{-- <li

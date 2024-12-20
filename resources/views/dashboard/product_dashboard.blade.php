@@ -273,9 +273,6 @@
                                             <button type="submit" class="text-[#FF0060]"><i
                                                     class="fa-solid fa-trash"></i></button>
                                         </form>
-                                        <a href="#" class="text-[#FF0060]">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
                                     </div>
                                 </div>
                             </li>
