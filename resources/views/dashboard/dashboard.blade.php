@@ -164,7 +164,7 @@
                         <li
                                 class="flex hover:text-[#6C9BCF] hover:translate-x-2 duration-300 pl-6 py-4 items-center gap-4">
                                 <img src="{{ asset('img/report_gmailerrorred_24dp_5F6368.svg') }}" alt="">
-                                <a class="hidden xl:flex" href="{{ route('selectOption') }}">Permission</a>
+                                <a class="hidden xl:flex" href="">Permission</a>
                         </li>
                     @endif
                     {{-- <li
