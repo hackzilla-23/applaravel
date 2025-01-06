@@ -232,7 +232,6 @@ Route::get('/many_to_many_pays_ville', function () {
     // return $pays->habitants[0]->nom;
 });
 
-<<<<<<< HEAD
 Route::get('/personne_admin' , function (){
     // $personne = Personne::create([
     //     'nom'=> 'migue',
@@ -271,7 +270,6 @@ Route::get('/personne_admin' , function (){
     //     'name'=> 'Ajouter',
     //     'guard_name'=> 'personnes',
 
-=======
 Route::get('/test_role_permission', function () {
 
     // Role::find(1)->update([
@@ -286,12 +284,10 @@ Route::get('/test_role_permission', function () {
     // ]);
     // Permission::find(3)->update([
     //     'guard_name' => 'admins',
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
     // ]);
     // Permission::find(2)->update([
     //     'guard_name' => 'admins',
     // ]);
-<<<<<<< HEAD
     // $permissionAddUser = Permission::find(5);
     $permissionAdd = Permission::find(5);
     // $permissionAddAdmin = Permission::find(4);
@@ -310,7 +306,6 @@ Route::get('/test_role_permission', function () {
     //     'guard_name'=> 'admins',
     // ]);
     $permissionUpdate = Permission::find(7);
-=======
 
     // $role = Role::find(1);
     // $role1 = Role::find(2);
@@ -319,14 +314,12 @@ Route::get('/test_role_permission', function () {
     // $role1->givePermissionTo([1]);
 
     // $role = Role::find(1);
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
 
     // return $role->permissions->pluck('name');
 
     // $personne = Personne::find(28);
     // $role = Role::find(2);
 
-<<<<<<< HEAD
     $role_administrateur->givePermissionTo($permissionDelete , $permissionUpdate);
     $role_utilisateur->givePermissionTo($permissionAdd);
 
@@ -334,7 +327,6 @@ Route::get('/test_role_permission', function () {
     $personne->assignRole($role_utilisateur);
     // $admin->assignRole('admin');
     // $personne->assignRole('user');
-=======
     // $personne->role()->associate($role);
     // $personne->save();
 
@@ -347,6 +339,5 @@ Route::get('/test_role_permission', function () {
     // $personne->save();
 
     // dd($personne->role->permissions->pluck('name'));
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
 
-});
+// });

@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-<<<<<<< HEAD
+use App\Models\Admin;
+use App\Models\Personne;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Str;
+use App\Http\Requests\RequestLogs;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Requests\RequestReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Password;
-use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\UpdateFormRequest;
-=======
-use App\Http\Requests\PersonneFormRequest;
-use App\Http\Requests\RequestLogs;
-use App\Http\Requests\RequestReset;
-use App\Mail\RegisterMail;
-use App\Models\Admin;
-use App\Models\Personne;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
-use Spatie\Permission\Models\Role;
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
+use App\Http\Requests\PersonneFormRequest;
 
 class UserController extends Controller
 {
@@ -62,7 +54,7 @@ class UserController extends Controller
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
             // dd($saveimage);
-<<<<<<< HEAD
+
             
             // $role_utilisateur = Role::find(2);
             // // dd($role_utilisateur);
@@ -70,11 +62,10 @@ class UserController extends Controller
 
 
             
-=======
+
             $role = Role::find(2);
             // dd($role);
             $newpersonne->assignRole($role);
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
@@ -253,7 +244,6 @@ class UserController extends Controller
     {
         $personne = Personne::all();
         return response()->json([
-<<<<<<< HEAD
             'success' => 'recuperation avec succes',
             'data' => $personne
         ]);
@@ -399,11 +389,10 @@ class UserController extends Controller
            'data' => $user
         ]);
     }
-=======
-            "Success" => 'recuperation avec success',
-            "data" => $personne,
-        ]);
-    }
 
->>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
+        //     "Success" => 'recuperation avec success',
+        //     "data" => $personne,
+        // ]);
+    // }
+
 }
