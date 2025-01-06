@@ -1,19 +1,9 @@
 <?php
 
-use App\Models\Pays;
-use App\Models\Admin;
-use App\Models\Ville;
-use App\Models\Client;
-use App\Models\Adresse;
-use App\Models\Personne;
-use App\Http\Middleware\IsAdmin;
-use Spatie\Permission\Models\Role;
-use App\Http\Middleware\IsPersonne;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 //pour regrouper les elements
 // Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(['middleware' =>['role:Admin' , 'permission:Ajouter,modifier , supprimer']],function() {
@@ -42,7 +32,7 @@ Route::post('/login', [UserController::class, 'logs'])->name('login_personne');
 
 Route::post('/register', [UserController::class, 'store'])->name('register_personne');
 
-Route::get('/password',[UserController::class,'newpass'])->name('MDPo');
+Route::get('/password', [UserController::class, 'newpass'])->name('MDPo');
 // Route::get('/register', function () {
 //     return view('register');
 // })->name('register');
@@ -101,17 +91,20 @@ Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_pr
 /*Quand tu utilises les group avec les appendToGroup ou prependToGRoup*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('group_admin');
 
-
 Route::post('/delete_product', [ProductController::class, 'delete_product'])->name('delete_product');
 
 Route::post('/edit_Product', [ProductController::class, 'update_product'])->name('edit_Product');
 
-Route::get('/email', function(){
+Route::get('/gestion_utilisateur', [UserController::class, 'view_panel'])->name('panel_admin');
+
+Route::get('/gestion_utilisateur/{id}', [UserController::class, 'panel_role_permissions'])->name('role_permission');
+
+Route::get('/email', function () {
     return view('email');
 })->name('email');
 
 /************************************* relation one to one *************************************/
-Route::get('/one_to_one' , function(){
+Route::get('/one_to_one', function () {
 
     //premiere methode
     // $address = Adresse::create([
@@ -122,95 +115,124 @@ Route::get('/one_to_one' , function(){
     // 'prenom'=> 'miguel',
     // 'email'=>'miguel@souop.com',
     // 'addr_id'=>$address->id
-    
+
     // $clients = Client::find(1);
     // return $clients->adresse->nom_add;
     // ]);
 
     //deuxieme methode
 
-    $address = Adresse::create([
-        'nom_add' => 'koto'
-        ]);
-    $address->client()->create([
-        'nom'=> 'souop',
-        'prenom'=> 'miguel',
-        'email'=>'miguel@souop.com',
-    ]);
+    // $address = Adresse::create([
+    //     'nom_add' => 'koto',
+    // ]);
+    // $address->client()->create([
+    //     'nom' => 'souop',
+    //     'prenom' => 'miguel',
+    //     'email' => 'miguel@souop.com',
+    // ]);
 
 });
 
 /************************************* relation one to many *************************************/
-Route::get('/one_to_many' , function(){
-    /*accede au personne qui ont une voiture*/
-    $personne = Personne::has('voitures')->get();
+Route::get('/one_to_many', function () {
+    // $personne = Personne::has('voitures')->get();
+    // $personne = Personne::doesntHave('voitures')->get();
+    // // $personne->voitures()->create([
+    // //     'marque' => 'ferari',
+    // //     'couleur' => 'rouge',
+    // // ]);
+    // return $personne;
 
-    /*accede au personne qui n'ont pas une voiture*/
-    $personne = Personne::doesntHave('voitures')->get();
-
-    // $personne->voitures()->create([
-    //     'marque' => 'ferari',
-    //     'couleur' => 'rouge',
-    // ]);
-    return $personne;
-    
 });
 
 /************************************* relation many to many *************************************/
-Route::get('/many_to_many' , function(){
+Route::get('/many_to_many', function () {
     // Role::create([
-    //     'nom_role' => 'client'
+    //     'nom_role' => 'admin',
     // ]);
     // Role::create([
-    //     'nom_role' => 'caissier'
-    // ]);
-    // Role::create([
-    //     'nom_role' => 'comptable'
+    //     'nom_role' => 'user',
     // ]);
 
+    // $personne = Personne::find(3);
+    // $personne = Personne::where('id', '=', 3)->get();
+    // dd($personne);
 
-    $personne = Personne::find(32);
     // $role = Role::find(11);
-    // $role = Role::all();
-    // $personne->roles()->attach($role);
-    // $personne->roles()->detach($role);
-    $personne->roles()->attach([13,14,15]);
-    $personne->roles()->attach([
-        // $role[11]=>[
-        //     'description' => 'une description'
-        // ]
-    ]);
 
-    /* remplire un champ au niveau de notre table pivot */
+    // dd($role);
+    // dd($personne);
+    // $role->personnes()->attach($personne);
+    // $personne->roles()->attach([11, 12]);
+    // dd($role->personnes);
+    // return $role->personnes;
     // return $personne->roles;
 
-    // $role->personnes()->attach($personne);
-    // return $personne->roles[0]->nom_role;
-
-    /* acceder au champ created_at de la table pivot  */
-    // return $personne->roles[14]->pivot->created_at;
-    // return $role->personnes;
 });
 
-Route::get('/personne_ville_pays' , function (){
-    $pays = Pays::create([
-    'nom_pays' => 'Canada',
-    ]);
-    $personne = $pays->villes()->create([
-        'nom_ville' => 'Montreal',
-    ])->personnes()->create([
-        'nom' => 'souop',
-        'prenom' => 'miguel',
-        'email' => 'souop@gmail.com',
-        'age' => '12',
-        'password' => Bcrypt('1234567890'),
-        'images' => 'stmgR.jpg'
-    ]);
+Route::get('/many_to_many_pays_ville', function () {
+    // Pays::create([
+    //     'nom_pays' => 'France',
+    // ]);
+    // Pays::create([
+    //     'nom_pays' => 'Cameroun',
+    // ]);
+    // Pays::create([
+    //     'nom_pays' => 'Canada',
+    // ]);
 
-    // return $personne;
-    return $pays->habitants[0]->nom;
+    // $pays = Pays::find(2);
+
+    // $pays->villes()->create([
+    //     'nom_ville' => 'Douala',
+    // ]);
+    // $pays->villes()->create([
+    //     'nom_ville' => 'Yaounde',
+    // ]);
+    // $pays->villes()->create([
+    //     'nom_ville' => 'Baffoussam',
+    // ]);
+
+    // $ville = Ville::find(1);
+
+    // $ville->personnes()->create([
+    //     'nom' => 'kampi',
+    //     'prenom' => 'dollar',
+    //     'email' => 'dollar@kampi.com',
+    //     'password' => bcrypt('russel'),
+    //     'age' => 19,
+    // ]);
+
+    // $ville->personnes()->create([
+    //     'nom' => 'souop',
+    //     'prenom' => 'mihguel',
+    //     'email' => 'souop@miguel.com',
+    //     'password' => bcrypt('russel'),
+    //     'age' => 21,
+    // ]);
+
+    // $ville->personnes()->create([
+    //     'nom' => 'jordan',
+    //     'prenom' => 'miren',
+    //     'email' => 'jordn@miren.com',
+    //     'password' => bcrypt('russel'),
+    //     'age' => 30,
+    // ]);
+
+    // $pays = Pays::has('villes')->get();
+    // $pays = Pays::doesntHave('villes')->get();
+    // $pays = Pays::find(2);
+    // $ville = Ville::all();
+    // $ville = Ville::find(1);
+
+    // return $ville->pays;
+
+    // $pays = Pays::find(2);
+
+    // return $pays->habitants[0]->nom;
 });
 
+<<<<<<< HEAD
 Route::get('/personne_admin' , function (){
     // $personne = Personne::create([
     //     'nom'=> 'migue',
@@ -249,12 +271,27 @@ Route::get('/personne_admin' , function (){
     //     'name'=> 'Ajouter',
     //     'guard_name'=> 'personnes',
 
-    // ]);
-    // $permissionAddAdmin = Permission::create([
-    //     'name'=> 'Ajouter',
-    //     'guard_name'=> 'admins',
+=======
+Route::get('/test_role_permission', function () {
 
+    // Role::find(1)->update([
+    //     'guard_name' => 'admins',
     // ]);
+    // Role::find(2)->update([
+    //     'guard_name' => 'personnes',
+    // ]);
+
+    // Permission::find(1)->update([
+    //     'guard_name' => 'personnes',
+    // ]);
+    // Permission::find(3)->update([
+    //     'guard_name' => 'admins',
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
+    // ]);
+    // Permission::find(2)->update([
+    //     'guard_name' => 'admins',
+    // ]);
+<<<<<<< HEAD
     // $permissionAddUser = Permission::find(5);
     $permissionAdd = Permission::find(5);
     // $permissionAddAdmin = Permission::find(4);
@@ -273,9 +310,23 @@ Route::get('/personne_admin' , function (){
     //     'guard_name'=> 'admins',
     // ]);
     $permissionUpdate = Permission::find(7);
+=======
 
+    // $role = Role::find(1);
+    // $role1 = Role::find(2);
 
+    // $role->givePermissionTo([2,3]);
+    // $role1->givePermissionTo([1]);
 
+    // $role = Role::find(1);
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
+
+    // return $role->permissions->pluck('name');
+
+    // $personne = Personne::find(28);
+    // $role = Role::find(2);
+
+<<<<<<< HEAD
     $role_administrateur->givePermissionTo($permissionDelete , $permissionUpdate);
     $role_utilisateur->givePermissionTo($permissionAdd);
 
@@ -283,7 +334,19 @@ Route::get('/personne_admin' , function (){
     $personne->assignRole($role_utilisateur);
     // $admin->assignRole('admin');
     // $personne->assignRole('user');
+=======
+    // $personne->role()->associate($role);
+    // $personne->save();
+
+    // dd($personne->role->permissions->pluck('name'));
+
+    // $personne = Admin::find(1);
+    // $role = Role::find(1);
+
+    // $personne->role()->associate($role);
+    // $personne->save();
+
+    // dd($personne->role->permissions->pluck('name'));
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
 
 });
-
-Route::get('/select' , [UserController::class, 'selectOption'])->name('selectOption');

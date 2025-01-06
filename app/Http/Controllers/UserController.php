@@ -2,15 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produit;
-use App\Models\Personne;
-use App\Mail\RegisterMail;
-use Illuminate\Support\Str;
-use App\Http\Requests\RequestLogs;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
-use App\Http\Requests\RequestReset;
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -19,6 +12,19 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use App\Http\Requests\PersonneFormRequest;
 use App\Http\Requests\UpdateFormRequest;
+=======
+use App\Http\Requests\PersonneFormRequest;
+use App\Http\Requests\RequestLogs;
+use App\Http\Requests\RequestReset;
+use App\Mail\RegisterMail;
+use App\Models\Admin;
+use App\Models\Personne;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Spatie\Permission\Models\Role;
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
 
 class UserController extends Controller
 {
@@ -33,16 +39,16 @@ class UserController extends Controller
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
-        $newname = str_replace(' ', '', Str::Random(5));
-        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        // $newname = str_replace(' ', '', Str::Random(5));
+        // $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
         try {
-            $newpersonne = DB::transaction(function () use ($request , $finalimage) {
+            $newpersonne = DB::transaction(function () use ($request) {
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
-                    'images' => $finalimage,
+                    // 'images' => $finalimage,
                     'password' => bcrypt($request->password),
                 ]);
                 // if($user){
@@ -52,10 +58,11 @@ class UserController extends Controller
                 // }
                 return $user;
             });
-            $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
+            // $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
             // dd($saveimage);
+<<<<<<< HEAD
             
             // $role_utilisateur = Role::find(2);
             // // dd($role_utilisateur);
@@ -63,6 +70,11 @@ class UserController extends Controller
 
 
             
+=======
+            $role = Role::find(2);
+            // dd($role);
+            $newpersonne->assignRole($role);
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
@@ -82,12 +94,11 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-
-            return view('dashboard.main_dashboard');
-
-        } else if (Auth::guard('admins')->check()) {
-
-            return view('dashboard.main_dashboard');
+            $personnes = Personne::find(Auth::guard('personnes')->user()->id);
+            return view('dashboard.main_dashboard')->with('personne', $personnes);
+        } elseif (Auth::guard('admins')->check()) {
+            $personnes = Personne::find(Auth::guard('admins')->user()->id);
+            return view('dashboard.main_dashboard')->with('personne', $personnes);
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -99,16 +110,13 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            $id = Auth::guard('personnes')->user()->id;
-            $products = Produit::all()->where('personne_id' , $id);
-            // $products = Produit::all();
-            return view('dashboard.product_dashboard')->with('allproducts', $products);
-        } 
-        else if (Auth::guard('admins')->check()) {
-            $id = Auth::guard('admins')->user()->id;
-            $products = Produit::all()->where('personne_id' , $id);
-            // $products = Produit::all();
-            return view('dashboard.product_dashboard')->with('allproducts', $products);
+            $personnes = Personne::find(Auth::guard('personnes')->user()->id);
+            $products = $personnes->produits;
+            return view('dashboard.product_dashboard')->with('allproducts', $products)->with('personne', $personnes);
+        } elseif (Auth::guard('admins')->check()) {
+            $personnes = Admin::find(Auth::guard('admins')->user()->id);
+            $products = $personnes->produits;
+            return view('dashboard.product_dashboard')->with('allproducts', $products)->with('personne', $personnes);
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -155,7 +163,13 @@ class UserController extends Controller
         $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
 
         // dd(Auth::guard('personnes')->attempt($credentials));
-        if(Auth::guard('personnes')->attempt($credentials)) {
+        if (Auth::guard('personnes')->attempt($credentials)) {
+            // Connexion réussie
+            // $personne = Personne::find();
+            // $roles = Auth::guard('personnes')->user()->roles[0]->permissions->pluck('name');
+            // dd($roles);
+            return redirect()->intended('dashboard');
+        } elseif (Auth::guard('admins')->attempt($credentials)) {
             // Connexion réussie
             sleep(1);
             // dd(Auth::guard('personnes')->user()->roles[0]->permissions->pluck('name'));
@@ -167,7 +181,6 @@ class UserController extends Controller
             return redirect()->intended('dashboard');
             
         }
-
     }
 
     public function reset(RequestReset $request)
@@ -201,22 +214,46 @@ class UserController extends Controller
             // Auth::logout();
             Auth::guard('personnes')->logout();
             return redirect()->route('login');
-        }
-        if (Auth::guard('admins')->check()) {
+        } elseif (Auth::guard('admins')->check()) {
             // Auth::logout();
             Auth::guard('admins')->logout();
             return redirect()->route('login');
         }
     }
-    
-    public function selectOption(){
-        $personne = Personne::all();
-        return view('selectOption')->with('allPersonne' , $personne);
+
+    public function view_panel()
+    {
+        if (Auth::guard('admins')->check()) {
+            // Récupère tous les utilisateurs
+            $users = Personne::all();
+            $role = null;
+            $permissions = null;
+            // Rendu de la page de panel
+            return view('dashboard.panel')->with('users', $users)->with('role', $role)->with('permission', $permissions);
+        }
     }
 
-    public function takenusers(){
+    public function panel_role_permissions($id)
+    {
+        // Récupère l'utilisateur avec ses rôles et permissions
+        $users = Personne::all();
+        $util = Personne::find($id);
+        $role = $util->role;
+        if ($role) {
+            $permissions = $role->permissions;
+        } else {
+            $permissions = null;
+        }
+        // dd($permissions);
+        // dd($user);
+        return view('dashboard.panel')->with('role', $role)->with('permission', $permissions)->with('users', $users);
+    }
+
+    public function takeUsers()
+    {
         $personne = Personne::all();
         return response()->json([
+<<<<<<< HEAD
             'success' => 'recuperation avec succes',
             'data' => $personne
         ]);
@@ -362,4 +399,11 @@ class UserController extends Controller
            'data' => $user
         ]);
     }
+=======
+            "Success" => 'recuperation avec success',
+            "data" => $personne,
+        ]);
+    }
+
+>>>>>>> 2f28e5341aafa9d754f891cffb0caa96ff70473f
 }
