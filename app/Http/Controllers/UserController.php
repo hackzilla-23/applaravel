@@ -475,4 +475,105 @@ class UserController extends Controller
         ]);
     }
 
+    // public function updateapi(Request $request, $id)
+    // {
+    //     $newpersonne = Personne::find($id);
+    //     if ($request->hasFile('images')) {
+    //         Storage::disk('personne')->delete($newpersonne->images);
+
+    //         $newname = str_replace(' ', '', Str::Random(5));
+    //         $finalimage = trim($newname) . '.' . $request->images->getClientOriginalExtension();
+
+    //         try {
+    //             $user = DB::transaction(function () use ($request, $finalimage, $id) {
+    //                 $newpersonne = Personne::find($id);
+    //                 $newpersonne->update([
+    //                     'nom' => $request->nom,
+    //                     'prenom' => $request->prenom,
+    //                     'age' => $request->age,
+    //                     'email' => $request->email,
+    //                     'images' => $finalimage,
+    //                 ]);
+    //                 return $newpersonne;
+    //             });
+    //             //dd($user);
+    //             // $user = Personne::find($id)
+
+    //             $saveimage = Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+    //             return response()->json([
+    //                 'message' => 'modification successful OK',
+    //                 'data' => $user,
+    //             ]);
+
+    //         } catch (\Throwable $th) {
+    //             throw $th;
+    //         }
+
+    //     } else {
+    //         try {
+    //             DB::transaction(function () use ($request, $id) {
+    //                 Personne::where('id', $id)->update([
+    //                     'nom' => $request->nom,
+    //                     'prenom' => $request->prenom,
+    //                     'age' => $request->age,
+    //                     'email' => $request->email,
+    //                 ]);
+    //             });
+    //             $user = Personne::find($id);
+    //             return response()->json([
+    //                 'message' => 'modification successful',
+    //                 'data' => $user,
+    //             ]);
+
+    //         } catch (\Throwable $th) {
+    //             throw $th;
+    //         }
+    //     }
+
+    //     $request->validate([
+    //         'nom' => 'required',
+    //         'prenom' => 'required',
+    //         'age' => 'required',
+    //         'images' => 'image|mimes:jpeg,jpg,png,gif,svg|max:2048',
+    //         'email' => 'required',
+    //     ]);
+    //     if ($newpersonne) {
+    //         // dd($personne);
+    //         // dd($request->hasFile('images'));
+    //         if ($request->hasFile('images')) {
+    //             // dd('nous sommes dans le second if');
+
+    //             $newpersonne->update([
+    //                 'nom' => $request->nom,
+    //                 'prenom' => $request->prenom,
+    //                 'age' => $request->age,
+    //                 'email' => $request->email,
+    //                 'images' => $finalimage,
+    //             ]);
+    //             // dd($newpersonne);
+    //             Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+    //             return response()->json([
+    //                 "success" => 'Modification réussie avec images',
+    //                 "data" => $newpersonne,
+    //             ]);
+    //         } else {
+    //             // dd('nous sommes dans le sinon');
+    //             $newpersonne->update([
+    //                 'nom' => $request->nom,
+    //                 'prenom' => $request->prenom,
+    //                 'age' => $request->age,
+    //                 'email' => $request->email,
+    //             ]);
+    //             return response()->json([
+    //                 "success" => 'Modification réussie sans images',
+    //                 "data" => $newpersonne,
+    //             ]);
+    //         }
+    //     }
+
+    //     return response()->json([
+    //         "error" => 'Utilisateur introuvable',
+    //     ]);
+    // }
+
 }
