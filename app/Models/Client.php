@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     //
-    protected $fillable = ['nom', 'prenom', 'email', 'addr_id'];
-
-
+    protected $fillable = ['nom', 'prenom' , 'email' ,'addr_id'];
     public function adresse(){
-        return $this->belongsTo(Adresse::class, 'addr_id', 'id'); 
+        return $this->belongsTo(Adresse::class , 'addr_id' , 'id');
     }
 }

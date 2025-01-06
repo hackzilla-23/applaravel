@@ -175,6 +175,7 @@
                     <img class="w-[40px] h-[40px] rounded-[50%]" src="{{ asset('img/profile-1.jpg') }}">
                 </div>
             </div> --}}
+
             <div class="flex items-center justify-end gap-4 py-2">
 
 
@@ -201,22 +202,37 @@
                     {{-- @dd(auth()->guard('personnes')->user()) --}}
                     <div class="relative font-[sans-serif] w-max mx-auto">
                         <button type="button" id="dropdownToggle"
-                            class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
-                            <img src="{{ url('storage/personne_images/' . auth()->guard('personnes')->user()->images) }}"
-                                class="rounded-md w-[25px] h-[25px] object-cover" alt="">
+                        class="flex shadow-first hover:shadow-none duration-300 items-center gap-1.5 bg-white px-1.5 py-2 rounded-md">
+
+                        @if(auth()->guard('personnes')->check())
+                            <img src="{{ url('storage/personne_images/'.auth()->guard('personnes')->user()->images)}}" class="rounded-md w-[25px] h-[25px] object-cover"
+                            alt="">
+                        @elseif (auth()->guard('admins')->check())
+                            <img src="{{  asset('img/souop.jpg')}}" class="rounded-md w-[25px] h-[25px] object-cover"
+                            alt="">
+                        @endif
+                            
                             <div class="flex items-center gap-6">
-                                @can('ajouter')
-                                    <div>
-                                        <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                <div>
+                                        {{-- <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p> --}}
+                                    @if(Auth::guard('admins')->check())
+                                        <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p>
                                         <p class="text-[8px]">Admin Account</p>
-                                    </div>
-                                @endcan
+                                    
+                                    @elseif(Auth::guard('personnes')->check())
+                                        <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
+                                        <p class="text-[8px]">User Account</p>
+                                    
+                                    @endif
+                                        {{-- <p class="text-xs font-semibold">souop</p>
+                                        <p class="text-[8px]">Admin Account</p> --}}
+                                </div>
                                 <a href="#"><i class="fa-solid fa-caret-down"></i></a>
                             </div>
                         </button>
 
                         <ul id="dropdownMenu"
-                            class='absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto'>
+                            class="absolute hidden shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-white py-2 z-[1000] min-w-full mt-1 rounded divide-y max-h-96 overflow-auto">
                             <li
                                 class="'py-3 px-5 flex items-center gap-2  hover:bg-blue-100 text-gray-800 text-sm cursor-pointer">
                                 <img src="{{ asset('img/logout_24dp_5F6368.svg') }}" alt="">
@@ -225,6 +241,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <script>
                     let dropdownToggle = document.getElementById('dropdownToggle');
                     let dropdownMenu = document.getElementById('dropdownMenu');
@@ -302,7 +319,6 @@
                     <h3>Add Reminder</h3>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- End of Right Section -->

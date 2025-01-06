@@ -8,8 +8,8 @@ class Adresse extends Model
 {
     //
     protected $fillable = ['nom_add'];
-    // Définir la relation inverse : Une adresse appartient à un client
+    //definir la relation inverse : une addresse appartienr a un client
     public function client(){
-        return $this->hasOne(Client::class, 'addr_id', 'id');
+        return $this->hasOne(Client::class, 'addr_id' , 'id');
     }
 }

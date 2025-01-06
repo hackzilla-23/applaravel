@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('personnes', function (Blueprint $table) {
-            //
-            $table->string('images')->nullable();
+        Schema::create('voitures', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('marque');
+            $table->string('couleur');
+            $table->foreignId('personne_id')->constrained('personnes' , 'id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('personnes', function (Blueprint $table) {
-            //
-            $table->dropColumn('images');
-        });
+        Schema::dropIfExists('voitures');
     }
 };

@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('email');
-            $table->string('password');
-            $table->integer('age');
-            $table->timestamps();
+        Schema::table('personnes', function (Blueprint $table) {
+            //
+            $table->foreignId('id_role')->references('id')->on('roles');
         });
     }
 
@@ -27,6 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::table('personnes', function (Blueprint $table) {
+            //
+            $table->foreignId('id_role')->references('id')->on('roles');
+            $table->dropColumn('id_role');
+        });
     }
 };

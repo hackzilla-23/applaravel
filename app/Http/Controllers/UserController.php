@@ -9,13 +9,19 @@ use Illuminate\Support\Str;
 use App\Http\Requests\RequestLogs;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\RequestReset;
-use App\Http\Controllers\Controller;
+use App\Mail\RegisterMail;
+use App\Models\Admin;
+use App\Models\Personne;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
-use App\Http\Requests\PersonneFormRequest;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -30,30 +36,8 @@ class UserController extends Controller
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
-        //la premiere methode validation
-        // $isvalid = $request->validate([
-        //     'nom' =>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
-
-        //la deuxieme methode validation
-        // Validator::make($request->all() , [
-        //     'nom'=>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
-
-        // dd($isvalid);
-        // dd($request);
-        $newname = str_replace(' ', '', Str::random(5));
-        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        // $newname = str_replace(' ', '', Str::Random(5));
+        // $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
         try {
             $newpersonne = DB::transaction(function () use ($request, $finalimage) {
                 $user = Personne::create([
@@ -61,31 +45,31 @@ class UserController extends Controller
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
-                    'images' => $finalimage,
+                    // 'images' => $finalimage,
                     'password' => bcrypt($request->password),
                 ]);
-
-                // if($newpersonne){
-                //     //Envoie d'un email de confirmation
-                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // if($user){
+                //     dd($user);
+                //     // Envoie d'un email de confirmation
+                //     Mail::to($user->email)->send(new RegisterMail ($user));
                 // }
                 // dd($user);
                 return $user;
             });
-            $saveimge = Storage::disk("personne")->put($finalimage, file_get_contents($request->images));
-            // Mail::to($request->email)->send(new RegisterMail ($request));
-            // dd($saveimge);
+            // $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
             // dd($newpersonne);
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+            // dd($saveimage);
+            $role = Role::find(2);
+            // dd($role);
+            $newpersonne->assignRole($role);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
-            
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
             // return back();
         }
-
-        // dd($newpersonne);
     }
 
     public function regi()
@@ -98,7 +82,11 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            return view('dashboard.main_dashboard');
+            $personnes = Personne::find(Auth::guard('personnes')->user()->id);
+            return view('dashboard.main_dashboard')->with('personne', $personnes);
+        } elseif (Auth::guard('admins')->check()) {
+            $personnes = Personne::find(Auth::guard('admins')->user()->id);
+            return view('dashboard.main_dashboard')->with('personne', $personnes);
         } else {
             sleep(1);
             return redirect()->route('login');
@@ -109,9 +97,14 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur est authentifié
         if (Auth::guard('personnes')->check()) {
-            $products = Produit::all();
-            return view('dashboard.product_dashboard')->with('allproducts', $products);
-        }else {
+            $personnes = Personne::find(Auth::guard('personnes')->user()->id);
+            $products = $personnes->produits;
+            return view('dashboard.product_dashboard')->with('allproducts', $products)->with('personne', $personnes);
+        } elseif (Auth::guard('admins')->check()) {
+            $personnes = Admin::find(Auth::guard('admins')->user()->id);
+            $products = $personnes->produits;
+            return view('dashboard.product_dashboard')->with('allproducts', $products)->with('personne', $personnes);
+        } else {
             sleep(1);
             return redirect()->route('login');
         }
@@ -126,7 +119,7 @@ class UserController extends Controller
     public function newpass()
     {
         sleep(1);
-        return view('mot_de_passe_oublie');
+        return view('password.email_reset');
     }
 
     public function edit()
@@ -140,40 +133,6 @@ class UserController extends Controller
         sleep(1);
         return view('form');
     }
-
-    // public function store(Request $request)
-    // {
-    //     // Validate the form data
-    //     $validated = $request->validate([
-    //         'nom' => 'required',
-    //         // 'nom' => 'required|alpha_num|regex:/^[a-zA-Z0-9_]+$/|min:3|max:255|unique:personnes,nom',
-    //         'prenom' => 'required|alpha|min:2|max:50',
-    //         'age' => 'required|integer|between:18,150',
-    //         'email' => 'required|email|unique:personnes,email|max:255',
-    //         'password' => 'required',
-    //         // 'password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-    //         'confirm-password' => 'required|confirmed:password',
-    //         // 'confirm-password' => 'required|string|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/|confirmed:password',
-    //     ]);
-
-    //     // // Store the user in the database
-    //     $user = Personne::create([
-    //         'nom' => $request->nom,
-    //         'prenom' => $request->prenom,
-    //         'age' => $request->age,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password),
-    //     ]);
-
-    //     // // Redirect to the login page
-    //     // return redirect()->route('register')->with('success', 'Success, vous serez rediriger dans 3 secondes...');
-    //     sleep(1);
-    //     return redirect()->route('login')->with('success', 'Vous pouvez maintenant vous connecter.');
-    // }
-
-    // public function log(RequestLogs $request){
-
-    // }
 
     public function logs(RequestLogs $request)
     {
@@ -194,54 +153,20 @@ class UserController extends Controller
         // dd(Auth::guard('personnes')->attempt($credentials));
         if (Auth::guard('personnes')->attempt($credentials)) {
             // Connexion réussie
+            // $personne = Personne::find();
+            // $roles = Auth::guard('personnes')->user()->roles[0]->permissions->pluck('name');
+            // dd($roles);
+            return redirect()->intended('dashboard');
+        } elseif (Auth::guard('admins')->attempt($credentials)) {
+            // Connexion réussie
             sleep(1);
+            // dd(Auth::guard('personnes')->user()->roles[0]->permissions->pluck('name'));
             return redirect()->intended('dashboard');
         }
-        // elseif (Auth::guard('admin')->attempt($credentials)){
-        //     return redirect()->intended('dashboard-admin');
-        // }
     }
 
     public function reset(RequestReset $request)
     {
-
-        // Validation des champs
-        // $request->validate([
-        //     'password' => 'required',
-        //     'new_password' => 'required',
-        //     'password_confirmation' => 'required|confirmed:new_password',
-        // ]);
-
-        // // Validation des champs
-        // $request->validate([
-        //     'password' => 'required|string',
-        //     'new_password' => 'required|string',
-        //     'password_confirmation' => 'required|string|confirmed:new_password',
-        // ]);
-
-        // // Réinitialiser le mot de passe
-        // $status = Password::reset(
-        //     $request->only('password', 'new_password'),
-        //     function ($user) use ($request) {
-        //         $user->forceFill([
-        //             'password' => bcrypt($request->password),
-        //         ])->save();
-        //     }
-        // );
-
-        // // Vérifier si la réinitialisation a réussi
-        // if ($status === Password::PASSWORD_RESET) {
-        //     sleep(1);
-        //     return redirect()->route('login')->with('success', 'Votre mot de passe a été réinitialisé.');
-        // } else {
-        //     throw ValidationException::withMessages(['email1' => [trans($status)]]);
-        // }
-
-        // $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required|string|min:8|confirmed',
-        //     'password_confirmation' => 'required',
-        // ]);
 
         $response = Password::broker()->reset(
             $request->only(['email', 'password', 'password_confirmation']),
@@ -270,45 +195,140 @@ class UserController extends Controller
             // Auth::logout();
             Auth::guard('personnes')->logout();
             return redirect()->route('login');
+        } elseif (Auth::guard('admins')->check()) {
+            // Auth::logout();
+            Auth::guard('admins')->logout();
+            return redirect()->route('login');
         }
     }
 
-    /* api methodes */
-    public function takenusers(){
-        $persones = Personne::all();
-
-        return response()->json([
-            "success" =>"recuperation avec succes",
-            "data"=>$persones
-        ]);
+    public function view_panel()
+    {
+        if (Auth::guard('admins')->check()) {
+            // Récupère tous les utilisateurs
+            $users = Personne::all();
+            $role = null;
+            $permissions = null;
+            // Rendu de la page de panel
+            return view('dashboard.panel')->with('users', $users)->with('role', $role)->with('permission', $permissions);
+        }
     }
-    public function storeapi(PersonneFormRequest $request)
+
+    public function panel_role_permissions($id)
+    {
+        // Récupère l'utilisateur avec ses rôles et permissions
+        $users = Personne::all();
+        $util = Personne::find($id);
+        $role = $util->role;
+        if ($role) {
+            $permissions = $role->permissions;
+        } else {
+            $permissions = null;
+        }
+        // dd($permissions);
+        // dd($user);
+        return view('dashboard.panel')->with('role', $role)->with('permission', $permissions)->with('users', $users);
+    }
+
+    // Envoi du code de validation par e-mail
+    public function sendResetCode(Request $request)
+    {
+        // Vérifier si l'adresse e-mail est valide
+        $request->validate([
+            'email' => 'required|email|exists:personnes,email',
+        ]);
+
+        $token = rand(100000, 999999); // Générer un code à 6 chiffres
+
+        // Enregistrer le code dans la base de données
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            ['token' => $token, 'created_at' => now()]
+        );
+
+        // Envoyer le code par e-mail
+        Mail::raw("Votre code de réinitialisation de mot de passe est : $token", function ($message) use ($request) {
+            $message->to($request->email)->subject('Réinitialisation de mot de passe');
+        });
+
+        $email = $request->email;
+
+        return redirect()->route('password.validate')->with('email', $email);
+    }
+
+    // Formulaire pour entrer le code de validation
+    public function showValidationForm()
+    {
+        return view('password.validateCode');
+    }
+
+    // Validation du code
+    public function validateResetCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'token' => 'required|digits:6',
+        ]);
+
+        $reset = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
+
+        if (!$reset || now()->diffInMinutes($reset->created_at) > 5) {
+            return back()->withErrors(['token' => 'Code invalide ou expiré.']);
+        }
+
+        $email = $request->email;
+
+        return redirect()->route('password.reset')->with('email', $email);
+    }
+
+    // Formulaire de réinitialisation du mot de passe
+    public function showResetForm()
+    {
+        return view('password.mot_de_passe_oublie');
+    }
+
+    // Réinitialisation du mot de passe
+    public function resetPassword(Request $request)
     {
         // dd($request);
-        //la premiere methode validation
-        // $isvalid = $request->validate([
-        //     'nom' =>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required|confirmed:password',
+        ]);
 
-        //la deuxieme methode validation
-        // Validator::make($request->all() , [
-        //     'nom'=>'required',
-        //     'prenom' => 'required',
-        //     'age' => 'required',
-        //     'email' =>'required|email',
-        //     'password' =>'required|min:8',
-        //     'confirm-password' =>'required|confirmed:password',
-        // ]);
+        $user = Personne::where('email', $request->email)->first();
+        if ($user) {
+            // Utilisation de la méthode save() pour mettre à jour le mot de passe et sauvegarder les modifications
+            // $user = new Personne();
+            // $user->email = $request->email;
+            // $user->password = bcrypt($request->password);
+            // $user->save();
 
-        // dd($isvalid);
+            // Utilisation de la méthode updateOrCreate() pour mettre à jour le mot de passe et sauvegarder les modifications
+            $user->update([
+                'password' => bcrypt($request->password),
+            ]);
+
+            // Supprimer le token après succès
+            // DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+            return redirect()->route('login')->with('status', 'Mot de passe réinitialisé avec succès.');
+        }
+
+        // return back()->withErrors(['email' => 'Utilisateur introuvable.']);
+    }
+
+    // methode api
+
+    public function store_api(PersonneFormRequest $request)
+    {
         // dd($request);
-        $newname = str_replace(' ', '', Str::random(5));
-        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        $newname = str_replace(' ', '', Str::Random(5));
+        $finalimage = trim($newname) . '.' . $request->images->getClientOriginalExtension();
         try {
             $newpersonne = DB::transaction(function () use ($request, $finalimage) {
                 $user = Personne::create([
@@ -318,82 +338,251 @@ class UserController extends Controller
                     'email' => $request->email,
                     'images' => $finalimage,
                     'password' => bcrypt($request->password),
+                    'id_role' => $request->id_role,
                 ]);
-
-                // if($newpersonne){
-                //     //Envoie d'un email de confirmation
-                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
-                // }
-                // dd($user);
                 return $user;
             });
-            $saveimge = Storage::disk("personne")->put($finalimage, file_get_contents($request->images));
-            // $saveimge = Storage::disk("personne")->delete($personne->images);
-            // Mail::to($request->email)->send(new RegisterMail ($request));
-            // dd($saveimge);
-            // dd($newpersonne);
+
+            Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+
+            // $role = Role::find(2);
+            // $newpersonne->assignRole($role);
+
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
-            
-            // return view('login', compact('newpersonne'));
+
             return response()->json([
-                "success" => "Utilisateur créé avec succès",
-                "data" => $newpersonne
-            ], 201);
+                "success" => 'Enregistrement réussi',
+                "data" => $newpersonne,
+            ]);
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
             // return back();
         }
+    }
 
-        // dd($newpersonne);
-    }
-    public function deleteapi($id){
-        $persone = Personne::find($id); 
-        $saveimge = Storage::disk("personne")->delete($persone->images);
-        $persone->delete();
-        return response()->json([
-            "success" => "Utilisateur supprimé avec succès",
-            "data" => $persone
-        ], 200);
-    }
-    
-    public function apilogin(RequestLogs $request)
+    public function delete_api(string $id)
     {
-        // dd($request->email);
-        $loging = Personne::where('email', $request->email)->first();
-        // $loging = Personne::find($request->email);
-        // dd($loging);
-        if ($loging) {
-            # code...
-            if (Hash::check($request->password, $loging->password)) {
-                // Connexion réussie
-
-                return response()->json([
-                    "success" => "Connexion réussie",
-                    "token" => $loging->createToken("user_token")->plainTextToken,
-                    "data" => $loging
-                ], 200);
-            } else {
-                return response()->json([
-                    "error" => "mot de passe incorrect"
-                ], 401);
-            }
-        }
-        else {
+        $personne = Personne::find($id);
+        if ($personne) {
+            Storage::disk('personne')->delete($personne->images);
+            $personne->delete();
             return response()->json([
-                "error" => "Adresse e-mail non trouvée"
-            ], 404);
+                "success" => 'Suppression réussie',
+            ]);
         }
+        return response()->json([
+            "error" => 'Utilisateur introuvable',
+        ]);
+    }
+
+    public function takeUsers()
+    {
+        $personne = Personne::all();
+        return response()->json([
+            "Success" => 'recuperation avec success',
+            "data" => $personne,
+        ]);
+    }
+
+    public function login_api(RequestLogs $request)
+    {
+        // Validation des données
+        // $validator = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required|string',
+        // ]);
+        // dd($validator);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+        // Tentative de connexion
+        $credentials = $request->only('email', 'password');
+        // $remember = $request->has('remember'); // Détermine si l'utilisateur a coché la case "se souvenir de moi"
+        $logging = Personne::where('email', $request->email)->first();
 
         // dd(Auth::guard('personnes')->attempt($credentials));
-        // if (Auth::guard('personnes')->attempt($credentials)) {
-        //     // Connexion réussie
-        //     sleep(1);
-        //     return redirect()->intended('dashboard');
-        // }
-        // elseif (Auth::guard('admin')->attempt($credentials)){
-        //     return redirect()->intended('dashboard-admin');
-        // }
+        if ($logging) {
+            if (Hash::check($request->password, $logging->password)) {
+
+                return response()->json([
+                    "success" => 'Connexion réussie',
+                    "token" => $logging->createToken("user_token")->plainTextToken,
+                    "data" => $logging,
+                ]);
+            } else {
+                return response()->json([
+                    "error" => 'Mot de passe incorrect',
+                ]);
+            }
+        } else {
+            return response()->json([
+                "error" => 'Adresse e-mail non trouvee',
+            ]);
+        }
     }
+
+    public function logoutapi(Request $request)
+    {
+        // $token = $request->bearerToken();
+        $user = auth('personnes')->user();
+        auth('personnes')->user()->tokens()->delete();
+        return response()->json([
+            "success" => 'Déconnexion réussie',
+            "user" => $user,
+        ]);
+    }
+
+    public function updateuser(Request $request, $id)
+    {
+        $newpersonne = Personne::find($id);
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'age' => 'required',
+            'images' => 'image|mimes:jpeg,jpg,png,gif,svg|max:2048',
+            'email' => 'required',
+        ]);
+        if ($newpersonne) {
+            // dd($personne);
+            // dd($request->hasFile('images'));
+            if ($request->hasFile('images')) {
+                // dd('nous sommes dans le second if');
+                Storage::disk('personne')->delete($newpersonne->images);
+                $newname = str_replace(' ', '', Str::Random(5));
+                $finalimage = trim($newname) . '.' . $request->images->getClientOriginalExtension();
+                $newpersonne->update([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'images' => $finalimage,
+                ]);
+                // dd($newpersonne);
+                Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+                return response()->json([
+                    "success" => 'Modification réussie avec images',
+                    "data" => $newpersonne,
+                ]);
+            } else {
+                // dd('nous sommes dans le sinon');
+                $newpersonne->update([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                ]);
+                return response()->json([
+                    "success" => 'Modification réussie sans images',
+                    "data" => $newpersonne,
+                ]);
+            }
+        }
+
+        return response()->json([
+            "error" => 'Utilisateur introuvable',
+        ]);
+    }
+
+    // public function updateapi(Request $request, $id)
+    // {
+    //     $newpersonne = Personne::find($id);
+    //     if ($request->hasFile('images')) {
+    //         Storage::disk('personne')->delete($newpersonne->images);
+
+    //         $newname = str_replace(' ', '', Str::Random(5));
+    //         $finalimage = trim($newname) . '.' . $request->images->getClientOriginalExtension();
+
+    //         try {
+    //             $user = DB::transaction(function () use ($request, $finalimage, $id) {
+    //                 $newpersonne = Personne::find($id);
+    //                 $newpersonne->update([
+    //                     'nom' => $request->nom,
+    //                     'prenom' => $request->prenom,
+    //                     'age' => $request->age,
+    //                     'email' => $request->email,
+    //                     'images' => $finalimage,
+    //                 ]);
+    //                 return $newpersonne;
+    //             });
+    //             //dd($user);
+    //             // $user = Personne::find($id)
+
+    //             $saveimage = Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+    //             return response()->json([
+    //                 'message' => 'modification successful OK',
+    //                 'data' => $user,
+    //             ]);
+
+    //         } catch (\Throwable $th) {
+    //             throw $th;
+    //         }
+
+    //     } else {
+    //         try {
+    //             DB::transaction(function () use ($request, $id) {
+    //                 Personne::where('id', $id)->update([
+    //                     'nom' => $request->nom,
+    //                     'prenom' => $request->prenom,
+    //                     'age' => $request->age,
+    //                     'email' => $request->email,
+    //                 ]);
+    //             });
+    //             $user = Personne::find($id);
+    //             return response()->json([
+    //                 'message' => 'modification successful',
+    //                 'data' => $user,
+    //             ]);
+
+    //         } catch (\Throwable $th) {
+    //             throw $th;
+    //         }
+    //     }
+
+    //     $request->validate([
+    //         'nom' => 'required',
+    //         'prenom' => 'required',
+    //         'age' => 'required',
+    //         'images' => 'image|mimes:jpeg,jpg,png,gif,svg|max:2048',
+    //         'email' => 'required',
+    //     ]);
+    //     if ($newpersonne) {
+    //         // dd($personne);
+    //         // dd($request->hasFile('images'));
+    //         if ($request->hasFile('images')) {
+    //             // dd('nous sommes dans le second if');
+
+    //             $newpersonne->update([
+    //                 'nom' => $request->nom,
+    //                 'prenom' => $request->prenom,
+    //                 'age' => $request->age,
+    //                 'email' => $request->email,
+    //                 'images' => $finalimage,
+    //             ]);
+    //             // dd($newpersonne);
+    //             Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
+    //             return response()->json([
+    //                 "success" => 'Modification réussie avec images',
+    //                 "data" => $newpersonne,
+    //             ]);
+    //         } else {
+    //             // dd('nous sommes dans le sinon');
+    //             $newpersonne->update([
+    //                 'nom' => $request->nom,
+    //                 'prenom' => $request->prenom,
+    //                 'age' => $request->age,
+    //                 'email' => $request->email,
+    //             ]);
+    //             return response()->json([
+    //                 "success" => 'Modification réussie sans images',
+    //                 "data" => $newpersonne,
+    //             ]);
+    //         }
+    //     }
+
+    //     return response()->json([
+    //         "error" => 'Utilisateur introuvable',
+    //     ]);
+    // }
 
 }

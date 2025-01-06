@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('personnes', function (Blueprint $table) {
             //
-            $table->string('images')->nullable();
+            $table->foreignId('id_ville')->references('id')->on('villes')->nullable();
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('personnes', function (Blueprint $table) {
             //
-            $table->dropColumn('images');
+            $table->dropColumn('id_ville');
         });
     }
 };

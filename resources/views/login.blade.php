@@ -26,14 +26,14 @@
     <div class="login-container md:w-[400px] md:p-[42px] px-[30px] py-[30px]">
 
         <!-- Afficher le message de succès s'il existe -->
-        @if (session('success'))
-            <p class="text-green-500 text-sm text-center">
-                {{ session('success') }}
-            </p>
+
+        @if (session('status'))
+            <div class="status">{{ session('status') }}</div>
         @endif
 
         <form class="login-form" method="POST" action="{{ route('login_personne') }}">
             @csrf
+
             <h2>Connexion</h2>
             <div class="input-group">
                 <label for="email">email</label>
@@ -45,7 +45,7 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                 {!! $errors->first('password', '<p class = "text-red-500">mot de passe incorrect</p>') !!}
-                <i class="fa fa-eye-slash absolute top-11 right-4" aria-hidden="true"></i>
+                <i class="fa fa-eye-slash absolute top-11 right-4 px-1 cursor-pointer" aria-hidden="true"></i>
             </div>
 
             @error('email1')

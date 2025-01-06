@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('personnes', function (Blueprint $table) {
-            //
-            $table->string('images')->nullable();
+        Schema::create('personne_roles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->foreignId('id_role')->references('id')->on('roles');
+            $table->foreignId('id_personne')->references('id')->on('personne');
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('personnes', function (Blueprint $table) {
-            //
-            $table->dropColumn('images');
-        });
+        Schema::dropIfExists('personne_roles');
     }
 };

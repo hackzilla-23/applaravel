@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductFormRequest;
+use App\Models\Personne;
 use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,7 +17,6 @@ class ProductController extends Controller
     // {
     //     $this->middleware('auth'); // Seulement pour les utilisateurs authentifiés
     // }
-
 
     // Sauvegarder un produit associé à la personne authentifiée
     public function store(ProductFormRequest $request)
@@ -40,14 +40,23 @@ class ProductController extends Controller
         // $produit->save();
 
         try {
-            DB::transaction(function () use ($request){
-                $newproduct = new Produit();
-                $newproduct->nom = $request->nom;
-                $newproduct->prix = $request->prix;
-                $newproduct->quantite = $request->quantite;
-                $newproduct->description = $request->description;
-                $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
-                $newproduct->save();
+            DB::transaction(function () use ($request) {
+                // $newproduct = new Produit();
+                // $newproduct->nom = $request->nom;
+                // $newproduct->prix = $request->prix;
+                // $newproduct->quantite = $request->quantite;
+                // $newproduct->description = $request->description;
+                // $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
+                // $newproduct->save();
+
+                $personne = Personne::find(Auth::guard('personnes')->user()->id);
+
+                $personne->produits()->create([
+                    'nom' => $request->nom,
+                    'prix' => $request->prix,
+                    'quantite' => $request->quantite,
+                    'description' => $request->description,
+                ]);
             });
             return redirect()->route('main_dash');
 
@@ -64,7 +73,6 @@ class ProductController extends Controller
         //     'personne_id' =>  Auth::guard('personnes')->user()->id, // Associer le produit à la personne authentifiée
         // ]);
 
-       
     }
 
     public function delete_product(Request $request)
@@ -90,57 +98,32 @@ class ProductController extends Controller
             'nom' => $request->nom,
             "prix" => $request->prix,
             "quantite" => $request->quantite,
-            "description" => $request->description
+            "description" => $request->description,
         ]);
         return redirect()->route('main_dash');
     }
 
-
-    /* -- Api methodes -- */
     public function storeapi(ProductFormRequest $request)
     {
-        // dd('Product');
-        // Valider les données du formulaire
-        // $request->validate([
-        //     'nom' => 'required|string|max:255',
-        //     'prix' => 'required|floatval|min:0',
-        //     'quantite' => 'required|integer|max:255',
-        //     'description' => 'required|string|min:0',
-        // ]);
-
-        // Créer un produit et l'associer à la personne authentifiée
-        // $produit = new Produit();
-        // $produit->nom = $request->input('nom');
-        // $produit->prix = $request->input('prix');
-        // $produit->quantite = $request->input('quantite');
-        // $produit->description = $request->input('description');
-        // $produit->personne_id = Auth::id(); // Associer le produit à la personne authentifiée
-        // $produit->save();
 
         try {
-            DB::transaction(function () use ($request){
-                $newproduct = new Produit();
-                $newproduct->nom = $request->nom;
-                $newproduct->prix = $request->prix;
-                $newproduct->quantite = $request->quantite;
-                $newproduct->description = $request->description;
-                $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
-                $newproduct->save();
-            });
+            DB::transaction(function () use ($request) {
+                $personne = Personne::find(Auth::guard('personnes')->user()->id);
 
-            return response()->json(['message' => 'Product added successfully'], 201);
+                $personne->produits()->create([
+                    'nom' => $request->nom,
+                    'prix' => $request->prix,
+                    'quantite' => $request->quantite,
+                    'description' => $request->description,
+                ]);
+            });
+            return response()->json([
+                'success' => 'Add Product successfully',
+            ]);
 
         } catch (\Throwable $th) {
             // throw $th;
             return back();
         }
-
-        // $newproduct = Produit::create([
-        //     'nom' => $request->nom,
-        //     'prix' => $request->prix,
-        //     'quantite' => $request->quantite,
-        //     'description' => $request->description,
-        //     'personne_id' =>  Auth::guard('personnes')->user()->id, // Associer le produit à la personne authentifiée
-        // ]);
     }
 }
