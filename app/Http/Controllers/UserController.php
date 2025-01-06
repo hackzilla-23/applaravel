@@ -246,7 +246,9 @@ class UserController extends Controller
             $message->to($request->email)->subject('Réinitialisation de mot de passe');
         });
 
-        return redirect()->route('password.validate')->with('email', $request->email);
+        $email = $request->email;
+
+        return redirect()->route('password.validate')->with('email', $email);
     }
 
     // Formulaire pour entrer le code de validation
@@ -272,7 +274,9 @@ class UserController extends Controller
             return back()->withErrors(['token' => 'Code invalide ou expiré.']);
         }
 
-        return redirect()->route('password.reset')->with('email', $request->email);
+        $email = $request->email;
+
+        return redirect()->route('password.reset')->with('email', $email);
     }
 
     // Formulaire de réinitialisation du mot de passe
@@ -284,8 +288,9 @@ class UserController extends Controller
     // Réinitialisation du mot de passe
     public function resetPassword(Request $request)
     {
+        // dd($request);
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'password_confirmation' => 'required|confirmed:password',
         ]);
@@ -299,18 +304,17 @@ class UserController extends Controller
             // $user->save();
 
             // Utilisation de la méthode updateOrCreate() pour mettre à jour le mot de passe et sauvegarder les modifications
-            $user = Personne::updateOrCreate([
-                'email' => $request->email,
+            $user->update([
                 'password' => bcrypt($request->password),
             ]);
 
             // Supprimer le token après succès
-            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            // DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
             return redirect()->route('login')->with('status', 'Mot de passe réinitialisé avec succès.');
         }
 
-        return back()->withErrors(['email' => 'Utilisateur introuvable.']);
+        // return back()->withErrors(['email' => 'Utilisateur introuvable.']);
     }
 
     // methode api

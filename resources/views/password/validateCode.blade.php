@@ -16,9 +16,9 @@
 
         <form method="POST" action="{{ route('password.validate.code') }}">
             @csrf
-            <div class="form-group">
+            <div class="form-group hidden">
                 <label for="current_password">Email :</label>
-                <input type="email" name="email" value="{{ old('email') }}" readonly>
+                <input type="email" name="email" value="{{ session('email') }}" readonly>
             </div>
 
             <div class="form-group">

@@ -18,7 +18,8 @@
             @csrf
             <div class="form-group">
                 <label for="current_password">Email</label>
-                <input type="email" value="{{ old('email') }}" name="email" id="current_email" class="mt-4">
+                <input type="email" value="{{ old('email') }}" placeholder="Enter your email" name="email"
+                    id="current_email" class="mt-4">
                 @error('email')
                     <p class="error pt-2">{{ 'Veuillez entrer une email valides.' }}</p>
                 @enderror
