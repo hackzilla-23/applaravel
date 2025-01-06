@@ -143,20 +143,22 @@
                 font-weight: 600;">Dites adieu aux limitations</p>
             <p style="text-align: center
                 ">Vérifiez votre compte et profitez de nos services complets.</p>
-            {{-- <p class="styleP">{{ $personne->nom }}Votre expérience de trading doit être fluide et ininterrompue. Pour y parvenir et profiter de tous nos services, il vous suffit de procéder à la vérification de votre compte.</p> --}}
-            <p class="styleP" style="margin: 12px 0;
-                font-size: 20px;
-                line-height: 25px;
-                color: rgb(179, 169, 169);
-                padding: 12px;">Supprimer les limitations de votre compte
-                Avec un compte entièrement vérifié, vous pouvez continuer à déposer, transférer et négocier des fonds.
-            </p>
-            <p class="styleP" style="margin: 12px 0;
-                font-size: 20px;
-                line-height: 25px;
-                color: rgb(179, 169, 169);
-                padding: 12px;">Si vous avez besoin d’aide avec vos documents, vous pouvez consulter l’article de notre
-                Centre d’aide ici ou contacter notre équipe d’assistance.</p>
+                @if (auth()->guard('admins')->check())
+                    
+                <p class="styleP" style="margin: 12px 0;
+                    font-size: 20px;
+                    line-height: 25px;
+                    color: rgb(179, 169, 169);
+                    padding: 12px;"> salut {{ auth()->guard('admins')->user()->prenom }} bienvenue sur BigBazzar
+                </p>
+                @elseif (auth()->guard('personnes')->check())
+                    <p class="styleP" style="margin: 12px 0;
+                        font-size: 20px;
+                        line-height: 25px;
+                        color: rgb(179, 169, 169);
+                        padding: 12px;"> salut {{ auth()->guard('personnes')->user()->prenom }} bienvenue sur BigBazzar
+                    </p>
+                @endif
             <p class="styleP" style="font-size: 20px;
                 line-height: 25px;
                 color: rgb(179, 169, 169);
@@ -175,8 +177,8 @@
                 creer votre evenement maintenant
             </a>
 
-            <h2 style="margin-bottom: 10px ; color: ; ">vous souhaitez assister à un événement ?</h2>
-            <p>Utilisez unniverse pour<a href="" style="text-decoration: none; color:#FF0060">découvrir les événements</a> qui se déroulent près de chez vous.</p>
+            <h3 style="margin-bottom: 10px ; color: ; ">vous souhaitez assister à un événement ?</h3>
+            <p>Utilisez un niverse pour <a href="" style="text-decoration: none; color:#FF0060 ; line-height:30px">découvrir les événements</a> qui se déroulent près de chez vous.</p>
 
             <div style="
                /* width: 100vw; */
@@ -187,15 +189,9 @@
 
                "
             >
-                <h2 style="margin-bottom: 10px">Vous avez des questions ?</h2>
-                <p>Nous sommes ici, apprenez-en plus sur Universe <a href="$" style="color:#FF0060">ici</a> ou <a href="#" style="color:#FF0060"> contactez-nous</a></p>
+                <h3 style="margin: 10px 0 ">Vous avez des questions ?</h3>
+                <p>Nous sommes ici, apprenez-en plus sur BigBazzar <a href="#" style="color:#FF0060 ; line-height : 30px">ici</a> ou <a href="#" style="color:#FF0060"> contactez-nous</a></p>
             </div>
-
-            <p class="styleP" style="margin: 12px 0;
-                font-size: 20px;
-                line-height: 25px;
-                color: rgb(179, 169, 169);
-                padding: 12px;">Merci,<br><br> <span>L’équipe Big Bazzar</span></p>
 
         </div>
 
@@ -203,8 +199,3 @@
 </body>
 
 </html>
-
-{{-- @endsection --}}
-
-
-{{-- @endsection --}}

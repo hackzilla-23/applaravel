@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('personnes', function (Blueprint $table) {
             //
-            $table->foreignId('id_ville')->references('id')->on('villes')->nullable();
+            $table->foreignId('id_ville')->references('id')->on('villes');
         });
     }
 

@@ -81,6 +81,8 @@ Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
 Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_personne');
 
+
+/************************************************************ Les middlewares ************************************************************/
 /*Quand tu utilises la class*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware(IsAdmin::class);
 
@@ -210,34 +212,42 @@ Route::get('/personne_ville_pays' , function (){
 });
 
 Route::get('/personne_admin' , function (){
-    $personne = Personne::find(13);
-    // $admin = Admin::create([
-    //     'nom'=> 'souop',
+    // $personne = Personne::create([
+    //     'nom'=> 'migue',
     //     'prenom'=>'miguel',
     //     'age'=>'12',
     //     'email'=>'miguelsouop@gmail.com',
     //     'password'=>bcrypt('1234567890')
     // ]);
-    $admin = Admin::find(1);
+    // $admin = Admin::create([
+    //     'nom'=> 'tagne',
+    //     'prenom'=>'miguel',
+    //     'age'=>'12',
+    //     'email'=>'migueltewa@gmail.com',
+    //     'password'=>bcrypt('1234567890')
+    // ]);
+    $personne = Personne::find(36);
+    $admin = Admin::find(6);
 
 
     //administrateur
-    // $administrateur = Role::where('id' , 1)->update([
+    // $role_administrateur = Role::create([
     //     'name'=>'administrateur',
     //     'guard_name'=>'admins',
     // ]);
-    $role_administrateur = Role::find(1);
+    $role_administrateur = Role::find(5);
+
     //utilisateur
-    // $utilisateur = Role::where('id' , 2)->update([
+    // $role_utilisateur = Role::create([
     //     'name'=> 'utilisateur',
     //     'guard_name'=> 'personnes',
     // ]);
-    $role_utilisateur = Role::find(2);
+    $role_utilisateur = Role::find(6);
 
     /*****************************ajouter*****************************/
     // $permissionAdd = Permission::create([
     //     'name'=> 'Ajouter',
-    //     // 'guard_name'=> 'admins',
+    //     'guard_name'=> 'personnes',
 
     // ]);
     // $permissionAddAdmin = Permission::create([
@@ -245,30 +255,31 @@ Route::get('/personne_admin' , function (){
     //     'guard_name'=> 'admins',
 
     // ]);
-    $permissionAddUser = Permission::find(1);
-    $permissionAddAdmin = Permission::find(4);
+    // $permissionAddUser = Permission::find(5);
+    $permissionAdd = Permission::find(5);
+    // $permissionAddAdmin = Permission::find(4);
 
     /********************************supprimer********************************/
     // $permissionDelete = Permission::create([
     //     'name'=> 'supprimer',
-    //     // 'guard_name'=> 'admins',
+    //     'guard_name'=> 'admins',
 
     // ]);
-    $permissionDelete = Permission::find(2);
+    $permissionDelete = Permission::find(6);
 
     /********************************modifier********************************/
     // $permissionUpdate = Permission::create([
     //     'name'=> 'modifier',
-    //     // 'guard_name'=> 'admins',
+    //     'guard_name'=> 'admins',
     // ]);
-    $permissionUpdate = Permission::find(3);
+    $permissionUpdate = Permission::find(7);
 
 
 
-    $role_administrateur->givePermissionTo($permissionAddAdmin , $permissionDelete , $permissionUpdate);
-    $role_utilisateur->givePermissionTo($permissionAddUser);
+    $role_administrateur->givePermissionTo($permissionDelete , $permissionUpdate);
+    $role_utilisateur->givePermissionTo($permissionAdd);
 
-    $admin->assignRole($role_administrateur);
+    // $admin->assignRole($role_administrateur);
     $personne->assignRole($role_utilisateur);
     // $admin->assignRole('admin');
     // $personne->assignRole('user');

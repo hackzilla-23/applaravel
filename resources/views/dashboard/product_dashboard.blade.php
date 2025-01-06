@@ -31,7 +31,6 @@
                                 {{-- <p class="text-xs font-semibold">{{ auth()->guard('personnes')->user()->prenom }}</p>
                                 <p class="text-[8px]">Admin Account</p> --}}
 
-
                                 @if(Auth::guard('admins')->check())
                                     <p class="text-xs font-semibold">{{ auth()->guard('admins')->user()->prenom }}</p>
                                     <p class="text-[8px]">Admin Account</p>
@@ -96,12 +95,11 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </div>
-
-            <a href="#"
-                class="flex addProductBtn items-center gap-2 text-white bg-[#FF0060] px-2 py-1 rounded-md shadow-first hover:shadow-none duration-300 ">
-                <i class="fa-brands fa-plus text-sm"></i>
-                <p class="text-sm">Add Product</p>
-            </a>
+                <a href="#"
+                    class="flex addProductBtn items-center gap-2 text-white bg-[#FF0060] px-2 py-1 rounded-md shadow-first hover:shadow-none duration-300 ">
+                    <i class="fa-brands fa-plus text-sm"></i>
+                    <p class="text-sm">Add Product</p>
+                </a>
         </div>
 
         {{-- products  --}}
@@ -190,7 +188,7 @@
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs pl-1">{{ $value->nom }}</p>
                         </li>
-                        {{-- <input type="hidden" name="personne_id"  value="{{ $value->personne_id }}"> --}}
+                        <input type="hidden" name="personne_id"  value="{{ $value->personne_id }}">
 
                         <li class="col-span-1 grid items-center justify-center">
                             <p class="text-xs">{{ $value->prix }}</p>

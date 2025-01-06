@@ -88,6 +88,7 @@
 
         <div class="profile flex items-center justify-end gap-6 py-2">
             <div class="info text-right">
+                {{-- @dd( auth()->guard('admins')->user()->prenom) --}}
                 @if(Auth::guard('admins')->check())
                     <p class="text-sm">Hey, <b>{{ auth()->guard('admins')->user()->prenom }}</b></p>
                     <small class="text-xs text-[#7d8da1]">Admin</small>

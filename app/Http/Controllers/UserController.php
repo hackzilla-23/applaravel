@@ -12,11 +12,13 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\RequestReset;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use App\Http\Requests\PersonneFormRequest;
+use App\Http\Requests\UpdateFormRequest;
 
 class UserController extends Controller
 {
@@ -55,9 +57,9 @@ class UserController extends Controller
             // Mail::to($request->email)->send(new RegisterMail ($request));
             // dd($saveimage);
             
-            $role_utilisateur = Role::find(2);
-            // dd($role_utilisateur);
-            $newpersonne->assignRole($role_utilisateur);
+            // $role_utilisateur = Role::find(2);
+            // // dd($role_utilisateur);
+            // $newpersonne->assignRole($role_utilisateur);
 
 
             
@@ -215,8 +217,149 @@ class UserController extends Controller
     public function takenusers(){
         $personne = Personne::all();
         return response()->json([
-            'success' => 'recuperation avec success',
+            'success' => 'recuperation avec succes',
             'data' => $personne
+        ]);
+    }
+
+
+    public function storeapi(PersonneFormRequest $request)
+    {
+        // dd($request);
+        $newname = str_replace(' ', '', Str::Random(5));
+        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        try {
+            $newpersonne = DB::transaction(function () use ($request , $finalimage) {
+                $user = Personne::create([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'images' => $finalimage,
+                    'password' => bcrypt($request->password),
+                ]);
+                // if($user){
+                //     dd($user);
+                //     // Envoie d'un email de confirmation
+                //     Mail::to($user->email)->send(new RegisterMail ($user));
+                // }
+                return $user;
+            });
+            $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
+
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+            // return view('login', compact('newpersonne'));
+            return response()->json([
+               'success' => 'Enregistrement avec succes',
+                'data' => $newpersonne
+            ], 201);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            // return back();
+        }
+    }
+
+    public function deleteapi($id){
+        $personne = Personne::find($id);
+        Storage::disk('personne')->delete($personne->images);
+        $personne->delete();
+        return response()->json([
+           'success' => 'Suppression avec succes',
+            'data' => $personne
+        ], 200);
+    }
+
+    public function updateapi( UpdateFormRequest $request , $id){
+        $personne = Personne::find($id);
+        if($request->hasFile('images')){
+            Storage::disk('personne')->delete($personne->images);
+
+            $newname = str_replace(' ', '', Str::Random(5));
+            $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+            // dd();
+            try {
+                $user = DB::transaction(function () use ($request , $finalimage , $id) {
+                   $newpersonne = Personne::find($id);
+                //    dd($newpersonne);
+                   $newpersonne->update([
+                        'nom' => $request->nom,
+                        'prenom' => $request->prenom,
+                        'age' => $request->age,
+                        'email' => $request->email,
+                        'images' => $finalimage,
+                        'password' => bcrypt($request->password),
+                    ]);
+                    return $newpersonne;
+                });
+                // dd($user);
+
+                // $user = Personne::find($id);
+                $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
+                return response()->json([
+                    'message' => "modification reussie OK",
+                    "data" => $user
+                ]);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
+        }else{
+            try{
+
+                DB::transaction(function () use ($request , $id) {
+                   Personne::where('id' , $id)->update([
+                        'nom' => $request->nom,
+                        'prenom' => $request->prenom,
+                        'age' => $request->age,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password)
+                    ]);
+                });
+                $user = Personne::find($id);
+                return response()->json([
+                   'message' => "modification effectuer",
+                    'data' => $user
+                ]);
+
+
+            }catch(\Throwable $th){
+                dd($th);
+            }
+        }
+    }
+
+
+    public function apilogin(RequestLogs $request)
+    {
+        // Tentative de connexion
+        $loging = Personne::where('email' , $request->email)->first();
+        if($loging){
+            if(Hash::check($request->password , $loging->password)){
+                return response()->json([
+                    'success' => 'Connexion réussie',
+                    'data' => $loging,
+                    'token' => $loging->createToken('user_token')->plainTextToken,
+                ]);
+            }else{
+                return response()->json([
+                   'error' => 'Erreur de mot de passe',
+                ], 401);
+            }
+        }else{
+            return response()->json([
+                'error' => 'Adresse e-mail non trouvée',
+            ], 404);
+        }
+
+    }
+
+    public function apilogout(){
+        $user = Personne::find(Auth::guard('personnes')->user()->id);
+        // $user = Personne::find(auth('personnes')->user()->id);
+        auth('personnes')->user()->tokens()->delete();
+        return response()->json([
+           'success' => 'Déconnexion réussie',
+           'data' => $user
         ]);
     }
 }

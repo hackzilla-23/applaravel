@@ -94,4 +94,28 @@ class ProductController extends Controller
         ]);
         return redirect()->route('main_dash');
     }
+
+    public function storeapi(ProductFormRequest $request)
+    {
+
+        try {
+            DB::transaction(function () use ($request){
+                $newproduct = new Produit();
+                $newproduct->nom = $request->nom;
+                $newproduct->prix = $request->prix;
+                $newproduct->quantite = $request->quantite;
+                $newproduct->description = $request->description;
+                $newproduct->personne_id  = Auth::guard('personnes')->user()->id;
+                $newproduct->save();
+            });
+            return response()->json([
+                "message" => "Product created successfully",
+            ]);
+
+        } catch (\Throwable $th) {
+            // throw $th;
+            return back();
+        }
+       
+    }
 }
