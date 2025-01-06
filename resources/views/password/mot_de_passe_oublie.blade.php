@@ -14,23 +14,19 @@
     <div class="container mx-auto w-[90%] md:w-[52%] xl:w-[27%]">
         <h1 class="text-xl font-bold pb-8">Change Password</h1>
 
-        @if (session('status'))
-            <div class="status">{{ session('status') }}</div>
-        @endif
-
         <form method="POST" action="{{ route('changePass') }}">
             @csrf
             <div class="form-group">
-                <label for="current_password">Mot de passe actuel</label>
-                <input type="password" name="password" id="current_password">
-                @error('password')
-                    <p class="error pt-2">{{ 'Veuillez entrer des informations valides.' }}</p>
+                <label for="current_password">Email</label>
+                <input type="email" name="email" value="{{ old('email') }}" readonly>
+                @error('email')
+                    <p class="error pt-2">{{ 'Veuillez entrer une email valide.' }}</p>
                 @enderror
             </div>
 
             <div class="form-group">
                 <label for="new_password">Nouveau mot de passe</label>
-                <input type="password" name="new_password" id="new_password">
+                <input type="password" name="password" id="new_password">
                 @error('new_password')
                     <p class="error pt-2">{{ 'Veuillez entrer un mot de passe valide.' }}</p>
                 @enderror
@@ -40,14 +36,14 @@
                 <label for="new_password_confirmation">Confirmer le nouveau mot de passe</label>
                 <input type="password" name="password_confirmation" id="new_password_confirmation">
                 @error('password_confirmation')
-                    <p class="error pt-2">{{ 'Veuillez un mot de passe identique.' }}</p>
+                    <p class="error pt-2">{{ 'Veuillez entrer un mot de passe identique.' }}</p>
                 @enderror
             </div>
 
-            <button type="submit" class="btn mt-2">Mettre à jour le mot de passe</button>
+            <button type="submit" class="btn mt-2">Reinitialiser</button>
 
             <div class="back pb-4">
-                <p><a href="{{ route('login') }}" class="back-p">Retour</a></p>
+                <p><a href="{{ route('password.validate.code') }}" class="back-p">Retour</a></p>
             </div>
         </form>
     </div>

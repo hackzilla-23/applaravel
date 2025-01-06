@@ -102,4 +102,28 @@ class ProductController extends Controller
         ]);
         return redirect()->route('main_dash');
     }
+
+    public function storeapi(ProductFormRequest $request)
+    {
+
+        try {
+            DB::transaction(function () use ($request) {
+                $personne = Personne::find(Auth::guard('personnes')->user()->id);
+
+                $personne->produits()->create([
+                    'nom' => $request->nom,
+                    'prix' => $request->prix,
+                    'quantite' => $request->quantite,
+                    'description' => $request->description,
+                ]);
+            });
+            return response()->json([
+                'success' => 'Add Product successfully',
+            ]);
+
+        } catch (\Throwable $th) {
+            // throw $th;
+            return back();
+        }
+    }
 }
