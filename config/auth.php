@@ -47,6 +47,10 @@ return [
             'driver' => 'session',
             'provider' => 'personnes',
         ],
+        // 'personnes' => [
+        //     'driver' => 'sanctum',
+        //     'provider' => 'personnes',
+        // ],
         'admins' => [
             'driver' => 'session',
             'provider' => 'admins',

@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Ville;
 use App\Models\Produit;
-use App\Models\Voiture;
+use App\Models\Ville;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
 
 class Personne extends Authenticatable
 {
-    use Notifiable, CanResetPassword, HasRoles;
+    use Notifiable, CanResetPassword, HasRoles, HasApiTokens;
 
-    protected $fillable = ['nom', 'prenom', 'age', 'email', 'password', 'id_ville', 'id_role'];
+    protected $fillable = ['nom', 'prenom', 'age', 'email', 'images', 'password', 'id_ville', 'id_role'];
 
     // Définir la relation : Une personne a plusieurs produit
     public function produits()
