@@ -1,10 +1,10 @@
 <?php
 
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -16,7 +16,7 @@ Route::get('/user-api', function (Request $request) {
         'success' => 'Test Successful',
         'data' => 'test data',
     ]);
-});
+}); 
 Route::get('/allUsers', [UserController::class, 'takenusers']);
 Route::post('/addUser', [UserController::class, 'storeapi']);
 Route::delete('/deleteuser/{id}', [UserController::class, 'deleteapi']);

@@ -19,3 +19,4 @@ class Pays extends Model
         return $this->hasManyThrough(Personne::class, Ville::class, 'id_pays', 'id_ville', 'id');
     }
 }
+ 

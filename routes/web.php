@@ -342,10 +342,10 @@ Route::get('/test_role_permission', function () {
 
     // $personne = Admin::find(1);
     // $role = Role::find(1);
-
+  
     // $personne->role()->associate($role);
     // $personne->save();
 
     // dd($personne->role->permissions->pluck('name'));
 
-// });
+});

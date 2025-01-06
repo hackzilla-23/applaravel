@@ -17,3 +17,4 @@ class Produit extends Model
         return $this->belongsTo(Personne::class, 'id_personne', 'id');
     }
 }
+ 

@@ -13,3 +13,4 @@ class Adresse extends Model
         return $this->hasOne(Client::class, 'addr_id' , 'id');
     }
 }
+  

@@ -15,7 +15,7 @@ class Admin extends Authenticatable
     protected $guard_name = 'admins';
 
     protected $fillable = ['nom', 'prenom', 'email', 'password', 'id_role'];
-
+  
     // Définir la relation : Une personne a plusieurs roles
     // public function roles()
     // {

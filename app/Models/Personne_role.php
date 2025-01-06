@@ -10,3 +10,4 @@ class Personne_role extends Model
     protected $fillable = ['id_personne' , 'id_role'];
     
 }
+ 

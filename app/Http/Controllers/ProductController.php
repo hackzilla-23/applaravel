@@ -107,6 +107,7 @@ class ProductController extends Controller
     {
 
         try {
+            // dd()
             DB::transaction(function () use ($request){
                 $newproduct = new Produit();
                 $newproduct->nom = $request->nom;

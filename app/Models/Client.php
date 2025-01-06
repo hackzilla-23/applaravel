@@ -12,3 +12,4 @@ class Client extends Model
         return $this->belongsTo(Adresse::class , 'addr_id' , 'id');
     }
 }
+ 

@@ -12,3 +12,4 @@ class Voiture extends Model
         return $this->belongsTo(Personne::class , 'personne_id' , 'id');
     }
 }
+ 

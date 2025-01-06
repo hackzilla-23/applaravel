@@ -21,3 +21,4 @@ class Ville extends Model
         return $this->hasMany(Personne::class, 'id_ville', 'id');
     }
 }
+ 

@@ -19,7 +19,7 @@ class IsPersonne
         // return $next($request);
         if (auth()->guard('personnes')->check()) {
             return $next($request);
-        }
+        } 
         return redirect()->route('login');
     }
 }

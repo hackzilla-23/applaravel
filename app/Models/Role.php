@@ -17,4 +17,4 @@ class Role extends Model
     public function personnes(){
         return $this->hasOne(Personne::class , 'id_role' , 'id');
     }
-}
+} 
