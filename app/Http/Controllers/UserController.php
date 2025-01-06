@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonneFormRequest;
-use App\Http\Requests\RequestLogs;
-use App\Http\Requests\RequestReset;
-use App\Mail\RegisterMail;
-use App\Models\Personne;
 use App\Models\Produit;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Personne;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Str;
+use App\Http\Requests\RequestLogs;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RequestReset;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
+use App\Http\Requests\PersonneFormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -26,7 +29,7 @@ class UserController extends Controller
     // }
     public function store(PersonneFormRequest $request)
     {
-        dd($request);
+        // dd($request);
         //la premiere methode validation
         // $isvalid = $request->validate([
         //     'nom' =>'required',
@@ -49,14 +52,16 @@ class UserController extends Controller
 
         // dd($isvalid);
         // dd($request);
+        $newname = str_replace(' ', '', Str::random(5));
+        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
         try {
-            $newpersonne = DB::transaction(function () use ($request) {
+            $newpersonne = DB::transaction(function () use ($request, $finalimage) {
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
-                    'images' => $request->images,
+                    'images' => $finalimage,
                     'password' => bcrypt($request->password),
                 ]);
 
@@ -67,10 +72,12 @@ class UserController extends Controller
                 // dd($user);
                 return $user;
             });
+            $saveimge = Storage::disk("personne")->put($finalimage, file_get_contents($request->images));
             // Mail::to($request->email)->send(new RegisterMail ($request));
+            // dd($saveimge);
             // dd($newpersonne);
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
-
+            
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
             //throw $th;
@@ -190,6 +197,9 @@ class UserController extends Controller
             sleep(1);
             return redirect()->intended('dashboard');
         }
+        // elseif (Auth::guard('admin')->attempt($credentials)){
+        //     return redirect()->intended('dashboard-admin');
+        // }
     }
 
     public function reset(RequestReset $request)
@@ -262,4 +272,128 @@ class UserController extends Controller
             return redirect()->route('login');
         }
     }
+
+    /* api methodes */
+    public function takenusers(){
+        $persones = Personne::all();
+
+        return response()->json([
+            "success" =>"recuperation avec succes",
+            "data"=>$persones
+        ]);
+    }
+    public function storeapi(PersonneFormRequest $request)
+    {
+        // dd($request);
+        //la premiere methode validation
+        // $isvalid = $request->validate([
+        //     'nom' =>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
+
+        //la deuxieme methode validation
+        // Validator::make($request->all() , [
+        //     'nom'=>'required',
+        //     'prenom' => 'required',
+        //     'age' => 'required',
+        //     'email' =>'required|email',
+        //     'password' =>'required|min:8',
+        //     'confirm-password' =>'required|confirmed:password',
+        // ]);
+
+        // dd($isvalid);
+        // dd($request);
+        $newname = str_replace(' ', '', Str::random(5));
+        $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        try {
+            $newpersonne = DB::transaction(function () use ($request, $finalimage) {
+                $user = Personne::create([
+                    'nom' => $request->nom,
+                    'prenom' => $request->prenom,
+                    'age' => $request->age,
+                    'email' => $request->email,
+                    'images' => $finalimage,
+                    'password' => bcrypt($request->password),
+                ]);
+
+                // if($newpersonne){
+                //     //Envoie d'un email de confirmation
+                //     // Mail::to($newpersonne->email)->send(new RegisterMail ($newpersonne));
+                // }
+                // dd($user);
+                return $user;
+            });
+            $saveimge = Storage::disk("personne")->put($finalimage, file_get_contents($request->images));
+            // $saveimge = Storage::disk("personne")->delete($personne->images);
+            // Mail::to($request->email)->send(new RegisterMail ($request));
+            // dd($saveimge);
+            // dd($newpersonne);
+            Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
+            
+            // return view('login', compact('newpersonne'));
+            return response()->json([
+                "success" => "Utilisateur créé avec succès",
+                "data" => $newpersonne
+            ], 201);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            // return back();
+        }
+
+        // dd($newpersonne);
+    }
+    public function deleteapi($id){
+        $persone = Personne::find($id); 
+        $saveimge = Storage::disk("personne")->delete($persone->images);
+        $persone->delete();
+        return response()->json([
+            "success" => "Utilisateur supprimé avec succès",
+            "data" => $persone
+        ], 200);
+    }
+    
+    public function apilogin(RequestLogs $request)
+    {
+        // dd($request->email);
+        $loging = Personne::where('email', $request->email)->first();
+        // $loging = Personne::find($request->email);
+        // dd($loging);
+        if ($loging) {
+            # code...
+            if (Hash::check($request->password, $loging->password)) {
+                // Connexion réussie
+
+                return response()->json([
+                    "success" => "Connexion réussie",
+                    "token" => $loging->createToken("user_token")->plainTextToken,
+                    "data" => $loging
+                ], 200);
+            } else {
+                return response()->json([
+                    "error" => "mot de passe incorrect"
+                ], 401);
+            }
+        }
+        else {
+            return response()->json([
+                "error" => "Adresse e-mail non trouvée"
+            ], 404);
+        }
+
+        // dd(Auth::guard('personnes')->attempt($credentials));
+        // if (Auth::guard('personnes')->attempt($credentials)) {
+        //     // Connexion réussie
+        //     sleep(1);
+        //     return redirect()->intended('dashboard');
+        // }
+        // elseif (Auth::guard('admin')->attempt($credentials)){
+        //     return redirect()->intended('dashboard-admin');
+        // }
+    }
+
 }

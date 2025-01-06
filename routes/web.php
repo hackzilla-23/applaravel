@@ -1,16 +1,22 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
+// use App\Models\Role;
+use App\Models\Role;
+use App\Models\Client;
+use App\Models\Adresse;
+use App\Models\Personne;
 use App\Http\Middleware\IsAdmin;
+// use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsPersonne;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterController;
 
 //pour regrouper les elements
-Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function() {
+Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(function () {
     // Route::get('/' , [UserController::class, 'index'])->name('login');
-    Route::get('/' , 'index')->name('login');
+    Route::get('/', 'index')->name('login');
 });
 
 // Route::get('/' , [UserController::class, 'index'])->name('login');
@@ -34,7 +40,7 @@ Route::post('/login', [UserController::class, 'logs'])->name('login_personne');
 
 Route::post('/register', [UserController::class, 'store'])->name('register_personne');
 
-Route::get('/password',[UserController::class,'newpass'])->name('MDPo');
+Route::get('/password', [UserController::class, 'newpass'])->name('MDPo');
 // Route::get('/register', function () {
 //     return view('register');
 // })->name('register');
@@ -96,6 +102,72 @@ Route::post('/delete_product', [ProductController::class, 'delete_product'])->na
 
 Route::post('/edit_Product', [ProductController::class, 'update_product'])->name('edit_Product');
 
-Route::get('/email', function(){
-    return view('email');
-})->name('email');
+// Route::get('/email', function(){
+//     return view('email');
+// })->name('email');
+/* routes de test */
+/* relation one to one */
+Route::get('/onetoone', function () {
+    // $address = Adresse::create([
+    //     'nom_add'=>'sable',
+    // ]);
+    // $address->client()->create([
+    //     'nom'=>"test1",
+    //     'prenom'=>"test2",
+    //     'email'=>"test3@example.com",
+    // ]);
+    //    $client = Client::create([
+    //     'nom'=>"test1",
+    //     'prenom'=>"test2",
+    //     'email'=>"test3@example.com",
+    //     'addr_id' => $address->id,
+    //    ]);
+    // $clients = Client::find(1);
+    // $address = Adresse::find(1);
+    // return $address->client->email;
+});
+
+/* relation one to many */
+Route::get('/onetomany', function () {
+    $personne = Personne::doesntHave("voitures")->get();
+    // $personne->voitures()->create([
+    //     'marque'=>"ford",
+    //     'couleur'=>"gris",
+    // ]);
+    return $personne;
+});
+
+/* relation many to many */
+
+
+Route::get('/manytomany', function () {
+    Role::create([
+        'nom_role' => "client1",
+    ]);
+    Role::create([
+        'nom_role' => "caissier2",
+    ]);
+    Role::create([
+        'nom_role' => "comptable3",
+    ]);
+    $personne = Personne::find(2);
+    $role = Role::all();
+
+    // $personne->roles()->detach($role);
+    $personne->roles()->attach(
+        $role
+    );
+    /* remplire un champs au niveau de notre table pivot */
+    // $personne->roles()->attach(
+    //     [
+    //         $role[0]  => [
+    //             'descriptions' => "personne1",
+    //         ],
+    //     ]
+    // );
+    // $role->personnes()->attach($personne);
+    // dd($personne->roles);
+    /* acceder au champs created_at de la tables pivot */
+    return $personne->roles[1]->pivot->created_at;
+    // return $role->personnes;
+});
