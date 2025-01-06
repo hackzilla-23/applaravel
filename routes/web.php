@@ -65,7 +65,7 @@ Route::get('/error/404', [UserController::class, 'error'])->name('404');
 
 Route::get('/password/mot_de_passe_oublie', [UserController::class, 'newpass'])->name('MDPo');
 
-Route::post('/password/mot_de_passe_oublie', [UserController::class, 'reset'])->name('changePass');
+// Route::post('/password/mot_de_passe_oublie', [UserController::class, 'reset'])->name('changePass');
 
 Route::post('/', [UserController::class, 'logs'])->name('login_personne');
 
