@@ -99,6 +99,14 @@ Route::get('/gestion_utilisateur', [UserController::class, 'view_panel'])->name(
 
 Route::get('/gestion_utilisateur/{id}', [UserController::class, 'panel_role_permissions'])->name('role_permission');
 
+Route::post('/password/forgot', [UserController::class, 'sendResetCode'])->name('password.email');
+
+Route::get('/password/validate', [UserController::class, 'showValidationForm'])->name('password.validate');
+Route::post('/password/validate', [UserController::class, 'validateResetCode'])->name('password.validate.code');
+
+Route::get('/password/reset', [UserController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('password.update');
+
 Route::get('/email', function () {
     return view('email');
 })->name('email');

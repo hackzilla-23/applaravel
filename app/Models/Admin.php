@@ -6,10 +6,11 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasRoles, HasFactory;
+    use HasRoles, HasFactory, HasApiTokens;
 
     protected $guard_name = 'admins';
 
