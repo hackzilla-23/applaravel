@@ -32,32 +32,34 @@ class UserController extends Controller
     public function store(PersonneFormRequest $request)
     {
         // dd($request);
-        // $newname = str_replace(' ', '', Str::Random(5));
-        // $finalimage = trim($newname).'.'.$request->images->getClientOriginalExtension();
+        $newname = str_replace(' ', '', Str::Random(5));
+        $finalimage = trim($newname) . '.' . $request->images->getClientOriginalExtension();
         try {
-            $newpersonne = DB::transaction(function () use ($request) {
+            $newpersonne = DB::transaction(function () use ($request, $finalimage) {
                 $user = Personne::create([
                     'nom' => $request->nom,
                     'prenom' => $request->prenom,
                     'age' => $request->age,
                     'email' => $request->email,
-                    // 'images' => $finalimage,
+                    'images' => $finalimage,
                     'password' => bcrypt($request->password),
                 ]);
-                // if($user){
+                // if ($user) {
                 //     dd($user);
                 //     // Envoie d'un email de confirmation
-                //     Mail::to($user->email)->send(new RegisterMail ($user));
+                //     Mail::to($user->email)->send(new RegisterMail($user));
                 // }
                 return $user;
             });
-            // $saveimage = Storage::disk('personne')->put($finalimage , file_get_contents($request->images));
+            $saveimage = Storage::disk('personne')->put($finalimage, file_get_contents($request->images));
             // dd($newpersonne);
             // Mail::to($request->email)->send(new RegisterMail ($request));
             // dd($saveimage);
-            $role = Role::find(2);
+            $role = Role::find(1);
             // dd($role);
-            $newpersonne->assignRole($role);
+            $newpersonne->associate($role);
+            $newpersonne->save();
+
             Mail::to($newpersonne->email)->send(new RegisterMail($newpersonne));
             return view('login', compact('newpersonne'));
         } catch (\Throwable $th) {
@@ -185,7 +187,6 @@ class UserController extends Controller
 
     public function logout()
     {
-        sleep(1);
         if (Auth::guard('personnes')->check()) {
             // Auth::logout();
             Auth::guard('personnes')->logout();
