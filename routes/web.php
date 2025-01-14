@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Models\Personne;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 //pour regrouper les elements
 // Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(['middleware' =>['role:Admin' , 'permission:Ajouter,modifier , supprimer']],function() {
@@ -81,7 +83,9 @@ Route::get('/disconnect', [UserController::class, 'logout'])->name('logout_perso
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin');
 
 /*Quand tu utilises la alias et le parametre*/
-Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin:admin');
+// Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware('is_admin:admin');
+
+Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product');
 
 /*Quand tu utilises les groups avec les class*/
 // Route::post('/add_product', [ProductController::class, 'store'])->name('ajout_product')->middleware([IsAdmin::class , IsPersonne::class]);
@@ -275,7 +279,7 @@ Route::get('/test_role_permission', function () {
 
     // dd($personne->role->permissions->pluck('name'));
 
-    // $personne = Admin::find(1);
+    // $personne = Personne::find(43);
     // $role = Role::find(1);
 
     // $personne->role()->associate($role);

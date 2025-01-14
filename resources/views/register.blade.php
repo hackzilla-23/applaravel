@@ -61,7 +61,7 @@
 
                     </div>
 
-                    {{-- <div class="input-group">
+                    <div class="input-group">
                         <label class="pb-2 cursor-pointer" for="images">Inserer une image</label>
                         <input value="" onchange="previewImage(event)" type="file" accept="image/*"
                             class="mb-5 mt-2 xl:mt-0 cursor-pointer bg-gray-100 w-full py-3 pl-6 rounded-sm" name="images"
@@ -70,7 +70,7 @@
                         @error('images')
                             <p class="text-red-500 text-sm">{{ 'Veuillez entrer un fichier valide (jpeg,jpg,png,gif,svg) et de taille maximale 2 Mo' }}</p>
                         @enderror
-                    </div> --}}
+                    </div>
                 </div>
                 
                 {{-- grid right --}}
@@ -109,10 +109,10 @@
                         @enderror
                     </div>
 
-                    {{-- <div class="input-group">
+                    <div class="input-group">
                         <img id="preview" src="#" alt="Aperçu de l'image"
                             style="max-width: 340px; display: none; margin-top: 10px;">
-                    </div> --}}
+                    </div>
                 </div>
             </div>
 
