@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Mail\CodeEmail;
 use App\Models\Personne;
 use App\Mail\RegisterMail;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Requests\RequestLogs;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\RequestReset;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-// use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateFormRequest;
 use Illuminate\Support\Facades\Password;
@@ -244,15 +246,18 @@ class UserController extends Controller
         $token = rand(100000, 999999); // Générer un code à 6 chiffres
 
         // Enregistrer le code dans la base de données
-        DB::table('password_reset_tokens')->updateOrInsert(
+        $tokens = DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $request->email],
             ['token' => $token, 'created_at' => now()]
         );
+        // dd($request->email);
 
         // Envoyer le code par e-mail
-        Mail::raw("Votre code de réinitialisation de mot de passe est : $token", function ($message) use ($request) {
-            $message->to($request->email)->subject('Réinitialisation de mot de passe');
-        });
+        // Mail::raw("Votre code de réinitialisation de mot de passe est : $token", function ($message) use ($request) {
+        //     $message->to($request->email)->subject('Réinitialisation de mot de passe');
+        // });
+        Mail::to($request->email)->send(new CodeEmail($token));
+
 
         $email = $request->email;
 

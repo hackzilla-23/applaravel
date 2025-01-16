@@ -44,4 +44,4 @@ Route::post('/addproductapi', [ProductController::class, "storeapi"])->middlewar
 
 Route::post('/logout', [UserController::class, "logoutapi"])->middleware("auth:sanctum");
 
-Route::post('/updateuser/{id}', [UserController::class, "updateuser"])->middleware("auth:sanctum");
+// Route::post('/updateuser/{id}', [UserController::class, "updateuser"])->middleware("auth:sanctum");/

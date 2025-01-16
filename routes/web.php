@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Admin;
+use App\Models\Personne;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 //pour regrouper les elements
 // Route::prefix('/blog')->name('blog')->controller(UserController::class)->group(['middleware' =>['role:Admin' , 'permission:Ajouter,modifier , supprimer']],function() {
@@ -278,6 +281,7 @@ Route::get('/personne_admin' , function (){
     //     'name'=> 'Ajouter',
     //     'guard_name'=> 'personnes',
 
+});
 Route::get('/test_role_permission', function () {
 
     // Role::find(1)->update([
